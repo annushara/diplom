@@ -1,0 +1,67 @@
+body {
+    font-family: sans-serif;
+}
+a {
+    color: #000066;
+    text-decoration: none;
+}
+table {
+    border-collapse: collapse;
+}
+thead {
+    vertical-align: bottom;
+    text-align: center;
+    font-weight: bold;
+}
+tfoot {
+    text-align: center;
+    font-weight: bold;
+}
+th {
+    text-align: center;
+    padding-left: 0.35em;
+    padding-right: 0.35em;
+    padding-top: 0.35em;
+    padding-bottom: 0.35em;
+    vertical-align: top;
+}
+td {
+    padding-left: 0.35em;
+    padding-right: 0.35em;
+    padding-top: 0.35em;
+    padding-bottom: 0.35em;
+    vertical-align: top;
+}
+img {
+    margin: 0.2em;
+    vertical-align: middle;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+.date{
+    padding-top: 30px;
+    display: inline;
+}
+.date div{
+    text-align: right;
+    display: inline;
+}
+
+
+
+
+.barcode {
+    padding: 1.5mm;
+    margin: 0;
+    vertical-align: top;
+    color: #000000;
+}
+.barcodecell {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+}
+.div{
+    float: left;
+}
