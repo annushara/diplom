@@ -6,6 +6,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitors */
+/* @var $modelName app\models\Monitors */
 
 $this->title = 'Добавление мониторов';
 
@@ -16,6 +17,7 @@ $this->title = 'Добавление мониторов';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelName'=>$modelName,
     ]) ?>
 
 </div>

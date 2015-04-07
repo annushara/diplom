@@ -31,21 +31,15 @@ use yii\bootstrap\Alert;
     ]); ?>
 
 
-    <?= Alert::widget([
-        'options' => [
-            'class' => 'alert-info',
-        ],
-        'body' => 'Выберите необходимые принтеры в выпадающих списках, при необходимости можно ввести название своего принтера ',
-    ]); ?>
     <div class="panel panel-info">
         <div class="panel-body">
             <div class="list-group">
 
-                <?= $form->field($model, 'print_1')->listBox($listData, ['prompt' => '', 'size' => 1]); ?>
+                <?= $form->field($modelName, 'name[0]')->listBox($listData, ['prompt' => '', 'size' => 1]); ?>
 
-                <?= $form->field($model, 'invent_num_printer_1')->textInput() ?>
+                <?= $form->field($model, 'invent_num[0]')->textInput() ?>
 
-                <?= $form->field($model, 'date_1')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
+                <?= $form->field($model, 'date[0]')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
 
 
             </div>
@@ -55,26 +49,11 @@ use yii\bootstrap\Alert;
         <div class="panel-body">
             <div class="list-group">
 
-                <?= $form->field($model, 'print_2')->listBox($listData, ['prompt' => '', 'size' => 1]); ?>
+                <?= $form->field($modelName, 'name[1]')->listBox($listData, ['prompt' => '', 'size' => 1]); ?>
 
-                <?= $form->field($model, 'invent_num_printer_2')->textInput() ?>
+                <?= $form->field($model, 'invent_num[1]')->textInput() ?>
 
-                <?= $form->field($model, 'date_2')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
-
-
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-info">
-        <div class="panel-body">
-            <div class="list-group">
-
-                <?= $form->field($model, 'print_3')->textInput() ?>
-
-                <?= $form->field($model, 'invent_num_printer_3')->textInput() ?>
-
-                <?= $form->field($model, 'date_3')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
-
+                <?= $form->field($model, 'date[1]')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
 
 
             </div>
@@ -84,25 +63,11 @@ use yii\bootstrap\Alert;
         <div class="panel-body">
             <div class="list-group">
 
-                <?= $form->field($model, 'print_4')->textInput() ?>
+                <?= $form->field($modelName, 'name[2]')->listBox($listData, ['prompt' => '', 'size' => 1]); ?>
 
-                <?= $form->field($model, 'invent_num_printer_4')->textInput() ?>
+                <?= $form->field($model, 'invent_num[2]')->textInput() ?>
 
-                <?= $form->field($model, 'date_4')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
-
-
-
-            </div>
-        </div>
-    </div>
-    <div class="panel panel-info">
-        <div class="panel-body">
-            <div class="list-group">
-                <?= $form->field($model, 'print_5')->textInput() ?>
-
-                <?= $form->field($model, 'invent_num_printer_5')->textInput() ?>
-
-                <?= $form->field($model, 'date_5')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
+                <?= $form->field($model, 'date[2]')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
 
 
 

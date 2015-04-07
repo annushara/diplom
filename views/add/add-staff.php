@@ -20,14 +20,11 @@ use yii\bootstrap\Alert;
                 ],
             ],
         ]); ?>
-        <?= $form->field($model, 'list')->listBox(
+        <?= $form->field($model, 'id_department')->listBox(
             $listData,
             array('prompt' => '', 'size' => 1)
         )->label('Подразделения'); ?>
-        <?= $form->field($model, 'surname')->textInput(['maxlength' => 64])->label('Фамилия сотрудника') ?>
-        <?= $form->field($model, 'name')->textInput(['maxlength' => 64])->label('Имя сотрудника') ?>
-        <?= $form->field($model, 'patronymic')->textInput(['maxlength' => 64])->label('Отчество сотрудника') ?>
-
+        <?= $form->field($model, 'fio')->textInput(['maxlength' => 64, 'placeholder'=>'Пример: Иванов Петр Сергеевич']) ?>
 
 
 

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Printers */
 
-$this->title = 'Create Printers';
+$this->title = 'Добавление принтеров';
 
 ?>
 <div class="printers-create">
@@ -16,6 +16,7 @@ $this->title = 'Create Printers';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelName'=> $modelName,
         'listData'=>$listData,
     ]) ?>
 

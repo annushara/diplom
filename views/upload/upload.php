@@ -1,6 +1,7 @@
 <?php
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+/* @var $model app\models\UploadForm */
 
 ?>
 
@@ -12,7 +13,7 @@ use yii\helpers\Html;
     ],
 ]); ?>
 
-<?=$form->field($model, 'staff')->dropDownList( $listData,  ['prompt'=>'Выберите сотрудника'])->label('Сотрудники') ?>
+<?=$form->field($model, 'staff')->dropDownList( $model->getStaffList(),  ['prompt'=>'Выберите сотрудника'])->label('Сотрудники') ?>
 <?= $form->field($model, 'file')->fileInput()->label('Загрузите файл конфигурации') ?>
 
 <div class="form-group">

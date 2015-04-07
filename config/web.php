@@ -38,6 +38,15 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+//        'urlManager' => [
+//            'enablePrettyUrl' => true,
+//            'rules' => [
+//                '' => 'site/index',
+//                'login' => 'site/login',
+//                'submitmove'=>'configuration/move_all',
+//
+//            ],
+//        ],
     ],
     'params' => $params,
 ];

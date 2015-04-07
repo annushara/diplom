@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 
+use app\models\Department;
 use app\models\Monitors;
+use app\models\Printers;
 use app\models\SearchMonitors;
 use app\models\Staff;
 use app\models\Configuration;
@@ -57,12 +59,13 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new SearchMonitors();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        return $this->render('index',[
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+//        echo '<br><br><br><br><br><pre>';
+//         $name = Staff::findOne(1);
+//        echo '<br><br><br>';
+//        print_r($names = $name->monitors);
+//
+//        echo '</pre>';
+        return $this->render('index');
     }
 
     public function actionLogin()

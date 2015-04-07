@@ -7,6 +7,7 @@ use yii\jui\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitors */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $modelName app\models\NameMonitors */
 ?>
 
 <div class="monitors-form">
@@ -27,17 +28,11 @@ use yii\jui\DatePicker;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'invent_num_monitor_1')->textInput() ?>
+    <?= $form->field($model, 'invent_num')->textInput() ?>
 
-    <?= $form->field($model,'date_1')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'dd.MM.yyyy',]) ?>
+    <?= $form->field($model,'date')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'dd.MM.yyyy',]) ?>
 
-    <?= $form->field($model, 'monitor_1')->textInput() ?>
-
-    <?= $form->field($model, 'invent_num_monitor_2')->textInput() ?>
-
-    <?= $form->field($model,'date_2')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'dd.MM.yyyy',]) ?>
-
-    <?= $form->field($model, 'monitor_2')->textInput() ?>
+    <?= $form->field($modelName, 'name')->textInput() ?>
 
 
 

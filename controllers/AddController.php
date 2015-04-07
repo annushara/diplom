@@ -13,18 +13,11 @@ use yii\helpers\ArrayHelper;
 class AddController extends Controller
 {
 
-    public function actionDepartment()
-    {
-        $model = new AddDepartment();
-        $saveDepartment = new Department();
-
-        if(Yii::$app->request->post('AddDepartment')){
-            $array = Yii::$app->request->post('AddDepartment');
-            $saveDepartment->department= $array['department'];
-            $saveDepartment->save();
+    public function actionDepartment(){
+        $model = new Department();
+        if ($model->load(Yii::$app->request->post()) && $model->save()){
 
         }
-
 
         return $this->render('add-department' ,[
         'model'=> $model,
@@ -34,24 +27,14 @@ class AddController extends Controller
 
     public function actionStaff()
     {
-        $model = new AddStaff();
-        $saveStaff = new Staff();
+        $model = new Staff();
 
-        if(Yii::$app->request->post('AddStaff')) {
-            $array = Yii::$app->request->post('AddStaff');
-            $saveStaff->id_department= $array['list'];
-            $saveStaff->name = $array['name'];
-            $saveStaff->surname = $array['surname'];
-            $saveStaff->patronymic = $array['patronymic'];
-            $saveStaff->fio = $array['surname'].' '.$array['name']. ' ' .$array['patronymic'];
-            $saveStaff->save();
-
-
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()){
 
         }
+
         $deport = Department::find()->all();
-        $listData = ArrayHelper::map($deport,'id_department', 'department' );
+        $listData = ArrayHelper::map($deport,'id', 'department' );
         return $this->render('add-staff' ,[
             'model'=> $model,
             'listData'=> $listData

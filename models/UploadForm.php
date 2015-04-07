@@ -3,7 +3,8 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\web\UploadedFile;
-use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
+
 /**
  * UploadForm is the model behind the upload form.
  */
@@ -25,6 +26,11 @@ class UploadForm extends Model
             [['file'], 'required', 'message'=>'Вы не загрузили файл!' ],
             [['file'], 'file',],
         ];
+    }
+     function getStaffList(){
+        $staff = Staff::find()->all();
+        $listData = ArrayHelper::map($staff, 'id', 'fio');// выбирает из масиива ключ-значение
+        return $listData;
     }
 }
 

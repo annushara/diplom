@@ -2,8 +2,11 @@
 namespace app\controllers;
 
 
+use app\models\NameMonitors;
+use app\models\NamePrinters;
+use app\models\NameSystemUnit;
 use app\models\SearchMonitors;
-use app\models\ValidateForm;
+use app\models\SystemUnit;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -12,11 +15,11 @@ use app\models\Configuration;
 use app\models\Staff;
 use app\models\Monitors;
 use app\models\Printers;
-use app\models\BriefConfiguration;
 use yii\web\UploadedFile;
 use yii\web\Session;
 use yii\web\Response;
 use yii\helpers\ArrayHelper;
+
 
 
 class UploadController extends Controller
@@ -134,63 +137,70 @@ class UploadController extends Controller
         }
 
         $staff = Staff::find()->all();
-        $listData = ArrayHelper::map($staff, 'id_staff', 'fio');// выбирает из масиива ключ-значение
+        $listData = ArrayHelper::map($staff, 'id', 'fio');// выбирает из масиива ключ-значение
 
         return $this->render('upload', [
             'model' => $model,
-            'listData' => $listData,
         ]);
 
     }
 
-    public function actionMonitors()
+    public function actionMonitors($id)
     {
         $model = new Monitors();
+        $modelName = new NameMonitors();
         $session = new Session();
 
 
-        if ($array = Yii::$app->request->post()) {
-
-           // $id_staff = ArrayHelper::remove($array['Monitors'], 'staff');
-            $model->load($array);
+        if ($modelName->load(Yii::$app->request->post())){ // загружаем в модель NameMonitors название монитора
+            $model->load(Yii::$app->request->post());   // загружаем в модель Monitors инвентарный № и дату поступления
+            $model->id_staff = $id; // устанавливаем id сотрудника к оторому относится монитор
+            /*
+             * устанавливаем id названия монитора, вызвав функцию getKey() которая возвращает id последней
+             * сохраненой записи названия монитора, но если запись повторяется то id существующей записи
+             */
+            $model->id_name_monitor = $modelName->getKey(); // получаем id и присваиваем
             $model->save();
-            $key = $model->getPrimaryKey(); //получаем последний id конфигурации
-            $updateStaff = Staff::findOne(Yii::$app->request->get('id')); // делаем запрос к таблице сотрудники, с id выбранным в форме
-            $updateStaff->id_monitor = $key;// добавляем id конфигурации к выбранному сотруднику
-            $updateStaff->save(); // и обновляем запись в базе данных
+
+
+
+
             return $this->redirect(['upload/configuration', 'id' => Yii::$app->request->get('id')]);
         }
 
 
 
-        $model->attributes = [      //заполняем атрибуты модели данными из массива
-            'monitor_1' => $session['config']['монитор1'],
+        $modelName->attributes = [      //заполняем атрибуты модели данными из массива
+            'name' => $session['config']['монитор1'],
             'monitor_2' => $session['config']['монитор2'],
             'old_staff_1' => '{0}',
             'old_staff_2' => '{0}',];
 
         return $this->render('/monitors/create', [
             'model' => $model,
+            'modelName'=>$modelName,
 
         ]);
 
     }
 
 
-    public function actionConfiguration()
+    public function actionConfiguration($id)
     {
-        $model = new Configuration();
+        $model = new SystemUnit();
+        $modelName =new NameSystemUnit();
         $session = new Session();
-        $briefModel = new BriefConfiguration();
 
-        if ($model->load($array = Yii::$app->request->post()) && $model->save()) {
-            $key = $model->getPrimaryKey(); //получаем последний id конфигурации
-            $briefModel->id_configuration = $key; //пишем в таблицу с кратким названием конфигурации id  конфигурации
-            $briefModel->title = $array['Configuration']['title']; // записываем краткое название
-            $updateStaff = Staff::findOne(Yii::$app->request->get('id')); // делаем запрос к таблице сотрудники, с id выбранным в форме
-            $updateStaff->id_configuration = $key;// добавляем id конфигурации к выбранному сотруднику
-            $updateStaff->save(); // и обновляем запись в базе данных
-            $briefModel->save(); // сохраняем
+        if ($modelName->load(Yii::$app->request->post())){ // загружаем в модель NameSystemUnit() название монитора
+            $model->load(Yii::$app->request->post());   // загружаем в модель SystemUnit() инвентарный № и дату поступления
+            $model->id_staff = $id; // устанавливаем id сотрудника к оторому относится монитор
+            /*
+             * устанавливаем id названия конфигурации, вызвав функцию getKey() которая возвращает id последней
+             * сохраненой записи названия конфигурации, но если запись повторяется то id существующей записи
+             */
+            $model->id_name_system_unit = $modelName->getKey(); // получаем id и присваиваем
+            $model->save();
+
             return $this->redirect(['upload/printers', 'id' => Yii::$app->request->get('id')]);
         }
 
@@ -207,19 +217,8 @@ class UploadController extends Controller
             }
         }
 
-        $model->attributes = [                  //заполняем модель данными
-            'cpu' => $session['config']['тип цп'],
-            'motherboard' => $session['config']['системная плата'],
-            'graphics' => $session['config']['видеоадаптер1'],
-            'hdd_1' => $session['config']['дисковый накопитель1'],
-            'hdd_2' => $session['config']['дисковый накопитель2'],
-            'memory_1' => $ram[1],
-            'memory_2' => $ram[2],
-            'memory_3' => $ram[3],
-            'memory_4' => $ram[4],
-            'mac' => $session['config']['первичный адрес mac'],
-            'date' => '',
-            'title'=>   'CPU -'.
+        $modelName->attributes = [                  //заполняем модель данными
+            'name'=>   'CPU -'.
                 $session['config']['тип цп']. ' , '.
                     'RAM -'.
                 $session['memory']['размер модуля']['модуль1'].' , '.
@@ -232,22 +231,44 @@ class UploadController extends Controller
 
         return $this->render('/configuration/create', [
             'model' => $model,
+            'modelName'=> $modelName,
         ]);
     }
 
 
-    public function actionPrinters()
+    public function actionPrinters($id)
     {
         $model = new Printers();
+        $modelName = new NamePrinters();
         $session = new Session();
 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $key = $model->getPrimaryKey(); //получаем последний id конфигурации
-            $updateStaff = Staff::findOne(Yii::$app->request->get('id')); // делаем запрос к таблице сотрудники, с id выбранным в форме
-            $updateStaff->id_printer = $key;// добавляем id конфигурации к выбранному сотруднику
-            $updateStaff->save(); // и обновляем запись в базе данных
-            $session->destroy(); // уничтожаем сессию
+        if (Yii::$app->request->post()) {
+
+            for($i = 0; $i <= 2; $i++){
+
+            if(!empty($_POST['NamePrinters']['name'][$i])) {
+                /*
+                 * создаем новые экземпляры классов, иначе если не создать, вместо сохранения на каждой
+                 * последующей итерации данные обновляются
+                 */
+                $model = new Printers();
+                $modelName = new NamePrinters();
+
+                //загружаем в можель название принтера
+                $modelName->name = $_POST['NamePrinters']['name'][$i];
+
+                $model->id_staff = $id;// id сотрудника
+                $model->invent_num = $_POST['Printers']['invent_num'][$i]; //инвентарный номер
+                $model->date = $_POST['Printers']['date'][$i]; // дату
+                $model->id_name_printer = $modelName->getKey(); // получаем id названия(внешний ключ)
+
+                $model->save();
+
+                }
+
+            }
+            // редирект на главную страницу приложения
             return $this->redirect(Yii::$app->homeUrl, 302);
         }
 
@@ -264,6 +285,7 @@ class UploadController extends Controller
 
         return $this->render('/printers/create', [
             'model' => $model,
+            'modelName'=> $modelName,
             'listData' => $listData,
         ]);
     }

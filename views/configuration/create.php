@@ -5,6 +5,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Configuration */
+/* @var $modelName app\models\NameSystemUnit */
 
 $this->title = 'Добавление конфигурации';
 
@@ -15,6 +16,7 @@ $this->title = 'Добавление конфигурации';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelName'=> $modelName,
     ]) ?>
 
 </div>

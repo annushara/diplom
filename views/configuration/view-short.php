@@ -5,6 +5,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitors */
 $this->title = $staff->fio;
+
+/*подключам js скрипт модального окна с формой для того чтоб он действовал только в этом контроллере*/
+
+$this->registerJsFile(
+    'yii2/web/js/move.js',
+    ['depends'=>'app\assets\AppAsset']
+);
 ?>
 <div class="monitors-view">
 
@@ -24,51 +31,52 @@ $this->title = $staff->fio;
                     </tr>
 
                    <tr>
-                       <td>Отделение</td>
-                       <td><?= $department->department?></td>
+                       <td>Подразделение</td>
+                       <td><?= $staff->idDepartment->department?></td>
+                       <?php /* $staff->idDepartment->department
+                                * idDepartment это магический метод getIdDepartment()
+                                * который находится в модели Staff котоорый связывает
+                                * таблиц с внишним ключем. Метод возвращает объект класса Department
+                                */?>
                     </tr>
                     <tr>
                         <td>ФИО</td>
                         <td><?= $staff->fio ?></td>
                     </tr>
-                    <?php if( is_object($monitors)): // проверяем является ли переменная объектом, если нет значит этой конфигурации нет?>
-                    <tr>
-                        <td>Монитор</td>
-                        <td><?=$monitors->monitor_1 ?></td>
-                        <td><?=$monitors->date_1 ?></td>
-                        <td><?=$monitors->invent_num_monitor_1 ?></td>
-                    </tr>
+                    <?php if($monitors = $staff->monitors){ //$staff->monitors, тоже магический метод класса Staff,
+                        //возвращает все объекты класса Monitors() текущего сотрудника которого выбрали
+                            foreach($monitors as $key =>$value): ?>
+                                <tr>
+                                    <td>Монитор</td>
+                                    <td><?=$value->nameMonitor->name //nameMonitor магический метод класа Monitors(), возвращает объект с названием монитора  ?></td>
+                                    <td><?=$value->date ?></td>
+                                    <td><?=$value->invent_num ?></td>
+                                </tr>
+                            <?php endforeach?>
+                    <?php } // end if?>
 
-                        <?php if( $monitors->monitor_2): // проверяем есть ли втророй монитор, если есть выводим?>
+
+                    <?php if($config = $staff->systemUnits){
+                        foreach($config as $key =>$value): ?>
                             <tr>
-                                <td>Монитор 2</td>
-                                <td><?=$monitors->monitor_2 ?></td>
-                                <td><?=$monitors->date_2 ?></td>
-                                <td><?=$monitors->invent_num_monitor_2 ?></td>
+                                <td>Системный блок</td>
+                                <td><?=$value->nameSystemUnit->name ?></td>
+                                <td><?=$value->date ?></td>
+                                <td><?=$value->invent_num ?></td>
                             </tr>
-                        <?php endif?>
-                    <?php endif?>
+                        <?php endforeach?>
+                    <?php } // end if?>
 
-
-                    <?php if(is_object($brief_conf)) :?>
-                    <tr>
-                        <td>Конфигурация</td>
-                        <td><?= $brief_conf->title ?></td>
-                        <td><?=$configuration->date ?></td>
-                        <td><?=$configuration->invent_num_system ?></td>
-                    </tr>
-                    <?php endif?>
-
-                        <?php if(is_object($printers)) {
-                            for ($i = 1; $i <= 5; $i++) { //для того чтоб не выводить пустые строки принтеров запустим цикл
-                                if (!empty($printers['print_' . $i])) {//проверим не пустой ли ключ массива если нет, выводим
-                                    echo '<tr><td>Принтер ' . $i . '</td>'; //выводим заголовок
-                                    echo '<td>' . $printers['print_' . $i] . '</td>'; //название принтера
-                                    echo '<td>' . $printers['date_' . $i] . '</td>'; //дата поступления
-                                    echo '<td>' . $printers['invent_num_printer_' . $i] . '</td></tr>'; //инвентарный номер
-                                }
-                            }
-                        }?>
+                    <?php if($print = $staff->printers){
+                        foreach($print as $key =>$value): ?>
+                            <tr>
+                                <td>Принтер</td>
+                                <td><?=$value->idNamePrinter->name ?></td>
+                                <td><?=$value->date ?></td>
+                                <td><?=$value->invent_num ?></td>
+                            </tr>
+                        <?php endforeach?>
+                    <?php } // end if?>
 
 
                 </table>
@@ -77,15 +85,17 @@ $this->title = $staff->fio;
             </div>
             <!-- /.list-group -->
             <p>
-                <?= Html::a('Посмотреть полную конфигурацию', ['view_all_configuration', 'id' => $staff->id_staff], ['class' => 'btn btn-success']) ?>
-                <?= Html::a('Печать карточки сотрудника', ['/print/card', 'id' => $staff->id_staff, 'type'=>'card'], [
+                <?= Html::a('Посмотреть полную конфигурацию', ['view_all_configuration', 'id' => $staff->id], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Печать карточки сотрудника', ['/print/card', 'id' => $staff->id, 'type'=>'card'], [
                     'class' => 'btn btn-primary',
                     'target'=>'_blank',
                     ]) ?>
-                <?= Html::a('Печать QR code', ['/print/card', 'id' => $staff->id_staff], [
+                <?= Html::a('Печать QR code', ['/print/card', 'id' => $staff->id], [
                     'class' => 'btn btn-primary',
                     'target'=>'_blank',
                 ]) ?>
+
+                <?= Html::submitButton('Переместить все',  ['class'=> 'btn btn-danger move', 'id' => $staff->id, ]) ;?>
             </p>
         </div>
         <!-- /.panel-body -->
@@ -96,6 +106,14 @@ $this->title = $staff->fio;
 
 
 
+    <div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm ">
+            <div class="modal-content">
+                <div class="modal-body">
 
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 </div>

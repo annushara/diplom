@@ -5,27 +5,25 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "printers".
+ * This is the model class for table "system_unit".
  *
  * @property integer $id
  * @property integer $id_staff
- * @property integer $id_name_printer
+ * @property integer $id_name_system_unit
  * @property string $date
  * @property string $invent_num
  *
  * @property Staff $idStaff
- * @property NamePrinters $idNamePrinter
+ * @property NameSystemUnit $nameSystemUnit
  */
-
-class Printers extends \yii\db\ActiveRecord
+class SystemUnit extends \yii\db\ActiveRecord
 {
-
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'printers';
+        return 'system_unit';
     }
 
     /**
@@ -34,7 +32,7 @@ class Printers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_staff', 'id_name_printer'], 'integer'],
+            [['id_staff', 'id_name_system_unit'], 'integer'],
             [['date', 'invent_num'], 'string', 'max' => 255]
         ];
     }
@@ -47,8 +45,8 @@ class Printers extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'id_staff' => 'Id Staff',
-            'id_name_printer' => 'Id Name Printer',
-            'date' => 'Дата',
+            'id_name_system_unit' => 'Name System Unit',
+            'date' => 'Дата поступления',
             'invent_num' => 'Инвентарный №',
         ];
     }
@@ -64,8 +62,8 @@ class Printers extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdNamePrinter()
+    public function getNameSystemUnit()
     {
-        return $this->hasOne(NamePrinters::className(), ['id' => 'id_name_printer']);
+        return $this->hasOne(NameSystemUnit::className(), ['id' => 'id_name_system_unit']);
     }
 }

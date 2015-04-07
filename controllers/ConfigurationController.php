@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\BriefConfiguration;
 use app\models\Department;
+use app\models\Store;
+use app\models\UploadForm;
 use Yii;
 use app\models\Monitors;
 use app\models\SearchMonitors;
@@ -22,7 +24,9 @@ use app\models\ValidateForm;
 
 /**
  * ConfigurationController implements the CRUD actions for Configuration model.
+ *
  */
+/*@var $id ид сотрудника */
 class ConfigurationController extends Controller
 {
     public function behaviors()
@@ -68,12 +72,11 @@ class ConfigurationController extends Controller
     {
         if ($id == 0) { //если ноль значит у сотрудника нет конфигурации
             $fio = Staff::find()->where(['id_staff' => $staff])->asArray()->one();
-            return $this->render('not_configuration',[ //реднерим вид и предлагаем назначить конфигурацию
-                'staff'=> $staff,
-                'fio'=> $fio['fio'],
+            return $this->render('not_configuration', [ //реднерим вид и предлагаем назначить конфигурацию
+                'staff' => $staff,
+                'fio' => $fio['fio'],
             ]);
-        }
-        else{
+        } else {
             $staff = Staff::find()->where(['id_configuration' => $id])->asArray()->one();
             return $this->render('view', [
                 'model' => $this->findModel_configuration($id),
@@ -120,9 +123,9 @@ class ConfigurationController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id_configuration]);
         } else {
-            $brief=BriefConfiguration::find()->where(['id_configuration' => $id])->one();
-            $model->attributes=[
-                'title'=>$brief['title'],
+            $brief = BriefConfiguration::find()->where(['id_configuration' => $id])->one();
+            $model->attributes = [
+                'title' => $brief['title'],
             ];
             return $this->render('update', [
                 'model' => $model,
@@ -149,7 +152,6 @@ class ConfigurationController extends Controller
 
         return $this->redirect(['index']);
     }
-
 
 
     /************* Ищет модель конфигурации по id ************/
@@ -217,7 +219,6 @@ class ConfigurationController extends Controller
     {
 
         $model = $this->findModel_monitors($id);
-
 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -350,7 +351,7 @@ class ConfigurationController extends Controller
         }
     }
 
-        /******************* END CRUD Printers ********************/
+    /******************* END CRUD Printers ********************/
 
     public function actionMove($id)
     {
@@ -382,29 +383,30 @@ class ConfigurationController extends Controller
         ]);
 
     }
+
     public function actionAssign($id)
     {
         $id_conf = [];
-        $is_staff = [];
+        $id_staff = [];
         $staff = Staff::find()->asArray()->all();// найдем всех сотрудников
 
-        foreach($staff as $key){
+        foreach ($staff as $key) {
             $id_staff[$key['id_configuration']] = '';//перебираем массив сотрудников и складываем
             //в отдельный массив используемые конфигурации
         }
         $conf = Configuration::find()->asArray()->all();//найдем все конфигурации
-        foreach($conf as $key){
+        foreach ($conf as $key) {
             $id_conf[$key['id_configuration']] = '';
         }
-        $result = array_diff_assoc($id_conf,$id_staff);
+        $result = array_diff_assoc($id_conf, $id_staff);
         return $this->render('assign');
 
     }
 
 
-
     /********* Метод для отображения всех конфигураций при (мониторы, притнеры, конфигурация) привязанной к сотруднику***/
-    public function actionView_all_configuration($id){
+    public function actionView_all_configuration($id)
+    {
 
         $id_staff = Staff::findOne($id);
         $id_mon = Monitors::findOne($id_staff['id_monitor']);
@@ -415,35 +417,72 @@ class ConfigurationController extends Controller
         return $this->render('view_all', [
             'staff' => $id_staff,
             'configuration' => $id_conf,
-            'monitors'=> $id_mon,
-            'printers'=>$id_print,
+            'monitors' => $id_mon,
+            'printers' => $id_print,
         ]);
     }
     /******************** END *******************/
 
     /******** Метод отображения краткой информации о сотруднике ***********/
-
-    public function actionView_short_configuration($id){
+    /* @var $id   принимает из GET запроса */
+    public function actionView_short_configuration($id)
+    {
         /*
          * Функция принимает id сотрудника
          */
-        $id_staff = Staff::findOne($id);  // ищем сотрудника по id
-        $id_mon = Monitors::findOne($id_staff['id_monitor']); //ищем его конфигурацию мониторов
-        $id_brief = BriefConfiguration::find()->where(['id_configuration'=>$id_staff['id_configuration']])->one(); // ищем его краткую конфигурацию системного блока
-        $id_print = Printers::findOne($id_staff['id_printer']); // ищем его принтеры
-        $id_deport = Department::findOne($id_staff['id_department']); //отделение
-        $id_conf = Configuration::findOne($id_staff['id_configuration']);// полная конфигурация
+
+        $staff = Staff::findOne($id);
 
         return $this->render('view-short', [
-            'staff' => $id_staff,
-            'brief_conf' => $id_brief,
-            'monitors'=> $id_mon,
-            'printers'=>$id_print,
-            'department'=>$id_deport,
-            'configuration'=>$id_conf,
+            'staff' => $staff,
         ]);
     }
 
+    /******************** END *******************/
+
+
+    /*
+     * методы для ajax форм модальных окон
+     */
+    public function actionWhereMove($id){
+
+        $model = new UploadForm();
+        $staff = Staff::find()->all();
+
+        $listData = ArrayHelper::map($staff, 'id_staff', 'fio');// выбирает из масиива ключ-значение
+
+        return $this->renderPartial('move', [
+            'listData' => $listData,
+            'model' => $model,
+            'id'=>$id,
+        ]);
+    }
+
+    public function actionSendStore(){
+
+        $store = new Store();
+        $st = new Staff();
+        $staff = Staff::findOne(Yii::$app->request->post('id')); // ищем в базе сотрудников сотрудника по id конфигурации которого перемещаем на склад
+        $store->id_monitor = $staff['id_monitor'];
+        $store->id_configuration =$staff['id_configuration'];
+        $store->id_printer =$staff['id_printer'];
+/*
+ * в поле old_staff в виде массива хранятся сотрудники у которых раньше была конфигурация
+ * поэтому сначала проверяем существуют ли у конфигурации бывшие сотрудники
+ * если нет то создаем массив и ложим в него сотрудника
+ * если да то в конец массива добавляем нового сотрудника
+ */
+    //   $ds = Staff::findOne(Yii::$app->request->post('id'))->getIdConfiguration()->all();
+
+
+//        if()
+//       array_push($store->old_staff, $staff['fio']);
+echo'<pre>';
+        print_r(Staff::setOldStaffConfiguration(Yii::$app->request->post('id')));
+        echo'/<pre>';
+       //$store->save();
+        return json_encode(true);
+    }
     /******************** END *******************/
 
 

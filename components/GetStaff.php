@@ -27,11 +27,11 @@ class GetStaff extends Widget
                                 '<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">';
 
-            $staff = Staff::find()->where(['id_department' => $arr['id_department']])->asArray()->all();
+            $staff = Staff::find()->where(['id_department' => $arr['id']])->asArray()->all();
             foreach ($staff as $value) {
 
 
-                    $this->listData .= '<li><a href="' . \Yii::$app->urlManager->createUrl(['configuration/view_short_configuration', 'id' => $value['id_staff']]) . '" ><i class="fa fa-caret-right"></i>' . ' ' . $value['fio'] .
+                    $this->listData .= '<li><a href="' . \Yii::$app->urlManager->createUrl(['configuration/view_short_configuration', 'id' => $value['id']]) . '" ><i class="fa fa-caret-right"></i>' . ' ' . $value['fio'] .
                         '</a></li>';
 
 
