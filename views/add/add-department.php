@@ -27,7 +27,7 @@ use yii\bootstrap\Alert;
 
 
     <div class="btn-group  ">
-            <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary pull-right ']) ?>
+            <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary pull-right ']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

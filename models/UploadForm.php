@@ -23,7 +23,7 @@ class UploadForm extends Model
         return [
             [['staff'], 'integer' ],
             [['staff'], 'required', 'message'=>'Вы не выбрали сотрудника!' ],
-            [['file'], 'required', 'message'=>'Вы не загрузили файл!' ],
+            [['file'], 'required', 'message'=>'Вы не выбрали файл!' ],
             [['file'], 'file',],
         ];
     }

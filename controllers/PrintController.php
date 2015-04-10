@@ -19,12 +19,7 @@ class PrintController extends Controller
 {
     public function actionCard(){
         $id = Yii::$app->request->get('id');
-        $id_staff = Staff::findOne($id);  // ищем сотрудника по id
-        $id_mon = Monitors::findOne($id_staff['id_monitor']); //ищем его конфигурацию мониторов
-        $id_brief = BriefConfiguration::find()->where(['id_configuration'=>$id_staff['id_configuration']])->one(); // ищем его краткую конфигурацию системного блока
-        $id_print = Printers::findOne($id_staff['id_printer']); // ищем его принтеры
-        $id_deport = Department::findOne($id_staff['id_department']); //отделение
-        $id_conf = Configuration::findOne($id_staff['id_configuration']);// полная конфигурация
+        $staff = Staff::findOne($id);  // ищем сотрудника по id
 /*
  *  если был запрос на печать карточки сотрудника, то еще одним параметром type передается  тип card
  * проверяем есть этот параметр в Get запросе, если есть указываем вид print-card как шаблон иначе вид print-qrcode
@@ -36,15 +31,9 @@ class PrintController extends Controller
            $print= 'print-qrcode';
         }
 
-            $qrcode = $id_staff->fio . ' ' . $id_mon->monitor_1 . ' ' . $id_brief->title;
+
             $content = $this->renderPartial($print, [
-                'staff' => $id_staff,
-                'brief_conf' => $id_brief,
-                'monitors' => $id_mon,
-                'printers' => $id_print,
-                'department' => $id_deport,
-                'configuration' => $id_conf,
-                'qrcode' => $qrcode,
+                'staff' => $staff,
             ]);
 
         $this->Pdf($content);

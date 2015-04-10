@@ -122,3 +122,6 @@ a.desc:after {
 .content {
     margin-top: 60px;
 }
+ #systemunit-id_name_system_unit option{
+    width: 700px;
+}

@@ -35,7 +35,7 @@ class Staff extends \yii\db\ActiveRecord
         return [
             [['id_department'], 'integer'],
             [['fio'], 'string', 'max' => 255],
-            ['id_department', 'required', 'message' => 'Выберете подразделение'],
+            ['id_department', 'required', 'message' => 'Вы не выбрали подразделение'],
             ['fio', 'required', 'message' => 'Введите Имя сотрудника'],
             ['fio' , 'recordExist']
         ];

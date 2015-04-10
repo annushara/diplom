@@ -28,7 +28,8 @@ class NameMonitors extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 255],
+            [['name'], 'required', 'message'=>'Вы не указали названия монитора']
         ];
     }
 

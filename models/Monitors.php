@@ -18,6 +18,7 @@ use Yii;
  */
 class Monitors extends \yii\db\ActiveRecord
 {
+    public $name;
     /**
      * @inheritdoc
      */
@@ -32,8 +33,10 @@ class Monitors extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+
             [['id_staff', 'id_name_monitor'], 'integer'],
-            [['date', 'invent_num'], 'string', 'max' => 255]
+            [['date', 'invent_num'], 'string', 'max' => 255],
+            [['id_name_monitor','name'],'valEmpty', 'skipOnEmpty' => false, 'on'=>'addMonitor'],
         ];
     }
 
@@ -44,12 +47,20 @@ class Monitors extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_staff' => 'Id Staff',
+            'id_staff' => 'Сотрудники',
             'date' => 'Дата поступления',
             'invent_num' => 'Инвентарный №',
+            'name'=>'Модель'
         ];
     }
+    public function valEmpty(){
 
+        if(empty($this->name) && empty($this->id_name_monitor)) {
+            $msg = 'Выберите монитор из списка или заполните поле!';
+            $this->addError('name', $msg);
+            $this->addError('id_name_monitor', $msg);
+        }
+    }
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -65,4 +76,15 @@ class Monitors extends \yii\db\ActiveRecord
     {
         return $this->hasOne(NameMonitors::className(), ['id' => 'id_name_monitor']);
     }
+
+    // метод возвращает объект класса NameMonitors
+    public function getObjectMonitorsName(){
+        return new NameMonitors();
+    }
+
+    public function getObjectStaff(){
+        return new Staff();
+    }
+
+
 }

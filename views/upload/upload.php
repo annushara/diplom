@@ -14,10 +14,10 @@ use yii\helpers\Html;
 ]); ?>
 
 <?=$form->field($model, 'staff')->dropDownList( $model->getStaffList(),  ['prompt'=>'Выберите сотрудника'])->label('Сотрудники') ?>
-<?= $form->field($model, 'file')->fileInput()->label('Загрузите файл конфигурации') ?>
+<?= $form->field($model, 'file')->fileInput()->label('Выберите файл конфигурации') ?>
 
 <div class="form-group">
-    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
+    <?= Html::submitButton('Загрузить', ['class' => 'btn btn-primary']) ?>
 </div>
     <?php ActiveForm::end() ?>
 

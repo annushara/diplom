@@ -18,6 +18,8 @@ use Yii;
  */
 class SystemUnit extends \yii\db\ActiveRecord
 {
+
+    public $name;
     /**
      * @inheritdoc
      */
@@ -33,7 +35,9 @@ class SystemUnit extends \yii\db\ActiveRecord
     {
         return [
             [['id_staff', 'id_name_system_unit'], 'integer'],
-            [['date', 'invent_num'], 'string', 'max' => 255]
+            [['date', 'invent_num'], 'string', 'max' => 255],
+            [['id_name_system_unit','name'],'valEmpty', 'skipOnEmpty' => false, 'on'=>'addSystemUnit'],
+
         ];
     }
 
@@ -44,13 +48,22 @@ class SystemUnit extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_staff' => 'Id Staff',
+            'id_staff' => 'Сотрудники',
             'id_name_system_unit' => 'Name System Unit',
             'date' => 'Дата поступления',
             'invent_num' => 'Инвентарный №',
+            'name'=>'Конфигурация'
         ];
     }
 
+    public function valEmpty(){
+
+        if(empty($this->name) && empty($this->id_name_system_unit)) {
+            $msg = 'Выберите конфигурацию из списка или заполните поле!';
+            $this->addError('name', $msg);
+            $this->addError('id_name_system_unit', $msg);
+        }
+    }
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -65,5 +78,14 @@ class SystemUnit extends \yii\db\ActiveRecord
     public function getNameSystemUnit()
     {
         return $this->hasOne(NameSystemUnit::className(), ['id' => 'id_name_system_unit']);
+    }
+
+    // метод возвращает объект класса NameMonitors
+    public function getObjectSystemName(){
+        return new NameSystemUnit();
+    }
+
+    public function getObjectStaff(){
+        return new Staff();
     }
 }

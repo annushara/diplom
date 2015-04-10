@@ -172,9 +172,7 @@ class UploadController extends Controller
 
         $modelName->attributes = [      //заполняем атрибуты модели данными из массива
             'name' => $session['config']['монитор1'],
-            'monitor_2' => $session['config']['монитор2'],
-            'old_staff_1' => '{0}',
-            'old_staff_2' => '{0}',];
+            ];
 
         return $this->render('/monitors/create', [
             'model' => $model,

@@ -22,7 +22,7 @@ use yii\bootstrap\Alert;
         ]); ?>
         <?= $form->field($model, 'id_department')->listBox(
             $listData,
-            array('prompt' => '', 'size' => 1)
+            array('prompt' => 'Выберите подразделение', 'size' => 1)
         )->label('Подразделения'); ?>
         <?= $form->field($model, 'fio')->textInput(['maxlength' => 64, 'placeholder'=>'Пример: Иванов Петр Сергеевич']) ?>
 
@@ -30,7 +30,7 @@ use yii\bootstrap\Alert;
 
 
 <div class="btn-group  ">
-            <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary ']) ?>
+            <?= Html::submitButton('Добавить', ['class' => 'btn btn-primary ']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

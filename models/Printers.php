@@ -19,7 +19,7 @@ use Yii;
 
 class Printers extends \yii\db\ActiveRecord
 {
-
+    public $name;
     /**
      * @inheritdoc
      */
@@ -35,7 +35,8 @@ class Printers extends \yii\db\ActiveRecord
     {
         return [
             [['id_staff', 'id_name_printer'], 'integer'],
-            [['date', 'invent_num'], 'string', 'max' => 255]
+            [['date', 'invent_num'], 'string', 'max' => 255],
+            [['id_name_printer','name'],'valEmpty', 'skipOnEmpty' => false, 'on'=>'addPrinter'],
         ];
     }
 
@@ -46,11 +47,30 @@ class Printers extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_staff' => 'Id Staff',
+            'id_staff' => 'Сотрудники',
             'id_name_printer' => 'Id Name Printer',
             'date' => 'Дата',
             'invent_num' => 'Инвентарный №',
+            'name'=>'Название принтера',
         ];
+    }
+
+    public function valEmpty(){
+
+        if(empty($this->name) && empty($this->id_name_printer)) {
+            $msg = 'Выберите принтер из списка или заполните поле!';
+            $this->addError('name', $msg);
+            $this->addError('id_name_printer', $msg);
+        }
+    }
+
+    // метод возвращает объект класса NameMonitors
+    public function getObjectPrinters(){
+        return new NamePrinters();
+    }
+
+    public function getObjectStaff(){
+        return new Staff();
     }
 
     /**
