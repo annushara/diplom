@@ -44,6 +44,7 @@ $config = [
 //                '' => 'site/index',
 //                'login' => 'site/login',
 //                'submitmove'=>'configuration/move_all',
+//                'view'=>'configuration/view_short_configuration',
 //
 //            ],
 //        ],

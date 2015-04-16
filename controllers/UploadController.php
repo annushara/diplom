@@ -263,9 +263,11 @@ class UploadController extends Controller
 
                 $model->save();
 
+
                 }
 
             }
+            $session->removeAll(); //удаляем переменные из сессии
             // редирект на главную страницу приложения
             return $this->redirect(Yii::$app->homeUrl, 302);
         }

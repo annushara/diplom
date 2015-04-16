@@ -266,6 +266,7 @@ class ConfigurationController extends Controller
     {
         $searchModel = new SearchPrinters();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        print_r($dataProvider);
 
         return $this->render('/printers/index', [
             'searchModel' => $searchModel,
@@ -404,27 +405,11 @@ class ConfigurationController extends Controller
     }
 
 
-    /********* Метод для отображения всех конфигураций при (мониторы, притнеры, конфигурация) привязанной к сотруднику***/
-    public function actionView_all_configuration($id)
-    {
 
-        $id_staff = Staff::findOne($id);
-        $id_mon = Monitors::findOne($id_staff['id_monitor']);
-        $id_conf = Configuration::findOne($id_staff['id_configuration']);
-        $id_print = Printers::findOne($id_staff['id_printer']);
-
-
-        return $this->render('view_all', [
-            'staff' => $id_staff,
-            'configuration' => $id_conf,
-            'monitors' => $id_mon,
-            'printers' => $id_print,
-        ]);
-    }
     /******************** END *******************/
 
     /******** Метод отображения краткой информации о сотруднике ***********/
-    /* @var $id   принимает из GET запроса */
+    /*  $id   принимает из GET запроса */
     public function actionView_short_configuration($id)
     {
         /*

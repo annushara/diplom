@@ -1,5 +1,5 @@
 <?php
-use alexgx\phpexcel;
+
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -53,6 +53,7 @@ AppAsset::register($this);
                 ['label' => 'Системный блок', 'url' => ['/add/system-unit']],
                 ['label' => 'Принтер', 'url' => ['/add/printer']],
                 ['label' => 'Другое оборудование', 'url' => ['/crud-job/index']],
+                ['label' => 'Заправка картриджа', 'url' => ['/add/refill']],
             ]],
             ['label' => 'Вид', 'items' => [
                 ['label' => 'Сотрудники', 'url' => ['/staff/index']],
@@ -65,7 +66,7 @@ AppAsset::register($this);
             ['label' => 'Печать', 'items' => [
                 ['label' => 'Реестр сдачи', 'url' => ['/crud-job-result/index']],
                 ['label' => 'Акт на списание', 'url' => ['/crud-job-result/index']],
-                ['label' => 'Расходная наклодная', 'url' => ['/crud-job-result/index']],
+                ['label' => 'Расходная накладная', 'url' => ['/crud-job-result/index']],
                 ['label' => 'Отчет обеспеченности ПК', 'url' => ['/crud-job-result/index']],
                 ['label' => 'Отчет по сотруднику', 'url' => ['/crud-job-result/index']],
                 ['label' => 'Карточка сотрудника', 'url' => ['/crud-job-result/index']],

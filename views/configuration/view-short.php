@@ -85,7 +85,7 @@ $this->registerJsFile(
             </div>
             <!-- /.list-group -->
             <p>
-                <?= Html::a('Посмотреть полную конфигурацию', ['view_all_configuration', 'id' => $staff->id], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Редактировать', ['/upload/monitors', 'id' => $staff->id], ['class' => 'btn btn-success']) ?>
                 <?= Html::a('Печать карточки сотрудника', ['/print/card', 'id' => $staff->id, 'type'=>'card'], [
                     'class' => 'btn btn-primary',
                     'target'=>'_blank',
@@ -96,6 +96,7 @@ $this->registerJsFile(
                 ]) ?>
 
                 <?= Html::submitButton('Переместить все',  ['class'=> 'btn btn-danger move', 'id' => $staff->id, ]) ;?>
+                <?= Html::a('Добавить заправку', ['/add/add-refill', 'id' => $staff->id], ['class' => 'btn btn-success']) ?>
             </p>
         </div>
         <!-- /.panel-body -->
