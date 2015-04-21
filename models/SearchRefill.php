@@ -5,21 +5,23 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Printers;
+use app\models\Refill;
 
 /**
- * SearchPrinters represents the model behind the search form about `app\models\Printers`.
+ * SearchRefill represents the model behind the search form about `app\models\Refill`.
  */
-class SearchPrinters extends Printers
+class SearchRefill extends Refill
 {
+    public $name;
+    public $fio;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'id_staff', 'id_name_printer'], 'integer'],
-            [['date', 'invent_num'], 'safe'],
+            [['id'], 'integer'],
+            [['comment', 'date','id_printer','name','fio'], 'safe'],
         ];
     }
 
@@ -41,7 +43,7 @@ class SearchPrinters extends Printers
      */
     public function search($params)
     {
-        $query = Printers::find()->with('idNamePrinter')->with('idStaff');
+        $query = Refill::find()->with(['idPrinter','idPrinter.idNamePrinter','idPrinter.idStaff'])->orderBy(['id' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -49,8 +51,9 @@ class SearchPrinters extends Printers
                 'forcePageParam' => false,
                 'pageSizeParam' => false,
                 'pageSize' => 3,
-                ]
+            ]
         ]);
+
 
         $this->load($params);
 
@@ -60,14 +63,20 @@ class SearchPrinters extends Printers
             return $dataProvider;
         }
 
+        $query->joinWith('idPrinter');
+        $query->joinWith('idPrinter.idStaff');
+        $query->joinWith('idPrinter.idNamePrinter');
+
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_staff' => $this->id_staff,
-            'id_name_printer' =>$this->idNamePrinter,
+
         ]);
 
-        $query->andFilterWhere(['like', 'date', $this->date])
-            ->andFilterWhere(['like', 'invent_num', $this->invent_num]);
+        $query->andFilterWhere(['like', 'comment', $this->comment])
+            ->andFilterWhere(['like', NamePrinters::tableName(). '.name', $this->name])
+            ->andFilterWhere(['like', 'date', $this->date])
+            ->andFilterWhere(['like', 'staff.fio', $this->fio])
+            ->andFilterWhere(['like', 'name_printers.name', $this->fio]);
 
         return $dataProvider;
     }

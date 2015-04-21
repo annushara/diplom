@@ -63,7 +63,7 @@ $this->title = 'PCinventory';
             <!-- /.panel -->
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class=" glyphicon glyphicon-print" ></i> Заправка картриджей
@@ -71,7 +71,29 @@ $this->title = 'PCinventory';
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="list-group">
+                        <?= GridView::widget([
+                            'dataProvider' => $dataProvider,
+                            'filterModel' => $searchModel,
+                            'summary'=>'',
+                            'showFooter'=>true,
+                            'showHeader' => true,
+                            'columns' => [
+                                ['class' => 'yii\grid\SerialColumn'],
+                                [
+                                    'attribute'=>'fio',
+                                    'value'=>'idPrinter.idStaff.fio',
+                                ],
+                                [
+                                    'attribute'=>'name',
+                                    'value'=>'idPrinter.idNamePrinter.name',
+                                ],
+                                'comment:ntext',
+                                'date',
 
+                                ['class' => 'yii\grid\ActionColumn'],
+                            ],
+
+                        ]); ?>
                     </div>
                     <!-- /.list-group -->
                     <a href="#" class="btn btn-default btn-block">Все заправки</a>

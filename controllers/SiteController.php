@@ -9,6 +9,8 @@ use app\models\Printers;
 use app\models\SearchMonitors;
 use app\models\Staff;
 use app\models\Configuration;
+use app\models\Refill;
+use app\models\SearchRefill;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -59,13 +61,12 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-//        echo '<br><br><br><br><br><pre>';
-//         $name = Staff::findOne(1);
-//        echo '<br><br><br>';
-//        print_r($names = $name->monitors);
-//
-//        echo '</pre>';
-        return $this->render('index');
+        $searchModel = new SearchRefill();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('index',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionLogin()

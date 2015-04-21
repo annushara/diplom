@@ -44,6 +44,8 @@ class Refill extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'fio'=> 'ФИО сотрудников',
+            'name'=> 'Названиве принтеров',
             'id_printer' => 'Список принтеров',
             'comment' => 'Комментарий',
             'date' => 'Дата',
@@ -56,5 +58,16 @@ class Refill extends \yii\db\ActiveRecord
     public function getIdPrinter()
     {
         return $this->hasOne(Printers::className(), ['id' => 'id_printer']);
+
+    }
+
+    public function getIdNamePrinter()
+    {
+        return $this->hasOne(NamePrinters::className(), ['id' => 'id_name_printer']);
+    }
+
+    public function getIdStaff()
+    {
+        return $this->hasOne(Staff::className(), ['id' => 'id_staff']);
     }
 }
