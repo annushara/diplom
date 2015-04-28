@@ -4,6 +4,9 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 $this->title = 'PCinventory';
+/*
+ *  @var $searchModel  app\models\SearchRefill
+ */
 ?>
 
   <div class="site-index">
@@ -70,7 +73,7 @@ $this->title = 'PCinventory';
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <div class="list-group">
+                    <div class="table-condensed ">
                         <?= GridView::widget([
                             'dataProvider' => $dataProvider,
                             'filterModel' => $searchModel,
@@ -81,7 +84,13 @@ $this->title = 'PCinventory';
                                 ['class' => 'yii\grid\SerialColumn'],
                                 [
                                     'attribute'=>'fio',
-                                    'value'=>'idPrinter.idStaff.fio',
+                                    'value'=>function($searchModel){
+                                        if(!is_object($searchModel->idPrinter->idStaff)){
+                                            return 'Отправлен на склад';
+                                        }else{
+                                            return $searchModel->idPrinter->idStaff->fio;
+                                        }
+                                    },
                                 ],
                                 [
                                     'attribute'=>'name',
@@ -90,13 +99,30 @@ $this->title = 'PCinventory';
                                 'comment:ntext',
                                 'date',
 
-                                ['class' => 'yii\grid\ActionColumn'],
+
+                                ['class' => 'yii\grid\ActionColumn',
+                                    'template' => '{delete}',
+                                    'buttons' => [
+                                        'delete' => function ($url,$model) {
+                                            return Html::a('<span class="glyphicon glyphicon-remove"></span>',
+                                                ['/configuration/delete_refill', 'id' => $model->id],
+                                                [
+                                                    'data' => [
+                                                        'confirm' => 'Вы действительно хотите удалить эту запись',
+                                                        'method' => 'post',
+                                                    ],
+                                                    ]
+                                            );
+                                        },
+                                    ],
+                                ],
                             ],
+                            'tableOptions' =>['class' => 'table table-striped table-bordered table-condensed '],
 
                         ]); ?>
                     </div>
                     <!-- /.list-group -->
-                    <a href="#" class="btn btn-default btn-block">Все заправки</a>
+
                 </div>
                 <!-- /.panel-body -->
             </div>

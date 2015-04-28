@@ -1,8 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\jui\DatePicker;
-use yii\jui\Dialog;
+
 
 
 ?>
@@ -17,6 +16,8 @@ use yii\jui\Dialog;
 
 <div id = 'hide' style = 'display: none'>
 <?=$form->field($model, 'staff')->dropDownList( $listData,  ['prompt'=>'Выберите сотрудника',  ])->label('Сотрудники') ?>
+ <div class="error" style="color:red"></div>
+<?= $form->field($model, 'comment')->textarea(['rows' => 4])->label('Причина перемещения') ?>
 <?= Html::submitButton('Переместить', ['class'=> 'btn btn-danger', ]) ;?>
 </div>
 <?php ActiveForm::end(); ?>

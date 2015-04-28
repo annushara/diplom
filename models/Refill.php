@@ -44,8 +44,8 @@ class Refill extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'fio'=> 'ФИО сотрудников',
-            'name'=> 'Названиве принтеров',
+            'fio'=> 'ФИО сотрудника',
+            'name'=> 'Модель принтера',
             'id_printer' => 'Список принтеров',
             'comment' => 'Комментарий',
             'date' => 'Дата',

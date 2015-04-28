@@ -38,16 +38,22 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-//        'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'rules' => [
-//                '' => 'site/index',
-//                'login' => 'site/login',
-//                'submitmove'=>'configuration/move_all',
-//                'view'=>'configuration/view_short_configuration',
-//
-//            ],
-//        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'rules' => [
+                '' => 'site/index',
+                'login' => 'site/login',
+                'submitmove'=>'configuration/move_all',
+                'view'=>'configuration/view_short_configuration',
+                'get-form-move'=>'configuration/get-form-move',
+                'send-to-store'=>'configuration/send-to-store',
+                'send-to-staff'=> 'configuration/send-to-staff',
+                'move-monitor'=>'configuration/move-monitor',
+                'move-system-unit'=>'configuration/move-system-unit',
+                'move-printer'=>'configuration/move-printer',
+
+            ],
+        ],
     ],
     'params' => $params,
 ];

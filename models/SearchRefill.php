@@ -55,6 +55,18 @@ class SearchRefill extends Refill
         ]);
 
 
+
+
+        $dataProvider->sort->attributes['fio'] = [
+            'asc' => ['staff.fio' => SORT_ASC],
+            'desc' => ['staff.fio' => SORT_DESC],
+        ];
+
+        $dataProvider->sort->attributes['name'] = [
+            'asc' => ['name_printers.name' => SORT_ASC],
+            'desc' => ['name_printers.name' => SORT_DESC],
+        ];
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -62,6 +74,7 @@ class SearchRefill extends Refill
             // $query->where('0=1');
             return $dataProvider;
         }
+
 
         $query->joinWith('idPrinter');
         $query->joinWith('idPrinter.idStaff');
@@ -73,10 +86,9 @@ class SearchRefill extends Refill
         ]);
 
         $query->andFilterWhere(['like', 'comment', $this->comment])
-            ->andFilterWhere(['like', NamePrinters::tableName(). '.name', $this->name])
             ->andFilterWhere(['like', 'date', $this->date])
             ->andFilterWhere(['like', 'staff.fio', $this->fio])
-            ->andFilterWhere(['like', 'name_printers.name', $this->fio]);
+            ->andFilterWhere(['like', 'name_printers.name', $this->name]);
 
         return $dataProvider;
     }

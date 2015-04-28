@@ -10,7 +10,7 @@ use yii\helpers\ArrayHelper;
 /* @var $model app\models\Monitors */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $modelName app\models\NameMonitors */
-/* $var objectMonitorsName app\models\Monitors - возвращает объект класса NameMonitors  */
+/* @var objectMonitorsName app\models\Monitors - возвращает объект класса NameMonitors  */
 ?>
 
 <div class="monitors-form">

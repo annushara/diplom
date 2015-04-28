@@ -96,7 +96,7 @@ class AddController extends Controller
         $modelName = new NamePrinters();
         $model->scenario = "addPrinter"; // задаем сценарий валидации формы в моделе
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->id_name_printer) { // если монитор выбран из списка, то сразу сохраняем в базу
+            if ($model->id_name_printer) { // если принтер выбран из списка, то сразу сохраняем в базу
                 $model->save();
             } else {
                 $modelName->name = $model->name; // иначе загружаем в модель название

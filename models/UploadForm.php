@@ -15,6 +15,7 @@ class UploadForm extends Model
      */
     public $file;
     public $staff;
+    public $comment;
     /**
      * @return array the validation rules.
      */

@@ -4,7 +4,11 @@ namespace app\controllers;
 
 
 use app\models\Department;
+use app\models\HistoryMonitors;
+use app\models\HistoryPrinters;
+use app\models\HistorySystemUnit;
 use app\models\Store;
+use app\models\SystemUnit;
 use app\models\UploadForm;
 use Yii;
 use app\models\Monitors;
@@ -18,10 +22,11 @@ use app\models\Refill;
 use app\models\SearchRefill;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\HttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\helpers\ArrayHelper;
-use app\models\ValidateForm;
+
 
 
 /**
@@ -38,7 +43,8 @@ class ConfigurationController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
-                    'move' => ['post'],
+                    'move-monitor'=>['post'],
+
                 ],
             ],
         ];
@@ -355,36 +361,7 @@ class ConfigurationController extends Controller
 
     /******************* END CRUD Printers ********************/
 
-    public function actionMove($id)
-    {
 
-        if ($array = Yii::$app->request->post('ValidateForm')) {
-            $staff = Staff::find()->where(['id_configuration' => $id])->one();//ищем владельца текущей конфигурации с которой работаем
-            $conf = Configuration::findOne($id);//ищем конфигурацию с которой работаем
-            $conf->old_staff = $staff['id_staff'];//записываем в эту конфигурацию id текущего владельца
-            $staff->id_configuration = ''; //Обнуляем у текущего владельца конфигурацию
-            $staff->save();
-            $staff = Staff::findOne($array['staff']);//ищем нового владельца конфигурацией
-            $staff->id_configuration = $id;//и присваеваем ему новую конфигурацию
-            $conf->save();
-            $staff->save();
-            return $this->redirect(['configuration/view', 'id' => $id]);
-
-
-        }
-
-        $model = new ValidateForm();
-        $staff = Staff::find()->all();
-
-        $listData = ArrayHelper::map($staff, 'id_staff', 'fio');// выбирает из масиива ключ-значение
-
-        return $this->render('move', [
-            'listData' => $listData,
-            'model' => $model,
-            'id' => $id,
-        ]);
-
-    }
 
     public function actionIndex_refill()
     {
@@ -456,7 +433,7 @@ class ConfigurationController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/site/index']);
     }
 
     /**
@@ -476,24 +453,7 @@ class ConfigurationController extends Controller
     }
 
 
-    public function actionAssign($id)
-    {
-        $id_conf = [];
-        $id_staff = [];
-        $staff = Staff::find()->asArray()->all();// найдем всех сотрудников
 
-        foreach ($staff as $key) {
-            $id_staff[$key['id_configuration']] = '';//перебираем массив сотрудников и складываем
-            //в отдельный массив используемые конфигурации
-        }
-        $conf = Configuration::find()->asArray()->all();//найдем все конфигурации
-        foreach ($conf as $key) {
-            $id_conf[$key['id_configuration']] = '';
-        }
-        $result = array_diff_assoc($id_conf, $id_staff);
-        return $this->render('assign');
-
-    }
 
 
 
@@ -508,10 +468,14 @@ class ConfigurationController extends Controller
          */
 
         $staff = Staff::findOne($id);
+        if(!$staff) {                                                    // если сотрудник с таким id не найден, то генерируем исключение 404
+            throw new HttpException(404, 'Такого сотрудника не существует!');
+        }else {
 
-        return $this->render('view-short', [
-            'staff' => $staff,
-        ]);
+            return $this->render('view-short', [
+                'staff' => $staff,
+            ]);
+        }
     }
 
     /******************** END *******************/
@@ -520,46 +484,156 @@ class ConfigurationController extends Controller
     /*
      * методы для ajax форм модальных окон
      */
-    public function actionWhereMove($id){
+    public function actionGetFormMove($id , $one = ''){
 
         $model = new UploadForm();
         $staff = Staff::find()->all();
+        $listData = ArrayHelper::map($staff, 'id', 'fio');// выбирает из масиива ключ-значение
 
-        $listData = ArrayHelper::map($staff, 'id_staff', 'fio');// выбирает из масиива ключ-значение
-
-        return $this->renderPartial('move', [
-            'listData' => $listData,
-            'model' => $model,
-            'id'=>$id,
-        ]);
+        if($one){
+            return $this->renderPartial('move-one', [
+                'listData' => $listData,
+                'model' => $model,
+                'id' => $id,
+            ]);
+        }else {
+            return $this->renderPartial('move-all', [
+                'listData' => $listData,
+                'model' => $model,
+                'id' => $id,
+            ]);
+        }
     }
 
-    public function actionSendStore(){
-
-        $store = new Store();
-        $st = new Staff();
-        $staff = Staff::findOne(Yii::$app->request->post('id')); // ищем в базе сотрудников сотрудника по id конфигурации которого перемещаем на склад
-        $store->id_monitor = $staff['id_monitor'];
-        $store->id_configuration =$staff['id_configuration'];
-        $store->id_printer =$staff['id_printer'];
-/*
- * в поле old_staff в виде массива хранятся сотрудники у которых раньше была конфигурация
- * поэтому сначала проверяем существуют ли у конфигурации бывшие сотрудники
- * если нет то создаем массив и ложим в него сотрудника
- * если да то в конец массива добавляем нового сотрудника
- */
-    //   $ds = Staff::findOne(Yii::$app->request->post('id'))->getIdConfiguration()->all();
 
 
-//        if()
-//       array_push($store->old_staff, $staff['fio']);
-echo'<pre>';
-        print_r(Staff::setOldStaffConfiguration(Yii::$app->request->post('id')));
-        echo'/<pre>';
-       //$store->save();
-        return json_encode(true);
+
+    /******************** END *******************/
+
+
+    /*метод переносящий все конфигурации закрепленные за сотрудником на склад*/
+    /*если у конфигурации отсутвует(не назначен сотрудник за которым она закреплена, считается что она находится на складе)*/
+
+    public function actionSendToStore(){
+        $staff = Staff::findOne(Yii::$app->request->post('id'));        // ищем сотрудника по его id
+
+        if(!$staff) {                                                    // если сотрудник с таким id не найден, то генерируем исключение 404
+            throw new HttpException(404, 'Такого сотрудника не существует!');
+        }else {
+
+
+            $this->Move($staff->monitors, new HistoryMonitors()); //вызываем метод Move и передаем массив найденых обектов
+            $this->Move($staff->systemUnits, new HistorySystemUnit()); // и объект класса History*
+            $this->Move($staff->printers, new HistoryPrinters());
+
+            return 'true';
+        }
+
+    }
+
+
+    public function actionSendToStaff(){
+        $staff = Staff::findOne(Yii::$app->request->post('oldStaff'));        // ищем сотрудника по его id
+        $newStaff = Yii::$app->request->post('newStaff');
+
+        if(!Staff::findOne($newStaff)) {                                                    // если сотрудник с таким id не найден, то генерируем исключение 404
+            throw new HttpException(404, 'Такого сотрудника не существует!');
+        }else {
+
+                        //$staff->monitors магический метод который находит все закрепленые за сотрудником мониторы
+            $this->Move($staff->monitors, new HistoryMonitors(), $newStaff); //вызываем метод Move и передаем массив найденых обектов
+            $this->Move($staff->systemUnits, new HistorySystemUnit(), $newStaff); // и объект класса History*
+            $this->Move($staff->printers, new HistoryPrinters(), $newStaff);
+
+            return 'true';
+        }
+    }
+
+
+    /*
+     * функция принимает массив объектов
+     */
+    private function Move($data, $historyModel, $newStaff = '') {
+
+        if (is_array($data) && !empty($data)) {                       //если массив с объектами не пустой
+            foreach ($data as $key => $value) {  // то перебираем его
+               $this->addHistoryMove($value,  new $historyModel(), $newStaff); // присваиваем id сотрудника, таблице history*
+                $value->id_staff = $newStaff;      // присваиваем id нового сотрудника, если такого нет, то присвоится значение по умолчания ""
+                $value->save();                     // сохраняем
+            }
+        } else if(is_object($data)){
+            $this->addHistoryMove($data,  new $historyModel(), $newStaff); // присваиваем id сотрудника, таблице history*
+            $data->id_staff = $newStaff;      // присваиваем id нового сотрудника, если такого нет, то присвоится значение по умолчания ""
+            $data->save();                     // сохраняем
+        }
     }
     /******************** END *******************/
+
+
+
+/*
+ * HistoryMove  функция  добавления истории перемещения конфигурации
+ * Оборудование считается на складе если у него
+ * не назначен сотрудник, а именно id_staff = NULL
+ */
+
+    private function addHistoryMove($modelMove, $modelHistory, $newStaff = ''){
+        /*
+         * @property $modelMove объект класса конфигурации (монитор, принтер и т.д ) который перемещаем
+         * @property $modelHistory объект класса ActiveRecord, таблица истории конфигурации
+         */
+        $modelHistory->old_staff = $modelMove->id_staff;   // присваиваем таблице истории бывшему сотруднику id текущего сотрудника
+        $modelHistory->new_staff = $newStaff;
+        $modelHistory->id_configuration = $modelMove->id; // присваиваем таблице истории id конфигурации конфигурации
+        $modelHistory->date = date("d.m.o"); // получаем текущую дату и присваиваем таблице истории соответсвующему столбцу
+        $modelHistory->comment = 'Перемещено на склад'; // присваиваем комментарий
+        $modelHistory->save(); // сохраняем
+
+    }
+
+
+    // методы перпемещения единичной конфигурации оборудования
+    public function actionMoveMonitor(){
+
+        $id = Yii::$app->request->post('id'); // присваиваем переменной id конфигурации которую перемещаем на склад
+        $newStaff = Yii::$app->request->post('newStaff'); // получаем id нового сотрудника(если он существует)
+        $history = new HistoryMonitors(); // создаем и присваиваем переменной объект для работы с таблицей истории перемещений
+        $monitor= Monitors::findOne($id); // ищем  конфигурацию монитора
+        $id_staff=$monitor->id_staff;
+        $this->Move($monitor, $history,$newStaff);
+
+        return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]); // для того чтоб обновить данные в таблице заново вызываем соответсвующий метод
+
+
+    }
+
+
+    public function actionMoveSystemUnit(){
+
+        $id = Yii::$app->request->post('id');// присваиваем переменной id конфигурации которую перемещаем на склад
+        $newStaff = Yii::$app->request->post('newStaff');
+        $history = new HistorySystemUnit(); // создаем и присваиваем переменной объект для работы с таблицей истории перемещений
+        $system= SystemUnit::findOne($id); //ищем конфигурацию по id
+        $id_staff=$system->id_staff; // присваиваем переменной id сотрудника
+        $this->Move($system, $history,$newStaff);
+
+        return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]);
+
+
+    }
+
+    public function actionMovePrinter(){
+
+        $id = Yii::$app->request->post('id');// присваиваем переменной id конфигурации которую перемещаем на склад
+        $newStaff = Yii::$app->request->post('newStaff');
+        $history = new HistoryPrinters();
+        $printer= Printers::findOne($id);
+        $id_staff=$printer->id_staff; // присваиваем переменной id сотрудника
+        $this->Move($printer, $history,$newStaff);
+
+        return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]);
+
+    }
 
 
 }
