@@ -465,10 +465,14 @@ class ConfigurationController extends Controller
         /*
          * Функция принимает id сотрудника
          */
+        /* @var $staff Staff */
+
 
         $staff = Staff::findOne($id);
         if(!$staff) {                                                    // если сотрудник с таким id не найден, то генерируем исключение 404
             throw new HttpException(404, 'Такого сотрудника не существует!');
+        }else if($staff->status == 0){
+            throw new HttpException(404, 'Выбранный сотрудник находится в списке уволенных!');
         }else {
 
             return $this->render('view-short', [
@@ -518,6 +522,8 @@ class ConfigurationController extends Controller
 
         $staff = Staff::findOne(Yii::$app->request->post('id'));        // ищем сотрудника по его id
 
+
+
         if(!$staff) {                                                    // если сотрудник с таким id не найден, то генерируем исключение 404
             throw new HttpException(404, 'Такого сотрудника не существует!');
         }else {
@@ -527,11 +533,13 @@ class ConfigurationController extends Controller
             $this->Move($staff->printers, new HistoryPrinters());
 
             if(Yii::$app->request->post('status') == '1'){
-                print_r($staff);
-                $staff->status = 0;
+                $staff->status = '0';
                 $staff->save();
+                return $this->goHome();
+
             }
-            print_r($staff);
+
+
             return 'true';
         }
 

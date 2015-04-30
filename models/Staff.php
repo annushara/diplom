@@ -15,6 +15,7 @@ use Yii;
  *
  * @property Department $idDepartment
  * @property Configuration $idConfiguration
+ * @property Monitors $monitors
  */
 class Staff extends \yii\db\ActiveRecord
 {
@@ -60,7 +61,7 @@ class Staff extends \yii\db\ActiveRecord
        формы добавления подразделения запись, если да, то возвращается ошибка с сообщением*/
     public function recordExist()
     {
-        if (Staff::find()->where(['fio' => $this->fio])->one()) {
+        if (Staff::find()->where(['fio' => $this->fio])->one() && $this->isNewRecord) {
             $this->addError('fio', 'Сотрудник уже существует!');
         }
     }

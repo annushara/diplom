@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b437a6c8-4993-4d55-a62e-2ae8d7da6c71" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-mpdf" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-mpdf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/ConfigurationController.php" afterPath="$PROJECT_DIR$/controllers/ConfigurationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/GetStaff.php" afterPath="$PROJECT_DIR$/components/GetStaff.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Staff.php" afterPath="$PROJECT_DIR$/models/Staff.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/configuration/move-one.php" afterPath="$PROJECT_DIR$/views/configuration/move-one.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/move.js" afterPath="$PROJECT_DIR$/web/js/move.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/configuration/view-short.php" afterPath="$PROJECT_DIR$/views/configuration/view-short.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="983a4c1c-65ac-42ae-b659-25ed78e2e38f" name="Rejected commit: Default" comment="подправлен метод сохранения конфигурации" />
@@ -42,11 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ConfigurationController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ConfigurationController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/ConfigurationController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30769232" vertical-offset="11800" max-vertical-offset="14454">
-              <caret line="536" column="0" selection-start-line="536" selection-start-column="0" selection-end-line="536" selection-end-column="0" />
+            <state vertical-scroll-proportion="2.8095808" vertical-offset="9468" max-vertical-offset="14630">
+              <caret line="537" column="39" selection-start-line="537" selection-start-column="39" selection-end-line="537" selection-end-column="39" />
               <folding>
                 <element signature="e#36#62#0#PHP" expanded="true" />
               </folding>
@@ -57,8 +52,8 @@
       <file leaf-file-name="Staff.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/Staff.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="24.076923" vertical-offset="1462" max-vertical-offset="2376">
-              <caret line="38" column="52" selection-start-line="38" selection-start-column="52" selection-end-line="38" selection-end-column="52" />
+            <state vertical-scroll-proportion="24.538462" vertical-offset="1122" max-vertical-offset="2398">
+              <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -77,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="move.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="move.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/js/move.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.7886178" vertical-offset="2486" max-vertical-offset="4510">
-              <caret line="183" column="34" selection-start-line="183" selection-start-column="34" selection-end-line="183" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2882" max-vertical-offset="4510">
+              <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -164,16 +159,16 @@
         <option value="$PROJECT_DIR$/models/HistoryMonitors.php" />
         <option value="$PROJECT_DIR$/models/HistoryPrinters.php" />
         <option value="$PROJECT_DIR$/models/UploadForm.php" />
-        <option value="$PROJECT_DIR$/controllers/AddController.php" />
         <option value="$PROJECT_DIR$/views/configuration/move.php" />
         <option value="$PROJECT_DIR$/views/configuration/move-all.php" />
         <option value="$PROJECT_DIR$/views/configuration/move-one.php" />
         <option value="$PROJECT_DIR$/components/GetStaff.php" />
         <option value="$PROJECT_DIR$/views/configuration/view-short.php" />
-        <option value="$PROJECT_DIR$/models/Staff.php" />
         <option value="$PROJECT_DIR$/config/web.php" />
         <option value="$PROJECT_DIR$/web/js/move.js" />
+        <option value="$PROJECT_DIR$/models/Staff.php" />
         <option value="$PROJECT_DIR$/controllers/ConfigurationController.php" />
+        <option value="$PROJECT_DIR$/controllers/AddController.php" />
       </list>
     </option>
   </component>
@@ -974,7 +969,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/models/Staff.php</url>
-          <line>28</line>
+          <line>29</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
@@ -1234,14 +1229,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/AddController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23592815" vertical-offset="1387" max-vertical-offset="3014">
-          <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/Printers.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7146226" vertical-offset="758" max-vertical-offset="2134">
@@ -1349,14 +1336,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/configuration/_form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1056">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/configuration/move-one.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-13.538462" vertical-offset="0" max-vertical-offset="616">
@@ -1376,29 +1355,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/configuration/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.26467067" vertical-offset="221" max-vertical-offset="1056">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/models/Staff.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="24.076923" vertical-offset="1462" max-vertical-offset="2376">
-          <caret line="38" column="52" selection-start-line="38" selection-start-column="52" selection-end-line="38" selection-end-column="52" />
+        <state vertical-scroll-proportion="24.538462" vertical-offset="1122" max-vertical-offset="2398">
+          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/js/move.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2948" max-vertical-offset="4510">
+          <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/AddController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23592815" vertical-offset="2047" max-vertical-offset="3014">
+          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/ConfigurationController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30769232" vertical-offset="11800" max-vertical-offset="14454">
-          <caret line="536" column="0" selection-start-line="536" selection-start-column="0" selection-end-line="536" selection-end-column="0" />
+        <state vertical-scroll-proportion="2.8095808" vertical-offset="9468" max-vertical-offset="14630">
+          <caret line="537" column="39" selection-start-line="537" selection-start-column="39" selection-end-line="537" selection-end-column="39" />
           <folding>
             <element signature="e#36#62#0#PHP" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/js/move.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.7886178" vertical-offset="2486" max-vertical-offset="4510">
-          <caret line="183" column="34" selection-start-line="183" selection-start-column="34" selection-end-line="183" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
