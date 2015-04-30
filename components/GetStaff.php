@@ -27,7 +27,7 @@ class GetStaff extends Widget
                                 '<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">';
 
-            $staff = Staff::find()->where(['id_department' => $arr['id']])->asArray()->all();
+            $staff = Staff::find()->where(['id_department' => $arr['id'], 'status'=>Staff::STATUS_ACTIVE])->asArray()->all();
             foreach ($staff as $value) {
 
 

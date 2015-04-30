@@ -7,7 +7,6 @@ use app\models\Department;
 use app\models\HistoryMonitors;
 use app\models\HistoryPrinters;
 use app\models\HistorySystemUnit;
-use app\models\Store;
 use app\models\SystemUnit;
 use app\models\UploadForm;
 use Yii;
@@ -515,17 +514,24 @@ class ConfigurationController extends Controller
     /*если у конфигурации отсутвует(не назначен сотрудник за которым она закреплена, считается что она находится на складе)*/
 
     public function actionSendToStore(){
+        /* @var $staff Staff */
+
         $staff = Staff::findOne(Yii::$app->request->post('id'));        // ищем сотрудника по его id
 
         if(!$staff) {                                                    // если сотрудник с таким id не найден, то генерируем исключение 404
             throw new HttpException(404, 'Такого сотрудника не существует!');
         }else {
 
-
             $this->Move($staff->monitors, new HistoryMonitors()); //вызываем метод Move и передаем массив найденых обектов
             $this->Move($staff->systemUnits, new HistorySystemUnit()); // и объект класса History*
             $this->Move($staff->printers, new HistoryPrinters());
 
+            if(Yii::$app->request->post('status') == '1'){
+                print_r($staff);
+                $staff->status = 0;
+                $staff->save();
+            }
+            print_r($staff);
             return 'true';
         }
 
@@ -553,16 +559,16 @@ class ConfigurationController extends Controller
     /*
      * функция принимает массив объектов
      */
-    private function Move($data, $historyModel, $newStaff = '') {
+    private function Move($data, $historyModel, $newStaff = '', $comment = '') {
 
         if (is_array($data) && !empty($data)) {                       //если массив с объектами не пустой
             foreach ($data as $key => $value) {  // то перебираем его
-               $this->addHistoryMove($value,  new $historyModel(), $newStaff); // присваиваем id сотрудника, таблице history*
+               $this->addHistoryMove($value,  new $historyModel(), $newStaff, $comment); // присваиваем id сотрудника, таблице history*
                 $value->id_staff = $newStaff;      // присваиваем id нового сотрудника, если такого нет, то присвоится значение по умолчания ""
                 $value->save();                     // сохраняем
             }
         } else if(is_object($data)){
-            $this->addHistoryMove($data,  new $historyModel(), $newStaff); // присваиваем id сотрудника, таблице history*
+            $this->addHistoryMove($data,  new $historyModel(), $newStaff, $comment); // присваиваем id сотрудника, таблице history*
             $data->id_staff = $newStaff;      // присваиваем id нового сотрудника, если такого нет, то присвоится значение по умолчания ""
             $data->save();                     // сохраняем
         }
@@ -577,7 +583,7 @@ class ConfigurationController extends Controller
  * не назначен сотрудник, а именно id_staff = NULL
  */
 
-    private function addHistoryMove($modelMove, $modelHistory, $newStaff = ''){
+    private function addHistoryMove($modelMove, $modelHistory, $newStaff = '', $comment = ''){
         /*
          * @property $modelMove объект класса конфигурации (монитор, принтер и т.д ) который перемещаем
          * @property $modelHistory объект класса ActiveRecord, таблица истории конфигурации
@@ -586,7 +592,7 @@ class ConfigurationController extends Controller
         $modelHistory->new_staff = $newStaff;
         $modelHistory->id_configuration = $modelMove->id; // присваиваем таблице истории id конфигурации конфигурации
         $modelHistory->date = date("d.m.o"); // получаем текущую дату и присваиваем таблице истории соответсвующему столбцу
-        $modelHistory->comment = 'Перемещено на склад'; // присваиваем комментарий
+        $modelHistory->comment = $comment; // присваиваем комментарий
         $modelHistory->save(); // сохраняем
 
     }
@@ -597,10 +603,11 @@ class ConfigurationController extends Controller
 
         $id = Yii::$app->request->post('id'); // присваиваем переменной id конфигурации которую перемещаем на склад
         $newStaff = Yii::$app->request->post('newStaff'); // получаем id нового сотрудника(если он существует)
+        $comment = Yii::$app->request->post('comment'); // комментарий к перемещению
         $history = new HistoryMonitors(); // создаем и присваиваем переменной объект для работы с таблицей истории перемещений
         $monitor= Monitors::findOne($id); // ищем  конфигурацию монитора
         $id_staff=$monitor->id_staff;
-        $this->Move($monitor, $history,$newStaff);
+        $this->Move($monitor, $history,$newStaff, $comment);
 
         return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]); // для того чтоб обновить данные в таблице заново вызываем соответсвующий метод
 
@@ -608,14 +615,16 @@ class ConfigurationController extends Controller
     }
 
 
+
     public function actionMoveSystemUnit(){
 
         $id = Yii::$app->request->post('id');// присваиваем переменной id конфигурации которую перемещаем на склад
         $newStaff = Yii::$app->request->post('newStaff');
+        $comment = Yii::$app->request->post('comment'); // комментарий к перемещению
         $history = new HistorySystemUnit(); // создаем и присваиваем переменной объект для работы с таблицей истории перемещений
         $system= SystemUnit::findOne($id); //ищем конфигурацию по id
         $id_staff=$system->id_staff; // присваиваем переменной id сотрудника
-        $this->Move($system, $history,$newStaff);
+        $this->Move($system, $history,$newStaff, $comment);
 
         return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]);
 
@@ -626,10 +635,11 @@ class ConfigurationController extends Controller
 
         $id = Yii::$app->request->post('id');// присваиваем переменной id конфигурации которую перемещаем на склад
         $newStaff = Yii::$app->request->post('newStaff');
+        $comment = Yii::$app->request->post('comment'); // комментарий к перемещению
         $history = new HistoryPrinters();
         $printer= Printers::findOne($id);
         $id_staff=$printer->id_staff; // присваиваем переменной id сотрудника
-        $this->Move($printer, $history,$newStaff);
+        $this->Move($printer, $history,$newStaff, $comment);
 
         return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]);
 

@@ -20,6 +20,15 @@ $this->registerJsFile(
     <div class="panel panel-info">
         <div class="panel-heading">
            <b><i class="">Карточка сотрудника</i></b>
+
+                <h6 style="float:right;"> Отметить сотрудника как "уволенный"
+                    <a class="fa fa-user-times"
+                       title='уволенный'
+                       onclick="sendStore(this); return false;"
+                       data-staff-id="<?= $staff->id?>"
+                       href="#"
+                        ></a>
+                </h6>
         </div>
         <div class="panel-body">
             <div class="list-group">
@@ -52,25 +61,23 @@ $this->registerJsFile(
                                     <td><?=$value->nameMonitor->name //nameMonitor магический метод класа Monitors(), возвращает объект с названием монитора  ?></td>
                                     <td><?=$value->date ?></td>
                                     <td><?=$value->invent_num ?></td>
-                                    <td><?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['move-monitor'], [
-                                            'title'=>'переместить на склад',
-                                            'data' => [
-                                                'confirm' => 'Вы уверены что хотите данную конфигурацию переместить на склад?',
-                                                'method' => 'post',
-                                                'params' => [
-                                                    'id' => $value->id
-                                                ],
-                                            ],
+                                    <td>
+                                        <a class="glyphicon glyphicon-remove move-one"
+                                           title='переместить на склад'
+                                           onclick='sendOneTo(this); return false;'
+                                           data-sendto="store"
+                                           data-name='monitor'
+                                           data-item = "<?= $value->id ;?> "
+                                           href="#"
+                                            ></a>
 
-                                        ]);?>
                                         <a class="glyphicon glyphicon-export move-one"
                                         title='переместить сотруднику'
-                                        onclick='sendToStaff(this); return false;'
+                                        onclick='sendOneTo(this); return false;'
+                                        data-sendto="staff"
                                         data-name='monitor'
                                         data-item = "<?= $value->id ;?> "
                                         href="#"
-
-
                                         ></a>
                                      </td>
                                 </tr>
@@ -85,25 +92,27 @@ $this->registerJsFile(
                                 <td><?=$value->nameSystemUnit->name ?></td>
                                 <td><?=$value->date ?></td>
                                 <td><?=$value->invent_num ?></td>
-                                <td><?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['move-system-unit'], [
-                                        'title'=>'переместить на склад',
-                                        'data' => [
-                                            'confirm' => 'Вы уверены что хотите данную конфигурацию переместить на склад?',
-                                            'method' => 'post',
-                                            'params' => [
-                                                'id' => $value->id
-                                            ],
-                                        ],
-                                    ]);?>
+                                <td>
+                                    <a class="glyphicon glyphicon-remove move-one"
+                                       title='переместить на склад'
+                                       onclick='sendOneTo(this); return false;'
+                                       data-sendto="store"
+                                       data-name='units'
+                                       data-item = "<?= $value->id ;?> "
+                                       href="#"
+                                        ></a>
+
                                     <a class="glyphicon glyphicon-export move-one"
                                        title='переместить сотруднику'
-                                       onclick='sendToStaff(this); return false;'
+                                       onclick='sendOneTo(this); return false;'
+                                       data-sendto="staff"
                                        data-name='units'
                                        data-item = "<?= $value->id ;?> "
                                        href="#"
 
 
-                                        ></a></td>
+                                        ></a>
+                                </td>
                             </tr>
                         <?php endforeach?>
                     <?php } // end if?>
@@ -115,25 +124,27 @@ $this->registerJsFile(
                                 <td><?=$value->idNamePrinter->name ?></td>
                                 <td><?=$value->date ?></td>
                                 <td><?=$value->invent_num ?></td>
-                                <td><?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['move-printer'], [
-                                        'title'=>'переместить на склад',
-                                        'data' => [
-                                            'confirm' => 'Вы уверены что хотите данную конфигурацию переместить на склад?',
-                                            'method' => 'post',
-                                            'params' => [
-                                                'id' => $value->id
-                                            ],
-                                        ],
-                                    ]);?>
+                                <td>
+                                    <a class="glyphicon glyphicon-remove move-one"
+                                       title='переместить на склад'
+                                       onclick='sendOneTo(this); return false;'
+                                       data-sendto="store"
+                                       data-name='printer'
+                                       data-item = "<?= $value->id ;?> "
+                                       href="#"
+                                        ></a>
+
                                     <a class="glyphicon glyphicon-export move-one"
                                        title='переместить сотруднику'
-                                       onclick='sendToStaff(this); return false;'
+                                       onclick='sendOneTo(this); return false;'
+                                       data-sendto="staff"
                                        data-name='printer'
                                        data-item = "<?= $value->id ;?> "
                                        href="#"
 
 
-                                        ></a></td>
+                                        ></a>
+                                </td>
                             </tr>
                         <?php endforeach?>
                     <?php } // end if?>
