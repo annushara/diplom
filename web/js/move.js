@@ -121,6 +121,9 @@ $(document).ready(function () {
                 if (confName == 'printer') {
                     route = 'move-printer';
                 }
+                if (confName == 'other') {
+                    route = 'move-other';
+                }
 
 
                     if (newStaff == "") {
@@ -165,11 +168,11 @@ $(document).ready(function () {
 function sendStore(obj){
     var message;
     var staffId;
-    var status = '0';
+    var status = '1';
     if(obj.hasAttribute('data-staff-id')){
          message = "Если необходимо передать конфигурации новому сотруднику, необходимо нажать кнопку \"Переместить все\", иначе все будет перемещено на склад!";
         staffId = $(obj).data('staff-id');
-        status = '1';
+        status = '0';
     } else {
         message = "Вы уверены что хотите перенести конфигурацию на склад?";
         staffId = $(obj).attr("id");
@@ -185,7 +188,7 @@ function sendStore(obj){
                 if (result == 'true') {
 
                     $('#my-modal').modal('hide');
-                    location.reload();
+                   location.reload();
                 }
                 else {
                     var modalContainer = $('#my-modal');
@@ -197,4 +200,87 @@ function sendStore(obj){
     }
 
 
+}
+
+function destroyEquipment(obj){
+    var confID = $(obj).data('item');
+    var confName = $(obj).data('name');
+    var sendTo = $(obj).data('sendto');
+
+    var modalContainer = $('#my-modal');
+    var modalBody = modalContainer.find('.modal-body');
+    modalContainer.modal({show: true});
+
+
+    $.ajax({
+        url: 'get-form-move',
+        type: "GET",
+        data: {'id': confID, 'one': 1},
+        success: function (data) {
+
+
+            $('.modal-body').html(data);
+
+            $('#list-staff').remove();
+            var label = $('.field-uploadform-comment .control-label');
+            var button = $('.move-form-one .btn-danger');
+            label.empty();
+            button.empty();
+            label.append('Причина списания оборудования');
+            button.append('Списать');
+
+            modalContainer.modal({show: true});
+        }
+
+    });
+
+    $(document).on("submit", '.move-form-one', function (e) {
+
+        e.preventDefault();
+
+        var comment = $('#uploadform-comment').val();
+        var pageHref = location;
+        var string = pageHref.toString();
+        var oldStaff = string.slice(string.search(/id=/) + 3);
+        var route;
+        if (confName == 'monitor') {
+            route = 'destroy-monitor';
+        }
+        if (confName == 'units') {
+            route = 'destroy-system-unit';
+        }
+        if (confName == 'printer') {
+            route = 'destroy-printer';
+        }
+        if (confName == 'other') {
+            route = 'destroy-other';
+        }
+
+
+
+            $.ajax({
+                url: route,
+                type: "POST",
+                data: {'oldStaff':oldStaff, 'id':confID, 'comment': comment},
+                success: function (result) {
+
+                    var modalContainer = $('#my-modal');
+                    var modalBody = modalContainer.find('.modal-body');
+                    var insidemodalBody = modalContainer.find('.gb-user-form');
+
+                    if (result == 'true') {
+                        insidemodalBody.html(result).hide(); //
+
+                        $("#my-modal").modal('hide');
+                        location.reload();
+                    }
+                    else {
+
+                        modalBody.html(result).hide().fadeIn();
+                    }
+                }
+
+            });
+
+    });
 }

@@ -52,8 +52,7 @@ AppAsset::register($this);
                 ['label' => 'Монитор', 'url' => ['/add/monitor']],
                 ['label' => 'Системный блок', 'url' => ['/add/system-unit']],
                 ['label' => 'Принтер', 'url' => ['/add/printer']],
-                ['label' => 'Другое оборудование', 'url' => ['/crud-job/index']],
-                ['label' => 'Заправка картриджа', 'url' => ['/add/refill']],
+                ['label' => 'Другое оборудование', 'url' => ['/add/other']],
             ]],
             ['label' => 'Вид', 'items' => [
                 ['label' => 'Сотрудники', 'url' => ['/staff/index']],

@@ -5,6 +5,7 @@ use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Monitors */
+/* @var $staff app\models\Staff */
 $this->title = $staff->fio;
 
 /*подключам js скрипт модального окна с формой для того чтоб он действовал только в этом контроллере*/
@@ -62,7 +63,7 @@ $this->registerJsFile(
                                     <td><?=$value->date ?></td>
                                     <td><?=$value->invent_num ?></td>
                                     <td>
-                                        <a class="glyphicon glyphicon-remove move-one"
+                                        <a class="fa fa-archive move-one"
                                            title='переместить на склад'
                                            onclick='sendOneTo(this); return false;'
                                            data-sendto="store"
@@ -79,6 +80,14 @@ $this->registerJsFile(
                                         data-item = "<?= $value->id ;?> "
                                         href="#"
                                         ></a>
+
+                                        <a class="glyphicon glyphicon-remove move-one"
+                                           title='Списать оборудование'
+                                           onclick='destroyEquipment(this); return false;'
+                                           data-name='monitor'
+                                           data-item = "<?= $value->id ;?> "
+                                           href="#"
+                                            ></a>
                                      </td>
                                 </tr>
                             <?php endforeach?>
@@ -93,7 +102,7 @@ $this->registerJsFile(
                                 <td><?=$value->date ?></td>
                                 <td><?=$value->invent_num ?></td>
                                 <td>
-                                    <a class="glyphicon glyphicon-remove move-one"
+                                    <a class="fa fa-archive move-one"
                                        title='переместить на склад'
                                        onclick='sendOneTo(this); return false;'
                                        data-sendto="store"
@@ -111,6 +120,14 @@ $this->registerJsFile(
                                        href="#"
 
 
+                                        ></a>
+
+                                    <a class="glyphicon glyphicon-remove move-one"
+                                       title='Списать оборудование'
+                                       onclick='destroyEquipment(this); return false;'
+                                       data-name='units'
+                                       data-item = "<?= $value->id ;?> "
+                                       href="#"
                                         ></a>
                                 </td>
                             </tr>
@@ -125,7 +142,7 @@ $this->registerJsFile(
                                 <td><?=$value->date ?></td>
                                 <td><?=$value->invent_num ?></td>
                                 <td>
-                                    <a class="glyphicon glyphicon-remove move-one"
+                                    <a class="fa fa-archive move-one"
                                        title='переместить на склад'
                                        onclick='sendOneTo(this); return false;'
                                        data-sendto="store"
@@ -141,15 +158,59 @@ $this->registerJsFile(
                                        data-name='printer'
                                        data-item = "<?= $value->id ;?> "
                                        href="#"
+                                        ></a>
 
 
+                                    <a class="glyphicon glyphicon-remove move-one"
+                                       title='Списать оборудование'
+                                       onclick='destroyEquipment(this); return false;'
+                                       data-name='printer'
+                                       data-item = "<?= $value->id ;?> "
+                                       href="#"
                                         ></a>
                                 </td>
                             </tr>
                         <?php endforeach?>
                     <?php } // end if?>
 
+                    <?php if($other = $staff->others){
+                        foreach($other as $key =>$value): ?>
+                            <tr>
+                                <td><?=$value->category ?></td>
+                                <td><?=$value->name ?></td>
+                                <td><?=$value->date ?></td>
+                                <td><?=$value->invent_num ?></td>
+                                <td>
+                                    <a class="fa fa-archive move-one"
+                                       title='переместить на склад'
+                                       onclick='sendOneTo(this); return false;'
+                                       data-sendto="store"
+                                       data-name='other'
+                                       data-item = "<?= $value->id ;?> "
+                                       href="#"
+                                        ></a>
 
+                                    <a class="glyphicon glyphicon-export move-one"
+                                       title='переместить сотруднику'
+                                       onclick='sendOneTo(this); return false;'
+                                       data-sendto="staff"
+                                       data-name='other'
+                                       data-item = "<?= $value->id ;?> "
+                                       href="#"
+                                        ></a>
+
+
+                                    <a class="glyphicon glyphicon-remove move-one"
+                                       title='Списать оборудование'
+                                       onclick='destroyEquipment(this); return false;'
+                                       data-name='other'
+                                       data-item = "<?= $value->id ;?> "
+                                       href="#"
+                                        ></a>
+                                </td>
+                            </tr>
+                        <?php endforeach?>
+                    <?php } // end if?>
                 </table>
 
 

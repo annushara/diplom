@@ -12,6 +12,7 @@ use Yii;
  * @property integer $id_name_monitor
  * @property string $date
  * @property string $invent_num
+ * @property integer $status
  *
  * @property Staff $idStaff
  * @property NameMonitors $nameMonitor
@@ -34,7 +35,7 @@ class Monitors extends \yii\db\ActiveRecord
     {
         return [
 
-            [['id_staff', 'id_name_monitor'], 'integer'],
+            [['id_staff', 'id_name_monitor','status'], 'integer'],
             [['date', 'invent_num'], 'string', 'max' => 255],
             [['id_name_monitor','name'],'valEmpty', 'skipOnEmpty' => false, 'on'=>'addMonitor'],
         ];

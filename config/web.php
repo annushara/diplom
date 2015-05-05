@@ -51,6 +51,11 @@ $config = [
                 'move-monitor'=>'configuration/move-monitor',
                 'move-system-unit'=>'configuration/move-system-unit',
                 'move-printer'=>'configuration/move-printer',
+                'move-other'=>'configuration/move-other',
+                'destroy-monitor'=>'configuration/destroy-monitor',
+                'destroy-system-unit'=>'configuration/destroy-system-unit',
+                'destroy-printer'=>'configuration/destroy-printer',
+                'destroy-other'=>'configuration/destroy-other',
 
             ],
         ],

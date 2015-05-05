@@ -13,6 +13,7 @@ use Yii;
  * @property integer $id_configuration
  * @property string $comment
  * @property string $date
+ * @property integer $status
  *
  * @property Printers $idPrinter
  * @property Staff $oldStaff
@@ -34,7 +35,7 @@ class HistoryPrinters extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['old_staff', 'new_staff', 'id_configuration'], 'integer'],
+            [['old_staff', 'new_staff', 'id_configuration', 'status'], 'integer'],
             [['comment'], 'string'],
             [['date'], 'string', 'max' => 255]
         ];

@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "history_system_unit".
+ * This is the model class for table "history_other".
  *
  * @property integer $id
  * @property integer $old_staff
@@ -15,18 +15,18 @@ use Yii;
  * @property string $date
  * @property integer $status
  *
- * @property SystemUnit $idSystemUnit
+ * @property Other $idConfiguration
  * @property Staff $oldStaff
  * @property Staff $newStaff
  */
-class HistorySystemUnit extends \yii\db\ActiveRecord
+class HistoryOther extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'history_system_unit';
+        return 'history_other';
     }
 
     /**
@@ -35,7 +35,7 @@ class HistorySystemUnit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['old_staff', 'new_staff', 'id_configuration','status'], 'integer'],
+            [['old_staff', 'new_staff', 'id_configuration', 'status'], 'integer'],
             [['comment'], 'string'],
             [['date'], 'string', 'max' => 255]
         ];
@@ -50,18 +50,19 @@ class HistorySystemUnit extends \yii\db\ActiveRecord
             'id' => 'ID',
             'old_staff' => 'Old Staff',
             'new_staff' => 'New Staff',
-            'id_configuration' => 'Id System Unit',
+            'id_configuration' => 'Id Configuration',
             'comment' => 'Comment',
             'date' => 'Date',
+            'status' => 'Status',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdSystemUnit()
+    public function getIdConfiguration()
     {
-        return $this->hasOne(SystemUnit::className(), ['id' => 'id_configuration']);
+        return $this->hasOne(Other::className(), ['id' => 'id_configuration']);
     }
 
     /**

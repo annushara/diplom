@@ -12,6 +12,7 @@ use Yii;
  * @property integer $id_name_system_unit
  * @property string $date
  * @property string $invent_num
+ * @property integer $status
  *
  * @property Staff $idStaff
  * @property NameSystemUnit $nameSystemUnit
@@ -34,7 +35,7 @@ class SystemUnit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_staff', 'id_name_system_unit'], 'integer'],
+            [['id_staff', 'id_name_system_unit', 'status'], 'integer'],
             [['date', 'invent_num'], 'string', 'max' => 255],
             [['id_name_system_unit','name'],'valEmpty', 'skipOnEmpty' => false, 'on'=>'addSystemUnit'],
 

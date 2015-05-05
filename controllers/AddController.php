@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\models\Department;
 use app\models\Monitors;
+use app\models\Other;
 use app\models\NameMonitors;
 use app\models\NamePrinters;
 use app\models\NameSystemUnit;
@@ -46,6 +47,9 @@ class AddController extends Controller
         ]);
     }
 
+
+
+
     public function actionMonitor()
     {
         $model = new Monitors();
@@ -66,6 +70,10 @@ class AddController extends Controller
             'model' => $model,
         ]);
     }
+
+
+
+
 
 
     public function actionSystemUnit()
@@ -90,6 +98,9 @@ class AddController extends Controller
     }
 
 
+
+
+
     public function actionPrinter()
     {
         $model = new Printers();
@@ -110,6 +121,27 @@ class AddController extends Controller
             'model' => $model,
         ]);
     }
+
+
+
+    public function actionOther(){
+        $model = new Other(['scenario'=>'addOther']);
+        $staff = new Staff();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->refresh();
+
+        }
+
+        return $this->render('other', [
+            'model' => $model,
+            'staff' => $staff,
+        ]);
+    }
+
+
+
+
 
 
     /*Функция добавления заправки принтера*/

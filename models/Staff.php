@@ -97,6 +97,10 @@ class Staff extends \yii\db\ActiveRecord
         return $this->hasMany(SystemUnit::className(), ['id_staff' => 'id']);
     }
 
+    public function getOthers()
+    {
+        return $this->hasMany(Other::className(), ['id_staff' => 'id']);
+    }
 
 
 

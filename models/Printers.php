@@ -12,6 +12,7 @@ use Yii;
  * @property integer $id_name_printer
  * @property string $date
  * @property string $invent_num
+ * @property integer $status
  *
  * @property Staff $idStaff
  * @property NamePrinters $idNamePrinter
@@ -34,7 +35,7 @@ class Printers extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_staff', 'id_name_printer'], 'integer'],
+            [['id_staff', 'id_name_printer' , 'status'], 'integer'],
             [['date', 'invent_num'], 'string', 'max' => 255],
             [['id_name_printer','name'],'valEmpty', 'skipOnEmpty' => false, 'on'=>'addPrinter'],
         ];

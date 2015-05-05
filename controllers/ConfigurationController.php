@@ -5,8 +5,10 @@ namespace app\controllers;
 
 use app\models\Department;
 use app\models\HistoryMonitors;
+use app\models\HistoryOther;
 use app\models\HistoryPrinters;
 use app\models\HistorySystemUnit;
+use app\models\Other;
 use app\models\SystemUnit;
 use app\models\UploadForm;
 use Yii;
@@ -531,8 +533,9 @@ class ConfigurationController extends Controller
             $this->Move($staff->monitors, new HistoryMonitors()); //вызываем метод Move и передаем массив найденых обектов
             $this->Move($staff->systemUnits, new HistorySystemUnit()); // и объект класса History*
             $this->Move($staff->printers, new HistoryPrinters());
+            $this->Move($staff->others, new HistoryOther());
 
-            if(Yii::$app->request->post('status') == '1'){
+            if(Yii::$app->request->post('status') == '0'){
                 $staff->status = '0';
                 $staff->save();
                 return $this->goHome();
@@ -547,17 +550,21 @@ class ConfigurationController extends Controller
 
 
     public function actionSendToStaff(){
+        /* @var  $staff Staff */
+
         $staff = Staff::findOne(Yii::$app->request->post('oldStaff'));        // ищем сотрудника по его id
         $newStaff = Yii::$app->request->post('newStaff');
+        $comment = Yii::$app->request->post('comment'); // комментарий к перемещению
 
         if(!Staff::findOne($newStaff)) {                                                    // если сотрудник с таким id не найден, то генерируем исключение 404
             throw new HttpException(404, 'Такого сотрудника не существует!');
         }else {
 
                         //$staff->monitors магический метод который находит все закрепленые за сотрудником мониторы
-            $this->Move($staff->monitors, new HistoryMonitors(), $newStaff); //вызываем метод Move и передаем массив найденых обектов
-            $this->Move($staff->systemUnits, new HistorySystemUnit(), $newStaff); // и объект класса History*
-            $this->Move($staff->printers, new HistoryPrinters(), $newStaff);
+            $this->Move($staff->monitors, new HistoryMonitors(), $newStaff, $comment); //вызываем метод Move и передаем массив найденых обектов
+            $this->Move($staff->systemUnits, new HistorySystemUnit(), $newStaff, $comment); // и объект класса History*
+            $this->Move($staff->printers, new HistoryPrinters(), $newStaff, $comment);
+            $this->Move($staff->others, new HistoryOther(), $newStaff, $comment);
 
             return 'true';
         }
@@ -653,6 +660,136 @@ class ConfigurationController extends Controller
 
     }
 
+    public function actionMoveOther(){
+        /* @var $other Other  */
+
+        $id = Yii::$app->request->post('id');// присваиваем переменной id конфигурации которую перемещаем на склад
+        $newStaff = Yii::$app->request->post('newStaff');
+        $comment = Yii::$app->request->post('comment'); // комментарий к перемещению
+        $history = new HistoryOther();
+        $other= Other::findOne($id);
+        $id_staff=$other->id_staff; // присваиваем переменной id сотрудника
+        $this->Move($other, $history,$newStaff, $comment);
+
+        return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]);
+
+    }
+
+
+
+    /*
+     * Методы для списания оборудования с основных средств предприятия
+     * метод принимает 3 параметра
+     * @var oldStaff хранит id сотрудника кому присвоенна текущая конфигурация
+     * @var comment комментарий, причина списания оборудования
+     * @var id содержит id конфигурации которую списывают
+     */
+
+    /* Метод списания мониторов*/
+    public function actionDestroyMonitor(){
+        $id = Yii::$app->request->post('id');
+        $comment = Yii::$app->request->post('comment');
+        $oldStaff = Yii::$app->request->post('oldStaff');
+
+        /* загружаем в модель HistoryMonitors данные и сохраняем */
+        $history = new HistoryMonitors();
+        $history->old_staff = $oldStaff;
+        $history->id_configuration = $id;
+        $history->comment = $comment;
+        $history->date = date("d.m.o");
+        $history->status = 0;
+        $history->save();
+
+
+        /* ищем конфигурацию по переданному id удаляем сотрудника и меняем статус*/
+        /* @var $monitor Monitors*/
+        $monitor = Monitors::findOne($id);
+        $monitor->id_staff = ''; // убираем id сотрудника за которым оно числилось
+        $monitor->status  = 0; //
+        $monitor->save();
+
+        return 'true';
+    }
+
+   /*метод списания системного блока*/
+    public function actionDestroySystemUnit(){
+        $id = Yii::$app->request->post('id');
+        $comment = Yii::$app->request->post('comment');
+        $oldStaff = Yii::$app->request->post('oldStaff');
+
+        /* загружаем в модель HistorySystemUnit() данные и сохраняем */
+        $history = new HistorySystemUnit();
+        $history->old_staff = $oldStaff;
+        $history->id_configuration = $id;
+        $history->comment = $comment;
+        $history->date = date("d.m.o");
+        $history->status = 0;
+        $history->save();
+
+
+        /* ищем конфигурацию по переданному id удаляем сотрудника и меняем статус*/
+        /* @var $system SystemUnit*/
+        $system = SystemUnit::findOne($id);
+        $system->id_staff = ''; // убираем id сотрудника за которым оно числилось
+        $system->status  = 0; //
+        $system->save();
+
+        return 'true';
+    }
+
+
+    /*метод списания принтера*/
+    public function actionDestroyPrinter(){
+        $id = Yii::$app->request->post('id');
+        $comment = Yii::$app->request->post('comment');
+        $oldStaff = Yii::$app->request->post('oldStaff');
+
+        /* загружаем в модель HistoryPrinters() данные и сохраняем */
+        $history = new HistoryPrinters();
+        $history->old_staff = $oldStaff;
+        $history->id_configuration = $id;
+        $history->comment = $comment;
+        $history->date = date("d.m.o");
+        $history->status = 0;
+        $history->save();
+
+
+        /* ищем конфигурацию по переданному id удаляем сотрудника и меняем статус*/
+        /* @var $printer Printers*/
+        $printer = Printers::findOne($id);
+        $printer->id_staff = ''; // убираем id сотрудника за которым оно числилось
+        $printer->status  = 0; //
+        $printer->save();
+
+        return 'true';
+    }
+
+    /* метод списания остального оборудования */
+
+    public function actionDestroyOther(){
+        $id = Yii::$app->request->post('id');
+        $comment = Yii::$app->request->post('comment');
+        $oldStaff = Yii::$app->request->post('oldStaff');
+
+        /* загружаем в модель HistoryOther() данные и сохраняем */
+        $history = new HistoryOther();
+        $history->old_staff = $oldStaff;
+        $history->id_configuration = $id;
+        $history->comment = $comment;
+        $history->date = date("d.m.o");
+        $history->status = 0;
+        $history->save();
+
+
+        /* ищем конфигурацию по переданному id удаляем сотрудника и меняем статус*/
+        /* @var $printer Printers*/
+        $printer = Other::findOne($id);
+        $printer->id_staff = ''; // убираем id сотрудника за которым оно числилось
+        $printer->status  = 0; //
+        $printer->save();
+
+        return 'true';
+    }
 
 }
 
