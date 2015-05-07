@@ -22,7 +22,7 @@ class AddController extends Controller
     {
         $model = new Department();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
+            return $this->refresh();
         }
 
         return $this->render('add-department', [
@@ -36,7 +36,7 @@ class AddController extends Controller
         $model = new Staff();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
+            return $this->refresh();
         }
 
         $deport = Department::find()->all();
@@ -58,10 +58,12 @@ class AddController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->id_name_monitor) { // если монитор выбран из списка, то сразу сохраняем в базу
                 $model->save();
+                return $this->refresh();
             } else {
                 $modelName->name = $model->name; // иначе загружаем в модель название
                 $model->id_name_monitor = $modelName->getKey();// вызываем функцию проверки записи которая возвращает $id  записи
                 $model->save();
+                return $this->refresh();
             }
 
         }
@@ -84,10 +86,12 @@ class AddController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->id_name_system_unit) { // если конфигурация выбрана из списка, то сразу сохраняем в базу
                 $model->save();
+                return  $this->refresh();
             } else {
                 $modelName->name = $model->name; // иначе загружаем в модель название
                 $model->id_name_system_unit = $modelName->getKey();// вызываем функцию проверки записи которая возвращает $id  записи
                 $model->save();
+                return $this->refresh();
             }
 
         }
@@ -109,10 +113,12 @@ class AddController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->id_name_printer) { // если принтер выбран из списка, то сразу сохраняем в базу
                 $model->save();
+                return $this->refresh();
             } else {
                 $modelName->name = $model->name; // иначе загружаем в модель название
                 $model->id_name_printer = $modelName->getKey();// вызываем функцию проверки записи которая возвращает $id  записи
                 $model->save();
+                return $this->refresh();
             }
 
         }

@@ -68,6 +68,17 @@ use yii\helpers\Html;
                             <?php endforeach?>
                         <?php } // end if?>
 
+                        <?php if($other = $staff->others){
+                            foreach($other as $key =>$value): ?>
+                                <tr>
+                                    <td><?=mb_convert_case($value->category, MB_CASE_TITLE, "UTF-8") ?></td>
+                                    <td><?=$value->name ?></td>
+                                    <td><?=$value->date ?></td>
+                                    <td><?=$value->invent_num ?></td>
+                                </tr>
+                            <?php endforeach?>
+                        <?php } // end if?>
+
 
                     </table>
 <div class="date" style="display: inline-block"><?= date('d.m.Y');?>

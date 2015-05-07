@@ -11,6 +11,7 @@ use app\models\Staff;
 use app\models\Configuration;
 use app\models\Refill;
 use app\models\SearchRefill;
+use app\models\SearchStore;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -34,6 +35,11 @@ class SiteController extends Controller
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['admin'],
                     ],
                 ],
             ],
@@ -63,10 +69,20 @@ class SiteController extends Controller
     {
         $searchModel = new SearchRefill();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $searchStore = new SearchStore();
+        $dataStore = $searchStore->search(Yii::$app->request->queryParams);
+
+
+
         return $this->render('index',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'searchStore' => $searchStore,
+            'dataStore' => $dataStore,
         ]);
+
+
     }
 
     public function actionLogin()

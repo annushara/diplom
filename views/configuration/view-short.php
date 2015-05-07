@@ -176,7 +176,7 @@ $this->registerJsFile(
                     <?php if($other = $staff->others){
                         foreach($other as $key =>$value): ?>
                             <tr>
-                                <td><?=$value->category ?></td>
+                                <td><?=mb_convert_case($value->category, MB_CASE_TITLE, "UTF-8") ?></td>
                                 <td><?=$value->name ?></td>
                                 <td><?=$value->date ?></td>
                                 <td><?=$value->invent_num ?></td>

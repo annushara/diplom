@@ -12,14 +12,29 @@ $this->title = 'PCinventory';
   <div class="site-index">
 
     <div class="body-content">
-        <div class="col-lg-4">
+        <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <i class="glyphicon glyphicon-import "></i> Приходы
+                    <i class="fa fa-archive  "></i> Остаток на складе
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="list-group">
+                        <?= GridView::widget([
+                            'dataProvider' => $dataStore,
+                            'filterModel' => $searchStore,
+                            'columns' => [
+                                ['class' => 'yii\grid\SerialColumn'],
+
+
+
+                                'name',
+
+
+
+                                ['class' => 'yii\grid\ActionColumn'],
+                            ],
+                        ]); ?>
 
                     </div>
                     <!-- /.list-group -->
@@ -30,41 +45,8 @@ $this->title = 'PCinventory';
             <!-- /.panel -->
         </div>
 
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="glyphicon glyphicon-export "></i> Расходы
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="list-group">
 
-                    </div>
-                    <!-- /.list-group -->
-                    <a href="#" class="btn btn-default btn-block">Все расходы</a>
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
 
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-archive  "></i> Остаток на складе
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="list-group">
-
-                    </div>
-                    <!-- /.list-group -->
-                    <a href="#" class="btn btn-default btn-block">Показать остатки</a>
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
 
         <div class="col-lg-8">
             <div class="panel panel-default">
@@ -86,7 +68,7 @@ $this->title = 'PCinventory';
                                     'attribute'=>'fio',
                                     'value'=>function($searchModel){
                                         if(!is_object($searchModel->idPrinter->idStaff)){
-                                            return 'Отправлен на склад';
+                                            return 'Расположен на складе';
                                         }else{
                                             return $searchModel->idPrinter->idStaff->fio;
                                         }
