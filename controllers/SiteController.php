@@ -7,6 +7,7 @@ use app\models\Department;
 use app\models\Monitors;
 use app\models\Printers;
 use app\models\SearchMonitors;
+use app\models\SearchStaff;
 use app\models\Staff;
 use app\models\Configuration;
 use app\models\Refill;
@@ -122,10 +123,7 @@ class SiteController extends Controller
         }
     }
 
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+
 
 
 

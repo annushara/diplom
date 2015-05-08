@@ -82,7 +82,7 @@ class StaffController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_staff]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -90,18 +90,6 @@ class StaffController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Staff model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
 
     /**
      * Finds the Staff model based on its primary key value.
@@ -118,4 +106,20 @@ class StaffController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
+    /* Уволенные сотрудники */
+    public function actionStaffDestroy()
+    {
+
+        $searchModel = new SearchStaff();
+        $dataProvider = $searchModel->search(Staff::STATUS_INACTIVE);
+
+        return $this->render('staff-destroy',[
+            'dataProvider'=>$dataProvider,
+            'searchModel'=>$searchModel
+        ]);
+
+    }
+
 }

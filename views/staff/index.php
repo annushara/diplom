@@ -7,35 +7,56 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchStaff */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Staff';
-$this->params['breadcrumbs'][] = $this->title;
+    $this->title = 'Все сотрудники';
 ?>
 <div class="staff-index">
 
-    <h1>Все сотрудники</h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <div class="body-content">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="glyphicon glyphicon-user  "></i> Все сотрудники
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="list-group">
 
-    <p>
-        <?= Html::a('добавить сотрудника', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'fio',
+                            [
+                                'attribute'=>'department',
+                                'value'=>'idDepartment.department',
+                            ],
 
-//            'id_staff',
-//            'id_department',
-//            'id_configuration',
-            'surname',
-            'name',
-            'patronymic',
 
-            // 'fio',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                            ['class' => 'yii\grid\ActionColumn',
+                             'template' => '{update}',
+                             'buttons' => [
+                                 'update' => function ($url,$model) {
+                                     return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
+                                         ['/staff/update', 'id' => $model->id],
+                                     [
+                                         'title'=>'Редактировать',
+                                     ]
+                                     );
+                                 },
 
+                             ],
+
+                            ],
+                        ],
+                    ]); ?>
+                    </div>
+
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
 </div>

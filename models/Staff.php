@@ -12,6 +12,7 @@ use Yii;
  * @property integer $id_configuration
  * @property string $fio
  * @property integer $status
+ * @property string $department
  *
  * @property Department $idDepartment
  * @property Configuration $idConfiguration
@@ -24,6 +25,7 @@ class Staff extends \yii\db\ActiveRecord
      */
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+
 
 
     public static function tableName()
@@ -55,6 +57,7 @@ class Staff extends \yii\db\ActiveRecord
             'id_department' => 'Id Department',
             'fio' => 'ФИО сотрудника',
             'status'=>'status',
+            'department'=>'Подразделение'
         ];
     }
     /* функция для правил (rules) проверяет существует ли  в таблице подразделений отправленная из
@@ -102,6 +105,9 @@ class Staff extends \yii\db\ActiveRecord
         return $this->hasMany(Other::className(), ['id_staff' => 'id']);
     }
 
+    public function getObjectDepartment(){
+        return new Department();
+    }
 
 
 }

@@ -21,6 +21,7 @@ use app\models\SearchPrinters;
 use app\models\Staff;
 use app\models\Refill;
 use app\models\SearchRefill;
+use app\models\SearchStaff;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\HttpException;
@@ -789,6 +790,24 @@ class ConfigurationController extends Controller
         $printer->save();
 
         return 'true';
+    }
+
+
+    /*метод из уволленных восстанавливает сотрудника*/
+
+    public function actionRestoreStaff(){
+        /* @var $staff Staff*/
+        $staff = Staff::findOne(Yii::$app->request->post('id'));
+        $staff->status = 1;
+        $staff->save();
+
+        $searchModel = new SearchStaff();
+        $dataProvider = $searchModel->search(Staff::STATUS_INACTIVE);
+
+        return $this->render('/staff/staff-destroy',[
+            'dataProvider'=>$dataProvider,
+            'searchModel'=>$searchModel
+        ]);
     }
 
 }

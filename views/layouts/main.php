@@ -55,8 +55,10 @@
                     ['label' => 'Другое оборудование', 'url' => ['/add/other']],
                 ]],
                 ['label' => 'Вид', 'items' => [
-                    ['label' => 'Сотрудники', 'url' => ['/staff/index']],
+                    ['label' => 'Все сотрудники', 'url' => ['/staff/index']],
+                    ['label' => 'Уволенные сотрудники', 'url' => ['/staff/staff-destroy']],
                     ['label' => 'Все конфигурации', 'url' => ['/configuration/index']],
+
                 ]],
                 ['label' => 'Инструменты', 'items' => [
                     ['label' => 'Планирование', 'url' => ['/crud-job-result/index']],

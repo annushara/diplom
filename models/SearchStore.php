@@ -75,17 +75,12 @@
                 ->leftJoin( 'name_system_unit',
                     'name_system_unit.id=system_unit.id_name_system_unit');
 
-            echo '<br><br><br>';
-            print_r($query->createCommand()->getRawSql());
+
 
             $query->union($query3);
             $query->union($query2);
 
-            echo '<br><br><br>';
-            print_r($query2->createCommand()->getRawSql());
-            echo '<br><br><br>';
 
-print_r($query->createCommand()->getRawSql());
 
 //
 //            echo '<br><br><br>';
@@ -100,8 +95,7 @@ print_r($query->createCommand()->getRawSql());
                 ]
             ]);
 
-            echo '<br><br><br>';
-            print_r($dataProvider);
+
 
 
 
