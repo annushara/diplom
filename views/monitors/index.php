@@ -25,12 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_monitor',
-            'invent_num_monitor_1',
-            'invent_num_monitor_2',
-            'monitor_1',
-            'monitor_2',
-            // 'date_1',
+            'id',
+            'invent_num',
+            'date',
+            [
+                'attribute'=>'comment',
+                'value'=>'historyDiscarded.comment',
+            ],
             // 'date_2',
             // 'old_staff_1',
             // 'old_staff_2',

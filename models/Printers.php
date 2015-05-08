@@ -21,6 +21,9 @@ use Yii;
 class Printers extends \yii\db\ActiveRecord
 {
     public $name;
+
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
     /**
      * @inheritdoc
      */

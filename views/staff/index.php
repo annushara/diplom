@@ -25,6 +25,9 @@ use yii\grid\GridView;
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
+                        'summary'=>'',
+                        'showFooter'=>true,
+                        'showHeader' => true,
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn'],
                             'fio',

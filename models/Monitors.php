@@ -19,6 +19,9 @@ use Yii;
  */
 class Monitors extends \yii\db\ActiveRecord
 {
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+
     public $name;
     /**
      * @inheritdoc
@@ -87,5 +90,8 @@ class Monitors extends \yii\db\ActiveRecord
         return new Staff();
     }
 
+    public function getHistoryDiscarded(){
+        return $this->hasOne(HistoryMonitors::className(), ['id_configuration' => 'id']);
+    }
 
 }

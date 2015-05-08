@@ -13,6 +13,7 @@ use app\models\Monitors;
 class SearchMonitors extends Monitors
 {
     public $staff;
+    public $comment;
     /**
      * @inheritdoc
      *
@@ -21,8 +22,8 @@ class SearchMonitors extends Monitors
     {
         return [
 
-            [['id_monitor'], 'integer'],
-            [['invent_num_monitor_1', 'invent_num_monitor_2', 'monitor_1', 'monitor_2', 'date_1', 'date_2', 'old_staff_1', 'old_staff_2'], 'safe'],
+            [['id'], 'integer'],
+            [[ 'invent_num',  'date', ], 'safe'],
         ];
     }
 
@@ -44,7 +45,13 @@ class SearchMonitors extends Monitors
      */
     public function search($params)
     {
-        $query = Monitors::find();
+        if($params == Monitors::STATUS_INACTIVE) {
+            $query = Monitors::find()->joinWith(['historyDiscarded'])->where([ 'history_monitors.status'=>Monitors::STATUS_INACTIVE,'monitors.status'=>Monitors::STATUS_INACTIVE,]);
+        }else{
+            $query = Monitors::find();
+        }
+        echo '<br><br><br><br>';
+        print_r($query->createCommand()->rawSql);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,17 +66,14 @@ class SearchMonitors extends Monitors
         }
 
         $query->andFilterWhere([
-            'id_monitor' => $this->id_monitor,
+            'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'invent_num_monitor_1', $this->invent_num_monitor_1])
-            ->andFilterWhere(['like', 'invent_num_monitor_2', $this->invent_num_monitor_2])
-            ->andFilterWhere(['like', 'monitor_1', $this->monitor_1])
-            ->andFilterWhere(['like', 'monitor_2', $this->monitor_2])
-            ->andFilterWhere(['like', 'date_1', $this->date_1])
-            ->andFilterWhere(['like', 'date_2', $this->date_2])
-            ->andFilterWhere(['like', 'old_staff_1', $this->old_staff_1])
-            ->andFilterWhere(['like', 'old_staff_2', $this->old_staff_2]);
+        $query->andFilterWhere(['like', 'date', $this->date]);
+
+
+
+
 
         return $dataProvider;
     }

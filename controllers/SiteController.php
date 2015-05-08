@@ -123,6 +123,30 @@ class SiteController extends Controller
         }
     }
 
+    /* Методы отображения списанного оборудования */
+    public function actionDiscardedMonitors (){
+        $searchModel = new SearchMonitors();
+        $dataProvider = $searchModel->search(Monitors::STATUS_INACTIVE);
+        return $this->render('/monitors/index',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionDiscardedUnits (){
+        $searchModel = new SearchRefill();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    }
+
+    public function actionDiscardedPrinters (){
+        $searchModel = new SearchRefill();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    }
+
+    public function actionDiscardedOthers (){
+        $searchModel = new SearchRefill();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    }
 
 
 
