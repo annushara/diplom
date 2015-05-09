@@ -46,7 +46,13 @@ class SearchMonitors extends Monitors
     public function search($params)
     {
         if($params == Monitors::STATUS_INACTIVE) {
-            $query = Monitors::find()->joinWith(['historyDiscarded'])->where([ 'history_monitors.status'=>Monitors::STATUS_INACTIVE,'monitors.status'=>Monitors::STATUS_INACTIVE,]);
+
+            $query = Monitors::find()
+                ->with(['historyDiscarded'=>
+                    function ($query) {
+                         $query->andWhere(['status' => Monitors::STATUS_INACTIVE]);
+                     },])
+                ->where(['status'=>Monitors::STATUS_INACTIVE]);
         }else{
             $query = Monitors::find();
         }
@@ -69,7 +75,8 @@ class SearchMonitors extends Monitors
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'date', $this->date]);
+        $query->andFilterWhere(['like', 'date', $this->date])
+        ->andFilterWhere(['like','historyDiscarded',$this->comment]);
 
 
 
