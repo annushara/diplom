@@ -92,4 +92,8 @@ class Printers extends \yii\db\ActiveRecord
     {
         return $this->hasOne(NamePrinters::className(), ['id' => 'id_name_printer']);
     }
+
+    public function getHistoryDiscarded(){
+        return $this->hasOne(HistoryPrinters::className(), ['id_configuration' => 'id']);
+    }
 }

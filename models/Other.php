@@ -66,4 +66,8 @@ class Other extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Staff::className(), ['id' => 'id_staff']);
     }
+
+    public function getHistoryDiscarded(){
+        return $this->hasOne(HistoryOther::className(), ['id_configuration' => 'id']);
+    }
 }

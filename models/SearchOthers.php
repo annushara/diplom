@@ -5,21 +5,25 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Printers;
+use app\models\Other;
 
 /**
- * SearchPrinters represents the model behind the search form about `app\models\Printers`.
+ * SearchOther represents the model behind the search form about `app\models\Other`.
  */
-class SearchPrinters extends Printers
+class SearchOthers extends Other
 {
+    public $staff;
+    public $comment;
     /**
      * @inheritdoc
+     *
      */
     public function rules()
     {
         return [
-            [['id', 'id_staff', 'id_name_printer'], 'integer'],
-            [['date', 'invent_num'], 'safe'],
+
+            [['id'], 'integer'],
+            [[ 'invent_num',  'date', ], 'safe'],
         ];
     }
 
@@ -41,16 +45,16 @@ class SearchPrinters extends Printers
      */
     public function search($params)
     {
-        if($params == Printers::STATUS_INACTIVE) {
+        if($params == Other::STATUS_INACTIVE) {
 
-            $query = Printers::find()
+            $query = Other::find()
                 ->with(['historyDiscarded'=>
                     function ($query) {
-                        $query->andWhere(['status' => Printers::STATUS_INACTIVE]);
+                        $query->andWhere(['status' => Other::STATUS_INACTIVE]);
                     },'historyDiscarded.oldStaff'])
-                ->where(['status'=>Printers::STATUS_INACTIVE]);
+                ->where(['status'=>Other::STATUS_INACTIVE]);
         }else{
-            $query = Printers::find();
+            $query = Other::find();
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -62,6 +66,8 @@ class SearchPrinters extends Printers
             ]
         ]);
 
+
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -70,14 +76,18 @@ class SearchPrinters extends Printers
             return $dataProvider;
         }
 
+
+
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_staff' => $this->id_staff,
-            'id_name_printer' =>$this->idNamePrinter,
         ]);
 
         $query->andFilterWhere(['like', 'date', $this->date])
-            ->andFilterWhere(['like', 'invent_num', $this->invent_num]);
+            ->andFilterWhere(['like','history_Other.comment',$this->comment]);
+
+
+
+
 
         return $dataProvider;
     }

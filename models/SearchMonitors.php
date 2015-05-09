@@ -51,17 +51,22 @@ class SearchMonitors extends Monitors
                 ->with(['historyDiscarded'=>
                     function ($query) {
                          $query->andWhere(['status' => Monitors::STATUS_INACTIVE]);
-                     },])
+                     },'historyDiscarded.oldStaff'])
                 ->where(['status'=>Monitors::STATUS_INACTIVE]);
         }else{
              $query = Monitors::find();
         }
-        echo '<br><br><br><br>';
-        print_r($query->createCommand()->rawSql);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'forcePageParam' => false,
+                'pageSizeParam' => false,
+                'pageSize' => 10,
+            ]
         ]);
+
+
 
         $this->load($params);
 
@@ -71,12 +76,14 @@ class SearchMonitors extends Monitors
             return $dataProvider;
         }
 
+
+
         $query->andFilterWhere([
             'id' => $this->id,
         ]);
 
         $query->andFilterWhere(['like', 'date', $this->date])
-        ->andFilterWhere(['like','historyDiscarded',$this->comment]);
+        ->andFilterWhere(['like','history_monitors.comment',$this->comment]);
 
 
 

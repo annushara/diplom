@@ -94,4 +94,5 @@ class Monitors extends \yii\db\ActiveRecord
         return $this->hasOne(HistoryMonitors::className(), ['id_configuration' => 'id']);
     }
 
+
 }

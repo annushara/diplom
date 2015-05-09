@@ -61,7 +61,7 @@
                     ['label' => 'Списанные мониторы', 'url' => ['/site/discarded-monitors']],
                     ['label' => 'Списаные системные блоки', 'url' => ['/site/discarded-units']],
                     ['label' => 'Списаные принтеры', 'url' => ['/site/discarded-printers']],
-                    ['label' => 'Списаные прочее оборудование', 'url' => ['/site/discarded-others']],
+                    ['label' => 'Списаное прочее оборудование', 'url' => ['/site/discarded-others']],
 
                 ]],
                 ['label' => 'Инструменты', 'items' => [
