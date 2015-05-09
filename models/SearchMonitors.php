@@ -54,7 +54,7 @@ class SearchMonitors extends Monitors
                      },])
                 ->where(['status'=>Monitors::STATUS_INACTIVE]);
         }else{
-            $query = Monitors::find();
+             $query = Monitors::find();
         }
         echo '<br><br><br><br>';
         print_r($query->createCommand()->rawSql);
