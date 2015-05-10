@@ -24,6 +24,7 @@ class Printers extends \yii\db\ActiveRecord
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const GET_HISTORY = 3;
     /**
      * @inheritdoc
      */

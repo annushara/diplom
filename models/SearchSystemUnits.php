@@ -52,6 +52,13 @@ class SearchSystemUnits extends SystemUnit{
                         $query->andWhere(['status' => SystemUnit::STATUS_INACTIVE]);
                     },'historyDiscarded.oldStaff'])
                 ->where(['status'=>SystemUnit::STATUS_INACTIVE]);
+        } else if($params == SystemUnit::GET_HISTORY) {
+
+            $query = HistorySystemUnit::find()
+                ->with(['idSystemUnit.nameSystemUnit','oldStaff','newStaff'])
+                ->where(['status'=>SystemUnit::STATUS_ACTIVE])
+                ->orderBy(['id' => SORT_DESC]);
+
         }else{
             $query = SystemUnit::find();
         }

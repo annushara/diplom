@@ -51,9 +51,16 @@ class SearchMonitors extends Monitors
                 ->with(['historyDiscarded'=>
                     function ($query) {
                          $query->andWhere(['status' => Monitors::STATUS_INACTIVE]);
-                     },'historyDiscarded.oldStaff'])
+                     },'historyDiscarded.oldStaff','nameMonitor'])
                 ->where(['status'=>Monitors::STATUS_INACTIVE]);
-        }else{
+        }else if($params == Monitors::GET_HISTORY) {
+
+        $query = HistoryMonitors::find()
+            ->with(['idMonitor.nameMonitor','oldStaff','newStaff'])
+            ->where(['status'=>Monitors::STATUS_ACTIVE])
+            ->orderBy(['id' => SORT_DESC]);
+
+    }else{
              $query = Monitors::find();
         }
 

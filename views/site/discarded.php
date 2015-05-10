@@ -34,12 +34,42 @@ $this->title = $title;
                                     ['class' => 'yii\grid\SerialColumn'],
                                     [
                                         'label' => 'Последний владелец',
-                                        'attribute'=>'comment',
+                                        'attribute'=>'fio',
                                         'value'=>'historyDiscarded.oldStaff.fio',
                                     ],
 
+
+
+                                    [
+                                        'label' => 'Название',
+                                        'value'=> function($searchModel){
+                                            if(get_class($searchModel)== 'app\models\Monitors' ){
+                                                return $searchModel->nameMonitor->name;
+                                            }else if(get_class($searchModel)=='app\models\SystemUnit'){
+                                                return $searchModel->nameSystemUnit->name;
+                                            }else if(get_class($searchModel)=='app\models\Printers'){
+                                                return $searchModel->idNamePrinter->name;
+                                            }else if(get_class($searchModel)=='app\models\Other'){
+                                                return $searchModel->name;
+                                            }else{
+                                                return 'Название отсутсвует';
+                                            }
+
+                                        },
+                                    ],
                                     'invent_num',
-                                    'date',
+                                    [
+                                        'label' => 'Дата поступления',
+                                        'attribute'=>'date',
+
+                                    ],
+
+
+                                    [
+                                        'label' => 'Дата списания',
+                                        'attribute'=>'dateHistory',
+                                        'value'=>'historyDiscarded.date',
+                                    ],
                                     [
                                         'label' => 'Комментарий',
                                         'attribute'=>'comment',
@@ -51,6 +81,7 @@ $this->title = $title;
                                     ],
                                 ],
                             ]); ?>
+
                     </div>
 
                 </div>

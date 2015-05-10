@@ -51,8 +51,8 @@ class HistoryMonitors extends \yii\db\ActiveRecord
             'old_staff' => 'Old Staff',
             'new_staff' => 'New Staff',
             'id_configuration' => 'Id Monitor',
-            'comment' => 'Comment',
-            'date' => 'Date',
+            'comment' => 'Комментарий',
+            'date' => 'Дата перемещения',
         ];
     }
 

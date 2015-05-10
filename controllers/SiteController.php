@@ -170,6 +170,45 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionViewHistoryMoveMonitors (){
+        $searchModel = new SearchMonitors();
+        $dataProvider = $searchModel->search(Monitors::GET_HISTORY);
+        return $this->render('history-move',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'История перемещений мониторов',
+        ]);
+    }
+
+    public function actionViewHistoryMoveUnits (){
+        $searchModel = new SearchSystemUnits();
+        $dataProvider = $searchModel->search(SystemUnit::GET_HISTORY);
+        return $this->render('history-move',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'История перемещений системных блоков',
+        ]);
+    }
+
+    public function actionViewHistoryMovePrinters (){
+        $searchModel = new SearchPrinters();
+        $dataProvider = $searchModel->search(Printers::GET_HISTORY);
+        return $this->render('history-move',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'История перемещений принтеров',
+        ]);
+    }
+
+    public function actionViewHistoryMoveOthers (){
+        $searchModel = new SearchOthers();
+        $dataProvider = $searchModel->search(Other::GET_HISTORY);
+        return $this->render('history-move',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'История перемещений прочего оборудования',
+        ]);
+    }
 
 
 

@@ -53,6 +53,13 @@ class SearchOthers extends Other
                         $query->andWhere(['status' => Other::STATUS_INACTIVE]);
                     },'historyDiscarded.oldStaff'])
                 ->where(['status'=>Other::STATUS_INACTIVE]);
+        }else if($params == Other::GET_HISTORY) {
+
+            $query = HistoryOther::find()
+                ->with(['idConfiguration','oldStaff','newStaff'])
+                ->where(['status'=>Other::STATUS_ACTIVE])
+                ->orderBy(['id' => SORT_DESC]);
+
         }else{
             $query = Other::find();
         }

@@ -49,6 +49,13 @@ class SearchPrinters extends Printers
                         $query->andWhere(['status' => Printers::STATUS_INACTIVE]);
                     },'historyDiscarded.oldStaff'])
                 ->where(['status'=>Printers::STATUS_INACTIVE]);
+        }else if($params == Printers::GET_HISTORY) {
+
+            $query = HistoryPrinters::find()
+                ->with(['idPrinter.idNamePrinter','oldStaff','newStaff'])
+                ->where(['status'=>Printers::STATUS_ACTIVE])
+                ->orderBy(['id' => SORT_DESC]);
+
         }else{
             $query = Printers::find();
         }

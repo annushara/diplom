@@ -66,7 +66,10 @@
                 ]],
                 ['label' => 'Инструменты', 'items' => [
                     ['label' => 'Планирование', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'Просмотр пермещений ПК', 'url' => ['/crud-job-result/index']],
+                    ['label' => 'Просмотр пермещений мониторов', 'url' => ['/site/view-history-move-monitors']],
+                    ['label' => 'Просмотр пермещений системных блоков', 'url' => ['/site/view-history-move-units']],
+                    ['label' => 'Просмотр пермещений принтеров', 'url' => ['/site/view-history-move-printers']],
+                    ['label' => 'Просмотр пермещений прочего оборудования', 'url' => ['/site/view-history-move-others']],
                 ]],
                 ['label' => 'Печать', 'items' => [
                     ['label' => 'Акт на списание', 'url' => ['/crud-job-result/index']],
