@@ -5,14 +5,20 @@ namespace app\controllers;
 
 use app\models\Department;
 use app\models\Monitors;
+use app\models\Other;
 use app\models\Printers;
 use app\models\SearchMonitors;
+use app\models\SearchOthers;
+use app\models\SearchPrinters;
 use app\models\SearchStaff;
+use app\models\SearchSystemUnits;
 use app\models\Staff;
 use app\models\Configuration;
 use app\models\Refill;
 use app\models\SearchRefill;
 use app\models\SearchStore;
+use app\models\SystemUnit;
+
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -127,27 +133,82 @@ class SiteController extends Controller
     public function actionDiscardedMonitors (){
         $searchModel = new SearchMonitors();
         $dataProvider = $searchModel->search(Monitors::STATUS_INACTIVE);
-        return $this->render('/monitors/index',[
+        return $this->render('discarded',[
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'title'=>'Списанные конфигурации мониторов',
         ]);
     }
 
     public function actionDiscardedUnits (){
-        $searchModel = new SearchRefill();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new SearchSystemUnits();
+        $dataProvider = $searchModel->search(SystemUnit::STATUS_INACTIVE);
+        return $this->render('discarded',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'Списанные конфигурации системных блоков',
+        ]);
     }
 
     public function actionDiscardedPrinters (){
-        $searchModel = new SearchRefill();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new SearchPrinters();
+        $dataProvider = $searchModel->search(Printers::STATUS_INACTIVE);
+        return $this->render('discarded',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'Списанные конфигурации принтеров',
+        ]);
     }
 
     public function actionDiscardedOthers (){
-        $searchModel = new SearchRefill();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel = new SearchOthers();
+        $dataProvider = $searchModel->search(Other::STATUS_INACTIVE);
+        return $this->render('discarded',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'Списанные конфигурации прочего оборудования',
+        ]);
     }
 
+    public function actionViewHistoryMoveMonitors (){
+        $searchModel = new SearchMonitors();
+        $dataProvider = $searchModel->search(Monitors::GET_HISTORY);
+        return $this->render('history-move',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'История перемещений мониторов',
+        ]);
+    }
+
+    public function actionViewHistoryMoveUnits (){
+        $searchModel = new SearchSystemUnits();
+        $dataProvider = $searchModel->search(SystemUnit::GET_HISTORY);
+        return $this->render('history-move',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'История перемещений системных блоков',
+        ]);
+    }
+
+    public function actionViewHistoryMovePrinters (){
+        $searchModel = new SearchPrinters();
+        $dataProvider = $searchModel->search(Printers::GET_HISTORY);
+        return $this->render('history-move',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'История перемещений принтеров',
+        ]);
+    }
+
+    public function actionViewHistoryMoveOthers (){
+        $searchModel = new SearchOthers();
+        $dataProvider = $searchModel->search(Other::GET_HISTORY);
+        return $this->render('history-move',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'title'=>'История перемещений прочего оборудования',
+        ]);
+    }
 
 
 

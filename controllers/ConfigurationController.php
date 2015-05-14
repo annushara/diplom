@@ -607,7 +607,7 @@ class ConfigurationController extends Controller
         $modelHistory->old_staff = $modelMove->id_staff;   // присваиваем таблице истории бывшему сотруднику id текущего сотрудника
         $modelHistory->new_staff = $newStaff;
         $modelHistory->id_configuration = $modelMove->id; // присваиваем таблице истории id конфигурации конфигурации
-        $modelHistory->date = date("d.m.o"); // получаем текущую дату и присваиваем таблице истории соответсвующему столбцу
+        $modelHistory->date = date("o-m-d"); // получаем текущую дату и присваиваем таблице истории соответсвующему столбцу
         $modelHistory->comment = $comment; // присваиваем комментарий
         $modelHistory->save(); // сохраняем
 
@@ -697,7 +697,7 @@ class ConfigurationController extends Controller
         $history->old_staff = $oldStaff;
         $history->id_configuration = $id;
         $history->comment = $comment;
-        $history->date = date("d.m.o");
+        $history->date = date("o-m-d");
         $history->status = 0;
         $history->save();
 
@@ -723,7 +723,7 @@ class ConfigurationController extends Controller
         $history->old_staff = $oldStaff;
         $history->id_configuration = $id;
         $history->comment = $comment;
-        $history->date = date("d.m.o");
+        $history->date = date("o-m-d");
         $history->status = 0;
         $history->save();
 
@@ -750,7 +750,7 @@ class ConfigurationController extends Controller
         $history->old_staff = $oldStaff;
         $history->id_configuration = $id;
         $history->comment = $comment;
-        $history->date = date("d.m.o");
+        $history->date = date("o-m-d");
         $history->status = 0;
         $history->save();
 
@@ -777,7 +777,7 @@ class ConfigurationController extends Controller
         $history->old_staff = $oldStaff;
         $history->id_configuration = $id;
         $history->comment = $comment;
-        $history->date = date("d.m.o");
+        $history->date = date("o-m-d");
         $history->status = 0;
         $history->save();
 

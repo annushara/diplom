@@ -46,16 +46,34 @@ class SearchMonitors extends Monitors
     public function search($params)
     {
         if($params == Monitors::STATUS_INACTIVE) {
-            $query = Monitors::find()->joinWith(['historyDiscarded'])->where([ 'history_monitors.status'=>Monitors::STATUS_INACTIVE,'monitors.status'=>Monitors::STATUS_INACTIVE,]);
-        }else{
-            $query = Monitors::find();
+
+            $query = Monitors::find()
+                ->with(['historyDiscarded'=>
+                    function ($query) {
+                         $query->andWhere(['status' => Monitors::STATUS_INACTIVE]);
+                     },'historyDiscarded.oldStaff','nameMonitor'])
+                ->where(['status'=>Monitors::STATUS_INACTIVE]);
+        }else if($params == Monitors::GET_HISTORY) {
+
+        $query = HistoryMonitors::find()
+            ->with(['idMonitor.nameMonitor','oldStaff','newStaff'])
+            ->where(['status'=>Monitors::STATUS_ACTIVE])
+            ->orderBy(['id' => SORT_DESC]);
+
+    }else{
+             $query = Monitors::find();
         }
-        echo '<br><br><br><br>';
-        print_r($query->createCommand()->rawSql);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'forcePageParam' => false,
+                'pageSizeParam' => false,
+                'pageSize' => 10,
+            ]
         ]);
+
+
 
         $this->load($params);
 
@@ -65,11 +83,14 @@ class SearchMonitors extends Monitors
             return $dataProvider;
         }
 
+
+
         $query->andFilterWhere([
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'date', $this->date]);
+        $query->andFilterWhere(['like', 'date', $this->date])
+        ->andFilterWhere(['like','history_monitors.comment',$this->comment]);
 
 
 

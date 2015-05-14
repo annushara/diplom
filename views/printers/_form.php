@@ -39,7 +39,7 @@ use yii\bootstrap\Alert;
 
                 <?= $form->field($model, 'invent_num[0]')->textInput() ?>
 
-                <?= $form->field($model, 'date[0]')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
+                <?= $form->field($model, 'date[0]')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'yyyy-MM-dd',]) ?>
 
 
             </div>
@@ -53,7 +53,7 @@ use yii\bootstrap\Alert;
 
                 <?= $form->field($model, 'invent_num[1]')->textInput() ?>
 
-                <?= $form->field($model, 'date[1]')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
+                <?= $form->field($model, 'date[1]')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'yyyy-MM-dd',]) ?>
 
 
             </div>
@@ -67,7 +67,7 @@ use yii\bootstrap\Alert;
 
                 <?= $form->field($model, 'invent_num[2]')->textInput() ?>
 
-                <?= $form->field($model, 'date[2]')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'dd.MM.yyyy',]) ?>
+                <?= $form->field($model, 'date[2]')->widget(DatePicker::className(), ['language' => 'ru', 'dateFormat' => 'yyyy-MM-dd',]) ?>
 
 
 

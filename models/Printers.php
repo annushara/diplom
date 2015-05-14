@@ -24,6 +24,7 @@ class Printers extends \yii\db\ActiveRecord
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const GET_HISTORY = 3;
     /**
      * @inheritdoc
      */
@@ -91,5 +92,9 @@ class Printers extends \yii\db\ActiveRecord
     public function getIdNamePrinter()
     {
         return $this->hasOne(NamePrinters::className(), ['id' => 'id_name_printer']);
+    }
+
+    public function getHistoryDiscarded(){
+        return $this->hasOne(HistoryPrinters::className(), ['id_configuration' => 'id']);
     }
 }

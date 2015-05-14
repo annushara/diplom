@@ -61,15 +61,18 @@
                     ['label' => 'Списанные мониторы', 'url' => ['/site/discarded-monitors']],
                     ['label' => 'Списаные системные блоки', 'url' => ['/site/discarded-units']],
                     ['label' => 'Списаные принтеры', 'url' => ['/site/discarded-printers']],
-                    ['label' => 'Списаные прочее оборудование', 'url' => ['/site/discarded-others']],
+                    ['label' => 'Списаное прочее оборудование', 'url' => ['/site/discarded-others']],
 
                 ]],
                 ['label' => 'Инструменты', 'items' => [
                     ['label' => 'Планирование', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'Просмотр пермещений ПК', 'url' => ['/crud-job-result/index']],
+                    ['label' => 'Просмотр пермещений мониторов', 'url' => ['/site/view-history-move-monitors']],
+                    ['label' => 'Просмотр пермещений системных блоков', 'url' => ['/site/view-history-move-units']],
+                    ['label' => 'Просмотр пермещений принтеров', 'url' => ['/site/view-history-move-printers']],
+                    ['label' => 'Просмотр пермещений прочего оборудования', 'url' => ['/site/view-history-move-others']],
                 ]],
                 ['label' => 'Печать', 'items' => [
-                    ['label' => 'Акт на списание', 'url' => ['/crud-job-result/index']],
+                    ['label' => 'Акт на списание', 'url' => ['/print/print-act']],
                     ['label' => 'Расходная накладная', 'url' => ['/crud-job-result/index']],
                     ['label' => 'Отчет обеспеченности ПК', 'url' => ['/crud-job-result/index']],
                     ['label' => 'Отчет по сотруднику', 'url' => ['/crud-job-result/index']],

@@ -22,6 +22,7 @@ class Other extends \yii\db\ActiveRecord
 
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const GET_HISTORY = 3;
 
     /**
      * @inheritdoc
@@ -65,5 +66,9 @@ class Other extends \yii\db\ActiveRecord
     public function getIdStaff()
     {
         return $this->hasOne(Staff::className(), ['id' => 'id_staff']);
+    }
+
+    public function getHistoryDiscarded(){
+        return $this->hasOne(HistoryOther::className(), ['id_configuration' => 'id']);
     }
 }

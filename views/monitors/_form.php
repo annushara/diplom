@@ -30,7 +30,7 @@ use yii\jui\DatePicker;
 
     <?= $form->field($model, 'invent_num')->textInput() ?>
 
-    <?= $form->field($model,'date')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'dd.MM.yyyy',]) ?>
+    <?= $form->field($model,'date')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'yyyy-MM-dd',]) ?>
 
     <?= $form->field($modelName, 'name')->textInput() ?>
 

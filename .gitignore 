@@ -1,1 +1,2 @@
-.idea/*
+idea/*
+vendor/kartik-v/yii2-mpdf

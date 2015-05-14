@@ -51,8 +51,8 @@ class HistoryPrinters extends \yii\db\ActiveRecord
             'old_staff' => 'Old Staff',
             'new_staff' => 'New Staff',
             'id_configuration' => 'Id Printer',
-            'comment' => 'Comment',
-            'date' => 'Date',
+            'comment' => 'Комментарий',
+            'date' => 'Дата перемещения',
         ];
     }
 
