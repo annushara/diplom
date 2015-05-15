@@ -58,6 +58,7 @@
                     ['label' => 'Все сотрудники', 'url' => ['/staff/index']],
                     ['label' => 'Уволенные сотрудники', 'url' => ['/staff/staff-destroy']],
                     ['label' => 'Все конфигурации', 'url' => ['/configuration/index']],
+                    ['label' => 'Все заправки картриджей', 'url' => ['/site/view-refill']],
                     ['label' => 'Списанные мониторы', 'url' => ['/site/discarded-monitors']],
                     ['label' => 'Списаные системные блоки', 'url' => ['/site/discarded-units']],
                     ['label' => 'Списаные принтеры', 'url' => ['/site/discarded-printers']],
@@ -73,11 +74,8 @@
                 ]],
                 ['label' => 'Печать', 'items' => [
                     ['label' => 'Акт на списание', 'url' => ['/print/print-act']],
-                    ['label' => 'Расходная накладная', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'Отчет обеспеченности ПК', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'Отчет по сотруднику', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'Карточка сотрудника', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'QRcode сотрудника', 'url' => ['/crud-job-result/index']],
+                    ['label' => 'Отчет обеспеченности ПК', 'url' => ['/print/report-staff'],'linkOptions'=>['target'=>'_blank']],
+                    ['label' => 'Карточка сотрудника', 'url' => ['/print/card']],
                 ]],
                 Yii::$app->user->isGuest ?
                     ['label' => 'Login', 'url' => ['/site/login']] :

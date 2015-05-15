@@ -18,31 +18,40 @@ use kartik\mpdf\Pdf;
 use yii\base\Controller;
 use app\models\UniversalModel;
 use yii\db\Connection;
+use yii\helpers\ArrayHelper;
 
 class PrintController extends Controller
 {
     public function actionCard(){
-        $id = Yii::$app->request->get('id');
-        $staff = Staff::findOne($id);  // ищем сотрудника по id
-/*
- *  если был запрос на печать карточки сотрудника, то еще одним параметром type передается  тип card
- * проверяем есть этот параметр в Get запросе, если есть указываем вид print-card как шаблон иначе вид print-qrcode
- */
-        if (Yii::$app->request->get('type') == 'card') {
-            $print = 'print-card';
-        }else{
+        //проверяем, если хоть одно из условий истинно
+        if( Yii::$app->request->get('id') || Yii::$app->request->post('Staff')) {
 
-           $print= 'print-qrcode';
-        }
+            //если  истинно то присваемваем id сотрудника
+            if(Yii::$app->request->get('id')){
+                $id = Yii::$app->request->get('id');
+            }else{
+                $id = $_POST['Staff']['fio'];
+            }
 
+            $staff = Staff::findOne($id);  // ищем сотрудника по id
 
-            $content = $this->renderPartial($print, [
+            $content = $this->renderPartial('print-card', [
                 'staff' => $staff,
             ]);
 
-        $this->Pdf($content,'Карточка сотрудника');
+           return $this->Pdf($content, 'Карточка сотрудника');
+        }else{
+            $model = new Staff();
+
+            return $this->render('/staff/select-staff',[
+                'model'=>$model,
+            ]);
+        }
 
     }
+
+
+
 
     public function actionPrintAct(){
       //  $mount = ['1'=>['0'=>'2015-05-12','1'=>'2015-06-12']];
@@ -68,10 +77,6 @@ class PrintController extends Controller
            $printers = $this->findDestroy(new HistoryPrinters(), $min,$max);
            $others = $this->findDestroy(new HistoryOther(), $min,$max);
 
-               echo '<br><br><br><br>';
-               echo '<pre>';
-               print_r($printers);
-               echo '</pre>';
            $content =  $this->renderPartial('print-act',[
                'monitors'=>$monitors,
                'units'=>$units,
@@ -98,6 +103,14 @@ class PrintController extends Controller
             ->andWhere(['status'=>0])
             ->all();
         return $query;
+    }
+
+
+    public function actionReportStaff(){
+        $content =  $this->renderPartial('report-staff-pc',[
+            'staff'=>new Staff(),
+        ]);
+        return $this->Pdf($content,'Отчет обеспеченности ПК');
     }
 
 

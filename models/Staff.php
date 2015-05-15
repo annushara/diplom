@@ -109,5 +109,17 @@ class Staff extends \yii\db\ActiveRecord
         return new Department();
     }
 
+    public function getCountMonitors($id){
+        return Monitors::find()->where(['id_staff'=>$id])->count();
+    }
+
+    public function getCountUnits($id){
+        return SystemUnit::find()->where(['id_staff'=>$id])->count();
+    }
+
+    public function getCountPrinters($id){
+        return Printers::find()->where(['id_staff'=>$id])->count();
+    }
+
 
 }

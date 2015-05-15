@@ -10,10 +10,7 @@ $this->title = $staff->fio;
 
 /*подключам js скрипт модального окна с формой для того чтоб он действовал только в этом контроллере*/
 
-$this->registerJsFile(
-    'yii2/web/js/move.js',
-    ['depends'=>'app\assets\AppAsset']
-);
+
 ?>
 <div class="monitors-view">
 
@@ -218,14 +215,10 @@ $this->registerJsFile(
             <!-- /.list-group -->
             <p>
                 <?= Html::a('Редактировать', ['/upload/monitors', 'id' => $staff->id], ['class' => 'btn btn-success']) ?>
-                <?= Html::a('Печать карточки сотрудника', ['/print/card', 'id' => $staff->id, 'type'=>'card'], [
+                <?= Html::a('Печать карточки сотрудника', ['/print/card', 'id' => $staff->id], [
                     'class' => 'btn btn-primary',
                     'target'=>'_blank',
                     ]) ?>
-                <?= Html::a('Печать QR code', ['/print/card', 'id' => $staff->id], [
-                    'class' => 'btn btn-primary',
-                    'target'=>'_blank',
-                ]) ?>
 
                 <?= Html::submitButton('Переместить все',  ['class'=> 'btn btn-danger move', 'id' => $staff->id, ]) ;?>
                 <?= Html::a('Добавить заправку', ['/add/add-refill', 'id' => $staff->id], ['class' => 'btn btn-success']) ?>

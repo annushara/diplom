@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/sb-admin-2.js',
         'js/metisMenu.min.js',
+        '/js/move.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
