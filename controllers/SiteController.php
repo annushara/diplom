@@ -252,6 +252,28 @@ class SiteController extends Controller
     }
 
 
+    public function actionViewStoreMonitors(){
+        $searchModel = new SearchStore();
+        $dataProvider = $searchModel->search('1');
+        return $this->render('/monitors/index',[
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionViewStoreUnits(){
+
+    }
+
+    public function actionViewStorePrinters(){
+
+    }
+
+    public function actionViewStoreOthers(){
+
+    }
+
+
     /* отображает заправленные картриджи*/
     public function actionViewRefill(){
         $searchModel = new SearchRefill();

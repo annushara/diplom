@@ -50,41 +50,7 @@
 //            $query = Monitors::find()->with(['nameMonitor'])->orderBy(['id' => SORT_ASC]);
 //            $query2 = Monitors::find()->with(['namePrinter'])->orderBy(['id' => SORT_ASC]);
 
-
-            $query = new Query();
-            $query2  = new Query();
-            $query3 =  new Query();
-
-
-
-            $query->select(['monitors.id',
-                'name_monitors.name as name'])
-                ->from('monitors')
-                ->leftJoin( 'name_monitors',
-                    'name_monitors.id=monitors.id_name_monitor');
-
-            $query2->select(['printers.id',
-                'name_printers.name as name'])
-                ->from('printers')
-                ->leftJoin( 'name_printers',
-                    'name_printers.id=printers.id_name_printer');
-
-            $query3->select(['system_unit.id',
-                'name_system_unit.name as name'])
-                ->from('system_unit')
-                ->leftJoin( 'name_system_unit',
-                    'name_system_unit.id=system_unit.id_name_system_unit');
-
-
-
-            $query->union($query3);
-            $query->union($query2);
-
-
-
-//
-//            echo '<br><br><br>';
-           //$query3->select = ['0'=>$query];
+                $query = HistoryMonitors::find()->with(['idMonitor','idMonitor.nameMonitor'])->where(['new_staff'=>NULL, 'status'=>1]);
 
             $dataProvider = new ActiveDataProvider([
                 'query' => $query,

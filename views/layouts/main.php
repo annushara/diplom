@@ -65,23 +65,25 @@
                     ['label' => 'Списаное прочее оборудование', 'url' => ['/site/discarded-others']],
 
                 ]],
-                ['label' => 'Инструменты', 'items' => [
-                    ['label' => 'Планирование', 'url' => ['/crud-job-result/index']],
+                ['label' => 'Перемещения', 'items' => [
                     ['label' => 'Просмотр пермещений мониторов', 'url' => ['/site/view-history-move-monitors']],
                     ['label' => 'Просмотр пермещений системных блоков', 'url' => ['/site/view-history-move-units']],
                     ['label' => 'Просмотр пермещений принтеров', 'url' => ['/site/view-history-move-printers']],
                     ['label' => 'Просмотр пермещений прочего оборудования', 'url' => ['/site/view-history-move-others']],
+                ]],
+                ['label' => 'Склад', 'items' => [
+                    ['label' => 'Мониторы', 'url' => ['/site/view-store-monitors']],
+                    ['label' => 'Системные блоки', 'url' => ['/site/view-store-units']],
+                    ['label' => 'Принтеры', 'url' => ['/site/view-store-printers']],
+                    ['label' => 'Прочее оборудование', 'url' => ['/site/view-store-others']],
+
                 ]],
                 ['label' => 'Печать', 'items' => [
                     ['label' => 'Акт на списание', 'url' => ['/print/print-act']],
                     ['label' => 'Отчет обеспеченности ПК', 'url' => ['/print/report-staff'],'linkOptions'=>['target'=>'_blank']],
                     ['label' => 'Карточка сотрудника', 'url' => ['/print/card']],
                 ]],
-                Yii::$app->user->isGuest ?
-                    ['label' => 'Login', 'url' => ['/site/login']] :
-                    ['label'       => 'Logout (' . Yii::$app->user->identity->username . ')',
-                     'url'         => ['/site/logout'],
-                     'linkOptions' => ['data-method' => 'post']],
+
             ],
         ]);
         NavBar::end();
