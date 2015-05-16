@@ -69,7 +69,7 @@ class SearchOthers extends Other
             'pagination' => [
                 'forcePageParam' => false,
                 'pageSizeParam' => false,
-                'pageSize' => 10,
+                'pageSize' => 5,
             ]
         ]);
 

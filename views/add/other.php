@@ -39,7 +39,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'name')->textInput(['placeholder'=>'Пример: Dlink DGS-1008A.']) ?>
 
-    <?= $form->field($model,'date')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'dd.MM.yyyy',]) ?>
+    <?= $form->field($model,'date')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'yyyy-MM-dd',]) ?>
 
 
 

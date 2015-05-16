@@ -50,7 +50,7 @@ class SearchRefill extends Refill
             'pagination' => [
                 'forcePageParam' => false,
                 'pageSizeParam' => false,
-                'pageSize' => 3,
+                'pageSize' => 7,
             ]
         ]);
 

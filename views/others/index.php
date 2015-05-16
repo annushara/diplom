@@ -7,14 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchPrinters */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Принтеры';
+$this->title = 'Прочее';
 
 ?>
 <div class="printers-index">
     <div class="col-lg-12">
         <div class="panel panel-info">
             <div class="panel-heading">
-                <i class=" glyphicon  icon-display" ></i> Принтеры расположенные на складе
+                <i class=" glyphicon  icon-display" ></i> Прочее оборудование расположенное на складе
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -28,7 +28,8 @@ $this->title = 'Принтеры';
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 
-                        'idNamePrinter.name',
+
+                        'name',
                         'invent_num',
                         'date',
                         'historyDiscarded.date',
@@ -45,7 +46,7 @@ $this->title = 'Принтеры';
                                             'title'=>'Переместить сотруднику',
                                             'onclick'=>'sendOneTo(this); return false;',
                                             'data-sendto'=>"staff",
-                                            'data-name'=>'printer',
+                                            'data-name'=>'other',
                                             'data-item'=>$model->id,
                                         ]
                                     );

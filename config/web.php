@@ -48,10 +48,10 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'rules' => [
-                '' => 'site/index',
+                '' => 'site/index/',
                 'login' => 'site/login',
                 'submitmove'=>'configuration/move_all',
-                'view'=>'configuration/view_short_configuration',
+                'view'=>'index.php/configuration/view_short_configuration',
                 'get-form-move'=>'configuration/get-form-move',
                 'send-to-store'=>'configuration/send-to-store',
                 'send-to-staff'=> 'configuration/send-to-staff',
@@ -63,6 +63,7 @@ $config = [
                 'destroy-system-unit'=>'configuration/destroy-system-unit',
                 'destroy-printer'=>'configuration/destroy-printer',
                 'destroy-other'=>'configuration/destroy-other',
+                'add-task'=>'site/add-task'
 
             ],
         ],

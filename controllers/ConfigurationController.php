@@ -536,6 +536,7 @@ class ConfigurationController extends Controller
             $this->Move($staff->printers, new HistoryPrinters());
             $this->Move($staff->others, new HistoryOther());
 
+            //если Yii::$app->request->post('status') == '0', значит изменяем статус сотрудника на 0 означающий что сотрудник уволен
             if(Yii::$app->request->post('status') == '0'){
                 $staff->status = '0';
                 $staff->save();
@@ -607,7 +608,7 @@ class ConfigurationController extends Controller
         $modelHistory->old_staff = $modelMove->id_staff;   // присваиваем таблице истории бывшему сотруднику id текущего сотрудника
         $modelHistory->new_staff = $newStaff;
         $modelHistory->id_configuration = $modelMove->id; // присваиваем таблице истории id конфигурации конфигурации
-        $modelHistory->date = date("d.m.o"); // получаем текущую дату и присваиваем таблице истории соответсвующему столбцу
+        $modelHistory->date = date("o-m-d"); // получаем текущую дату и присваиваем таблице истории соответсвующему столбцу
         $modelHistory->comment = $comment; // присваиваем комментарий
         $modelHistory->save(); // сохраняем
 
@@ -624,6 +625,9 @@ class ConfigurationController extends Controller
         $monitor= Monitors::findOne($id); // ищем  конфигурацию монитора
         $id_staff=$monitor->id_staff;
         $this->Move($monitor, $history,$newStaff, $comment);
+        if($id_staff == ''){
+            $id_staff = $newStaff;
+        }
 
         return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]); // для того чтоб обновить данные в таблице заново вызываем соответсвующий метод
 
@@ -641,6 +645,10 @@ class ConfigurationController extends Controller
         $system= SystemUnit::findOne($id); //ищем конфигурацию по id
         $id_staff=$system->id_staff; // присваиваем переменной id сотрудника
         $this->Move($system, $history,$newStaff, $comment);
+        if($id_staff == ''){
+            $id_staff = $newStaff;
+        }
+
 
         return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]);
 
@@ -656,6 +664,10 @@ class ConfigurationController extends Controller
         $printer= Printers::findOne($id);
         $id_staff=$printer->id_staff; // присваиваем переменной id сотрудника
         $this->Move($printer, $history,$newStaff, $comment);
+        if($id_staff == ''){
+            $id_staff = $newStaff;
+        }
+
 
         return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]);
 
@@ -671,6 +683,9 @@ class ConfigurationController extends Controller
         $other= Other::findOne($id);
         $id_staff=$other->id_staff; // присваиваем переменной id сотрудника
         $this->Move($other, $history,$newStaff, $comment);
+        if($id_staff == ''){
+            $id_staff = $newStaff;
+        }
 
         return $this->redirect(['configuration/view_short_configuration', 'id' =>$id_staff]);
 
@@ -697,7 +712,7 @@ class ConfigurationController extends Controller
         $history->old_staff = $oldStaff;
         $history->id_configuration = $id;
         $history->comment = $comment;
-        $history->date = date("d.m.o");
+        $history->date = date("o-m-d");
         $history->status = 0;
         $history->save();
 
@@ -723,7 +738,7 @@ class ConfigurationController extends Controller
         $history->old_staff = $oldStaff;
         $history->id_configuration = $id;
         $history->comment = $comment;
-        $history->date = date("d.m.o");
+        $history->date = date("o-m-d");
         $history->status = 0;
         $history->save();
 
@@ -750,7 +765,7 @@ class ConfigurationController extends Controller
         $history->old_staff = $oldStaff;
         $history->id_configuration = $id;
         $history->comment = $comment;
-        $history->date = date("d.m.o");
+        $history->date = date("o-m-d");
         $history->status = 0;
         $history->save();
 
@@ -777,7 +792,7 @@ class ConfigurationController extends Controller
         $history->old_staff = $oldStaff;
         $history->id_configuration = $id;
         $history->comment = $comment;
-        $history->date = date("d.m.o");
+        $history->date = date("o-m-d");
         $history->status = 0;
         $history->save();
 

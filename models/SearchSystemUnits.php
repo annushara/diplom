@@ -68,7 +68,7 @@ class SearchSystemUnits extends SystemUnit{
             'pagination' => [
                 'forcePageParam' => false,
                 'pageSizeParam' => false,
-                'pageSize' => 10,
+                'pageSize' => 5,
             ]
         ]);
 

@@ -7,37 +7,72 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\SearchMonitors */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Monitors';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Мониторы';
+
 ?>
 <div class="monitors-index">
+    <div class="col-lg-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <i class=" glyphicon  icon-display" ></i> Мониторы расположенные на складе
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Monitors', ['create_monitors'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary'=>'',
+        'showFooter'=>true,
+        'showHeader' => true,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            'nameMonitor.name',
             'invent_num',
             'date',
-            [
-                'attribute'=>'comment',
-                'value'=>'historyDiscarded.comment',
-            ],
-            // 'date_2',
-            // 'old_staff_1',
-            // 'old_staff_2',
+            'historyDiscarded.date',
+            'historyDiscarded.comment',
 
-            ['class' => 'yii\grid\ActionColumn'],
+
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{update}',
+                'buttons' => [
+                    'update' => function ($url,$model) {
+                        return Html::a('<span class="glyphicon glyphicon-export"></span>',
+                            [''],
+                            [
+                                'title'=>'Переместить сотруднику',
+                                'onclick'=>'sendOneTo(this); return false;',
+                                'data-sendto'=>"staff",
+                                'data-name'=>'monitor',
+                                'data-item'=>$model->id,
+                            ]
+                        );
+                    },
+
+                ],
+
+            ],
         ],
     ]); ?>
+            </div>
+            <!-- /.list-group -->
 
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+    <div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm ">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
+

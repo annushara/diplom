@@ -42,6 +42,11 @@
          * @param array $params
          *
          * @return ActiveDataProvider
+         * $params = 0, return ActiveDataProvider monitors
+         * $params = 1, return ActiveDataProvider units
+         * $params = 2, return ActiveDataProvider printers
+         * $params = 3, return ActiveDataProvider others
+         *
          */
         public function search($params)
         {
@@ -49,49 +54,36 @@
 
 //            $query = Monitors::find()->with(['nameMonitor'])->orderBy(['id' => SORT_ASC]);
 //            $query2 = Monitors::find()->with(['namePrinter'])->orderBy(['id' => SORT_ASC]);
+                if($params == 0) {
+                    $query = Monitors::find()->with(['nameMonitor','historyDiscarded'=>function ($query) {
+                        $query->orderBy(['id' => SORT_DESC]);
+                    }])->where(['id_staff' => NULL, 'status' => 1])->orderBy(['id' => SORT_DESC]);
+                }
+                if($params ==1){
+                    $query = SystemUnit::find()->with(['nameSystemUnit','historyDiscarded'=>function ($query) {
+                        $query->orderBy(['id' => SORT_DESC]);
+                    }])->where(['id_staff' => NULL, 'status' => 1])->orderBy(['id' => SORT_DESC]);
+                }
 
+                if($params ==2){
+                    $query = Printers::find()->with(['idNamePrinter','historyDiscarded'=>function ($query) {
+                        $query->orderBy(['id' => SORT_DESC]);
+                    }])->where(['id_staff' => NULL, 'status' => 1])->orderBy(['id' => SORT_DESC]);
+                }
 
-            $query = new Query();
-            $query2  = new Query();
-            $query3 =  new Query();
+                if($params ==3){
+                    $query = Other::find()->with(['historyDiscarded'=>function ($query) {
+                        $query->orderBy(['id' => SORT_DESC]);
+                    }])->where(['id_staff' => NULL, 'status' => 1])->orderBy(['id' => SORT_DESC]);
+                }
 
-
-
-            $query->select(['monitors.id',
-                'name_monitors.name as name'])
-                ->from('monitors')
-                ->leftJoin( 'name_monitors',
-                    'name_monitors.id=monitors.id_name_monitor');
-
-            $query2->select(['printers.id',
-                'name_printers.name as name'])
-                ->from('printers')
-                ->leftJoin( 'name_printers',
-                    'name_printers.id=printers.id_name_printer');
-
-            $query3->select(['system_unit.id',
-                'name_system_unit.name as name'])
-                ->from('system_unit')
-                ->leftJoin( 'name_system_unit',
-                    'name_system_unit.id=system_unit.id_name_system_unit');
-
-
-
-            $query->union($query3);
-            $query->union($query2);
-
-
-
-//
-//            echo '<br><br><br>';
-           //$query3->select = ['0'=>$query];
 
             $dataProvider = new ActiveDataProvider([
                 'query' => $query,
                 'pagination' => [
                     'forcePageParam' => false,
                     'pageSizeParam' => false,
-                    'pageSize' => 5,
+                    'pageSize' => 7,
                 ]
             ]);
 

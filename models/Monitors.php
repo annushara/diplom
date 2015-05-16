@@ -23,6 +23,7 @@ class Monitors extends \yii\db\ActiveRecord
     const STATUS_ACTIVE = 1;
     const GET_HISTORY = 3;
 
+
     public $name;
     /**
      * @inheritdoc

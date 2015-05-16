@@ -71,14 +71,20 @@ $this->title = $title;
                                 [
                                     'label'=>'От кого',
                                     'attribute'=>'old_staff',
-                                    'value'=>'oldStaff.fio',
+                                    'value'=>function($searchModel){
+                                        if(!is_object($searchModel->oldStaff)){
+                                            return 'Склад';
+                                        }else{
+                                            return $searchModel->oldStaff->fio;
+                                        }
+                                    },
                                 ],
                                 [
                                     'label'=>'Кому',
                                     'attribute'=>'new_staff',
                                     'value'=>function($searchModel){
                                         if(!is_object($searchModel->newStaff)){
-                                            return 'Расположен на складе';
+                                            return 'Склад';
                                         }else{
                                             return $searchModel->newStaff->fio;
                                         }

@@ -57,33 +57,32 @@
                 ['label' => 'Вид', 'items' => [
                     ['label' => 'Все сотрудники', 'url' => ['/staff/index']],
                     ['label' => 'Уволенные сотрудники', 'url' => ['/staff/staff-destroy']],
-                    ['label' => 'Все конфигурации', 'url' => ['/configuration/index']],
+                    ['label' => 'Все заправки картриджей', 'url' => ['/site/view-refill']],
                     ['label' => 'Списанные мониторы', 'url' => ['/site/discarded-monitors']],
                     ['label' => 'Списаные системные блоки', 'url' => ['/site/discarded-units']],
                     ['label' => 'Списаные принтеры', 'url' => ['/site/discarded-printers']],
                     ['label' => 'Списаное прочее оборудование', 'url' => ['/site/discarded-others']],
 
                 ]],
-                ['label' => 'Инструменты', 'items' => [
-                    ['label' => 'Планирование', 'url' => ['/crud-job-result/index']],
+                ['label' => 'Перемещения', 'items' => [
                     ['label' => 'Просмотр пермещений мониторов', 'url' => ['/site/view-history-move-monitors']],
                     ['label' => 'Просмотр пермещений системных блоков', 'url' => ['/site/view-history-move-units']],
                     ['label' => 'Просмотр пермещений принтеров', 'url' => ['/site/view-history-move-printers']],
                     ['label' => 'Просмотр пермещений прочего оборудования', 'url' => ['/site/view-history-move-others']],
                 ]],
-                ['label' => 'Печать', 'items' => [
-                    ['label' => 'Акт на списание', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'Расходная накладная', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'Отчет обеспеченности ПК', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'Отчет по сотруднику', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'Карточка сотрудника', 'url' => ['/crud-job-result/index']],
-                    ['label' => 'QRcode сотрудника', 'url' => ['/crud-job-result/index']],
+                ['label' => 'Склад', 'items' => [
+                    ['label' => 'Мониторы', 'url' => ['/site/view-store-monitors']],
+                    ['label' => 'Системные блоки', 'url' => ['/site/view-store-units']],
+                    ['label' => 'Принтеры', 'url' => ['/site/view-store-printers']],
+                    ['label' => 'Прочее оборудование', 'url' => ['/site/view-store-others']],
+
                 ]],
-                Yii::$app->user->isGuest ?
-                    ['label' => 'Login', 'url' => ['/site/login']] :
-                    ['label'       => 'Logout (' . Yii::$app->user->identity->username . ')',
-                     'url'         => ['/site/logout'],
-                     'linkOptions' => ['data-method' => 'post']],
+                ['label' => 'Печать', 'items' => [
+                    ['label' => 'Акт на списание', 'url' => ['/print/print-act']],
+                    ['label' => 'Отчет обеспеченности ПК', 'url' => ['/print/report-staff'],'linkOptions'=>['target'=>'_blank']],
+                    ['label' => 'Карточка сотрудника', 'url' => ['/print/card']],
+                ]],
+
             ],
         ]);
         NavBar::end();

@@ -7,41 +7,72 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ConfigurationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Configurations';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Системые блоки';
+
 ?>
 <div class="configuration-index">
+    <div class="col-lg-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <i class=" glyphicon  icon-display" ></i> Cистемные блоки расположенные на складе
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                <?= GridView::widget([
+                    'dataProvider' => $dataProvider,
+                    'filterModel' => $searchModel,
+                    'summary'=>'',
+                    'showFooter'=>true,
+                    'showHeader' => true,
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
 
-    <p>
-        <?= Html::a('Добавить конфигурацию', ['create_configuration'], ['class' => 'btn btn-success']) ?>
-    </p>
+                        'nameSystemUnit.name',
+                        'invent_num',
+                        'date',
+                        'historyDiscarded.date',
+                        'historyDiscarded.comment',
 
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            //'id_configuration:html',
-           // 'invent_num_system:html',
-             'cpu:html',
-             'motherboard:html',
-             'graphics:html',
-             'hdd_1:html',
-              'hdd_2:html',
-             'memory_1:html',
-             'memory_2:html',
-             'memory_3:html',
-             'memory_4:html',
-             'mac:html',
-             'date:html',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                        ['class' => 'yii\grid\ActionColumn',
+                            'template' => '{update}',
+                            'buttons' => [
+                                'update' => function ($url,$model) {
+                                    return Html::a('<span class="glyphicon glyphicon-export"></span>',
+                                        [''],
+                                        [
+                                            'title'=>'Переместить сотруднику',
+                                            'onclick'=>'sendOneTo(this); return false;',
+                                            'data-sendto'=>"staff",
+                                            'data-name'=>'units',
+                                            'data-item'=>$model->id,
+                                        ]
+                                    );
+                                },
 
+                            ],
+
+                        ],
+                    ],
+                ]); ?>
+            </div>
+            <!-- /.list-group -->
+
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+
+    <div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm ">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>

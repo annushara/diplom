@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="b437a6c8-4993-4d55-a62e-2ae8d7da6c71" name="Default" comment="" />
+=======
+    <list default="true" id="b437a6c8-4993-4d55-a62e-2ae8d7da6c71" name="Default" comment="">
+<<<<<<< HEAD
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/kartik-v/yii2-mpdf" afterPath="$PROJECT_DIR$/vendor/kartik-v/yii2-mpdf" />
+=======
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/history-move.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/HistoryMonitors.php" afterPath="$PROJECT_DIR$/models/HistoryMonitors.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/HistoryOther.php" afterPath="$PROJECT_DIR$/models/HistoryOther.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/HistoryPrinters.php" afterPath="$PROJECT_DIR$/models/HistoryPrinters.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/HistorySystemUnit.php" afterPath="$PROJECT_DIR$/models/HistorySystemUnit.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Monitors.php" afterPath="$PROJECT_DIR$/models/Monitors.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Other.php" afterPath="$PROJECT_DIR$/models/Other.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Printers.php" afterPath="$PROJECT_DIR$/models/Printers.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SearchMonitors.php" afterPath="$PROJECT_DIR$/models/SearchMonitors.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SearchOthers.php" afterPath="$PROJECT_DIR$/models/SearchOthers.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SearchPrinters.php" afterPath="$PROJECT_DIR$/models/SearchPrinters.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SearchSystemUnits.php" afterPath="$PROJECT_DIR$/models/SearchSystemUnits.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/SiteController.php" afterPath="$PROJECT_DIR$/controllers/SiteController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SystemUnit.php" afterPath="$PROJECT_DIR$/models/SystemUnit.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/site/discarded.php" afterPath="$PROJECT_DIR$/views/site/discarded.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/layouts/main.php" afterPath="$PROJECT_DIR$/views/layouts/main.php" />
+>>>>>>> a838d7af8060b6981c130bbc4706e5704a72121d
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
+>>>>>>> 0b104c7c34c94347d6ef34f41e656cb2c2778240
     <list id="983a4c1c-65ac-42ae-b659-25ed78e2e38f" name="Rejected commit: Default" comment="подправлен метод сохранения конфигурации" />
     <list id="0d96492e-c19e-4ffb-af87-3dcaec869e4a" name="Rejected commit: Default (2)" comment="переделан вид карточки сотрудника" />
     <ignored path="yii2.iws" />
@@ -69,8 +95,13 @@
       <file leaf-file-name="SearchMonitors.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/SearchMonitors.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state vertical-scroll-proportion="0.43575418" vertical-offset="756" max-vertical-offset="1826">
+              <caret line="48" column="96" selection-start-line="48" selection-start-column="96" selection-end-line="48" selection-end-column="96" />
+=======
             <state vertical-scroll-proportion="-37.23077" vertical-offset="968" max-vertical-offset="2288">
               <caret line="91" column="45" selection-start-line="91" selection-start-column="45" selection-end-line="91" selection-end-column="45" />
+>>>>>>> a838d7af8060b6981c130bbc4706e5704a72121d
               <folding />
             </state>
           </provider>
@@ -831,7 +862,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
+    <frame x="1366" y="24" width="1280" height="1000" extended-state="6" />
+=======
     <frame x="0" y="24" width="1680" height="1026" extended-state="6" />
+>>>>>>> a838d7af8060b6981c130bbc4706e5704a72121d
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32964602" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -839,8 +874,12 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32853982" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24959481" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32964602" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+=======
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14626683" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" x="1863" y="62" width="265" height="904" />
+>>>>>>> a838d7af8060b6981c130bbc4706e5704a72121d
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32881" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26216814" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -1300,8 +1339,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/SearchMonitors.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state vertical-scroll-proportion="0.43575418" vertical-offset="756" max-vertical-offset="1826">
+          <caret line="48" column="96" selection-start-line="48" selection-start-column="96" selection-end-line="48" selection-end-column="96" />
+=======
         <state vertical-scroll-proportion="-37.23077" vertical-offset="968" max-vertical-offset="2288">
           <caret line="91" column="45" selection-start-line="91" selection-start-column="45" selection-end-line="91" selection-end-column="45" />
+>>>>>>> a838d7af8060b6981c130bbc4706e5704a72121d
           <folding />
         </state>
       </provider>

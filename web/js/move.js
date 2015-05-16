@@ -84,7 +84,7 @@ $(document).ready(function () {
 
 
         $.ajax({
-            url: 'get-form-move',
+            url: '/yii2/web/index.php/get-form-move',
             type: "GET",
             data: {'id': confID, 'one': 1},
             success: function (data) {
@@ -113,16 +113,16 @@ $(document).ready(function () {
                 var oldStaff = string.slice(string.search(/id=/) + 3);
                 var route;
                 if (confName == 'monitor') {
-                    route = 'move-monitor';
+                    route = '/yii2/web/index.php/move-monitor';
                 }
                 if (confName == 'units') {
-                    route = 'move-system-unit';
+                    route = '/yii2/web/index.php/move-system-unit';
                 }
                 if (confName == 'printer') {
-                    route = 'move-printer';
+                    route = '/yii2/web/index.php/move-printer';
                 }
                 if (confName == 'other') {
-                    route = 'move-other';
+                    route = '/yii2/web/index.php/move-other';
                 }
 
 
@@ -284,3 +284,58 @@ function destroyEquipment(obj){
 
     });
 }
+
+function addTask(data){
+    var url = $(data).attr('href');
+    var modalContainer = $('#my-modal');
+    var modalBody = modalContainer.find('.modal-body');
+
+    $.ajax({
+        url: url,
+        type: "GET",
+        success: function (data) {
+
+            $('.modal-body').html(data);
+            modalContainer.modal({show:true});
+        }
+
+
+    });
+
+    $(document).on("submit", '.add-task', function (e) {
+        e.preventDefault();
+        var comment = $('#task-comment').val();
+        var date = $('#task-date').val();
+        var object = new Date();
+        var today = new Date(object.getFullYear()+'-'+'0'+(object.getMonth()+1) +'-'+object.getDate());
+        var dateForm = new Date(date);
+        var result = today-dateForm;
+        var errorCom = $('.error-comment');
+        var errorDate = $('.error-date');
+
+        errorCom.empty();
+        errorDate.empty();
+
+        if(comment == ''){
+
+            errorCom.append('Вы не написали задачу!');
+        }else if(date == ''){
+
+            errorDate.append('Вы не указали дату!');
+        }else if(result>0 ){
+
+            errorDate.append('Нельзя указывать прошедшую дату!');
+        }else{
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: {'comment': comment, 'date': date}
+
+            });
+            $("#my-modal").modal('hide');
+        }
+
+
+    });
+}
+

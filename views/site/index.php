@@ -1,6 +1,7 @@
 <?php
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 $this->title = 'PCinventory';
@@ -12,155 +13,111 @@ $this->title = 'PCinventory';
   <div class="site-index">
 
     <div class="body-content">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-archive  "></i> Остаток на складе
+
+
+        <?php Pjax::begin(); ?>
+        <div class="body-content">
+            <div class="col-lg-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-bell fa-fw"></i> Панель задач
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="list-group">
+
+                            <table class="table">
+                                <?php if($taskMissed):?>
+                                <tr>
+                                    <td  style="color:red"><h4>Пропущенные не выполненые задачи</h4> </td>
+                                    <td>
+                                        <table class="table">
+                                            <?php foreach($taskMissed as $key=>$value):?>
+
+                                                <tr>
+                                                    <td><?=$value->comment?></td>
+                                                    <td style="text-align: right"><?= Html::a('', ['/site/task-done', 'id'=>$value->id], [
+                                                            'class' => 'glyphicon glyphicon-ok',
+                                                            'title'=>'Выполнено',
+                                                            ])
+                                                        ?></td>
+                                                </tr>
+                                            <?php endforeach?>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <?php endif?>
+
+
+
+                                <tr>
+                                <td><h4>Задачи на сегодня</h4></td>
+                                    <td>
+                                        <table class="table">
+                                            <?php foreach($taskToday as $key=>$value):?>
+
+                                            <tr>
+                                                <td><?=$value->comment?></td>
+                                                <td style="text-align: right"><?= Html::a('', ['/site/task-done', 'id'=>$value->id], [
+                                                        'class' => 'glyphicon glyphicon-ok',
+                                                        'title'=>'Выполнено',
+                                                        ])
+                                                    ?></td>
+                                            </tr>
+                                            <?php endforeach?>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><h4>Задачи на эту неделю</h4></td>
+                                    <td>
+                                        <table class="table">
+                                            <?php foreach($taskWeak as $key=>$value):?>
+
+                                                <tr>
+                                                    <td><?=$value->comment?></td>
+                                                    <td style="text-align: right"><?= Html::a('', ['/site/task-done', 'id'=>$value->id], [
+                                                            'class' => 'glyphicon glyphicon-ok',
+                                                            'title'=>'Выполнено',
+                                                            ])
+                                                        ?></td>
+                                                </tr>
+                                            <?php endforeach?>
+                                        </table>
+                                    </td>
+                                </tr>
+
+
+
+
+
+
+                            </table>
+                        </div>
+                        <!-- /.list-group -->
+                        <div style="float: right">
+                            <a href="<?=\yii\helpers\Url::to(['/site/add-task'])?>" class="btn btn-danger" onclick='addTask(this); return false;'>Добавить задачу</a>
+                        </div>
+                    </div>
+                    <!-- /.panel-body -->
                 </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="list-group">
-                        <?= GridView::widget([
-                            'dataProvider' => $dataStore,
-                            'filterModel' => $searchStore,
-                            'columns' => [
-                                ['class' => 'yii\grid\SerialColumn'],
+                <!-- /.panel -->
+            </div>
+
+            <?php Pjax::end(); ?>
 
 
 
-                                'name',
 
 
-
-                                ['class' => 'yii\grid\ActionColumn'],
-                            ],
-                        ]); ?>
+        <div class="modal fade" id="my-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm ">
+                <div class="modal-content">
+                    <div class="modal-body">
 
                     </div>
-                    <!-- /.list-group -->
-                    <a href="#" class="btn btn-default btn-block">Все приходы</a>
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-
-
-
-
-        <div class="col-lg-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class=" glyphicon glyphicon-print" ></i> Заправка картриджей
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="table-condensed ">
-                        <?= GridView::widget([
-                            'dataProvider' => $dataProvider,
-                            'filterModel' => $searchModel,
-                            'summary'=>'',
-                            'showFooter'=>true,
-                            'showHeader' => true,
-                            'columns' => [
-                                ['class' => 'yii\grid\SerialColumn'],
-                                [
-                                    'attribute'=>'fio',
-                                    'value'=>function($searchModel){
-                                        if(!is_object($searchModel->idPrinter->idStaff)){
-                                            return 'Расположен на складе';
-                                        }else{
-                                            return $searchModel->idPrinter->idStaff->fio;
-                                        }
-                                    },
-                                ],
-                                [
-                                    'attribute'=>'name',
-                                    'value'=>'idPrinter.idNamePrinter.name',
-                                ],
-                                'comment:ntext',
-                                'date',
-
-
-                                ['class' => 'yii\grid\ActionColumn',
-                                    'template' => '{delete}',
-                                    'buttons' => [
-                                        'delete' => function ($url,$model) {
-                                            return Html::a('<span class="glyphicon glyphicon-remove"></span>',
-                                                ['/configuration/delete_refill', 'id' => $model->id],
-                                                [
-                                                    'data' => [
-                                                        'confirm' => 'Вы действительно хотите удалить эту запись',
-                                                        'method' => 'post',
-                                                    ],
-                                                    ]
-                                            );
-                                        },
-                                    ],
-                                ],
-                            ],
-                            'tableOptions' =>['class' => 'table table-striped table-bordered table-condensed '],
-
-                        ]); ?>
-                    </div>
-                    <!-- /.list-group -->
-
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-    </div>
-
-
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <i class="fa fa-bell fa-fw"></i> Панель уведомлений
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-comment fa-fw"></i> New Comment
-                        <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                        </span>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                        <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                        </span>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-envelope fa-fw"></i> Message Sent
-                        <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                        </span>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-tasks fa-fw"></i> New Task
-                        <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                        </span>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                        <span class="pull-right text-muted small"><em>11:32 AM</em>
-                        </span>
-                        </a>
-                        <a href="#" class="list-group-item">
-                            <i class="fa fa-bolt fa-fw"></i> Server Crashed!
-                        <span class="pull-right text-muted small"><em>11:13 AM</em>
-                        </span>
-
-                    </div>
-                    <!-- /.list-group -->
-                    <a href="#" class="btn btn-default btn-block">Показать все уведомления</a>
-                </div>
-                <!-- /.panel-body -->
-            </div>
-            <!-- /.panel -->
-        </div>
-
-
-
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
   </div>

@@ -35,7 +35,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'invent_num')->textInput() ?>
 
-    <?= $form->field($model,'date')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'dd.MM.yyyy',]) ?>
+    <?= $form->field($model,'date')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'yyyy-MM-dd',]) ?>
 
     <?= $form->field($model, 'id_name_printer')->listBox(ArrayHelper::map($model->objectPrinters->find()->all(), 'id','name'), ['prompt' => 'Список добавленных конфигураций','size' => 1,'onclick'=>'if($("#printers-id_name_printer").val()){$("#printers-name").attr("disabled", "disabled")}else{$("#printers-name").removeAttr("disabled")}'])->label('Доступные принтеры'); ?>
 

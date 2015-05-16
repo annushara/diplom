@@ -65,7 +65,7 @@ class SearchPrinters extends Printers
             'pagination' => [
                 'forcePageParam' => false,
                 'pageSizeParam' => false,
-                'pageSize' => 10,
+                'pageSize' => 5,
             ]
         ]);
 

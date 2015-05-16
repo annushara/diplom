@@ -35,7 +35,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'invent_num')->textInput() ?>
 
-    <?= $form->field($model,'date')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'dd.MM.yyyy',]) ?>
+    <?= $form->field($model,'date')->widget(DatePicker::className(),['language'=>'ru','dateFormat' => 'yyyy-MM-dd',]) ?>
 
     <?= $form->field($model, 'id_name_system_unit')->listBox(ArrayHelper::map($model->objectSystemName->find()->all(), 'id','name'), ['prompt' => 'Список добавленных конфигураций','size' => 1,'onclick'=>'if($("#systemunit-id_name_system_unit").val()){$("#systemunit-name").attr("disabled", "disabled")}else{$("#systemunit-name").removeAttr("disabled")}'])->label('Доступные конфигурации'); ?>
 
