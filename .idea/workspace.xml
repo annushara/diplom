@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b437a6c8-4993-4d55-a62e-2ae8d7da6c71" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/site/history-move.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/HistoryMonitors.php" afterPath="$PROJECT_DIR$/models/HistoryMonitors.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/HistoryOther.php" afterPath="$PROJECT_DIR$/models/HistoryOther.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/HistoryPrinters.php" afterPath="$PROJECT_DIR$/models/HistoryPrinters.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/HistorySystemUnit.php" afterPath="$PROJECT_DIR$/models/HistorySystemUnit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Monitors.php" afterPath="$PROJECT_DIR$/models/Monitors.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Other.php" afterPath="$PROJECT_DIR$/models/Other.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Printers.php" afterPath="$PROJECT_DIR$/models/Printers.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SearchMonitors.php" afterPath="$PROJECT_DIR$/models/SearchMonitors.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SearchOthers.php" afterPath="$PROJECT_DIR$/models/SearchOthers.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SearchPrinters.php" afterPath="$PROJECT_DIR$/models/SearchPrinters.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SearchSystemUnits.php" afterPath="$PROJECT_DIR$/models/SearchSystemUnits.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/SiteController.php" afterPath="$PROJECT_DIR$/controllers/SiteController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/SystemUnit.php" afterPath="$PROJECT_DIR$/models/SystemUnit.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/site/discarded.php" afterPath="$PROJECT_DIR$/views/site/discarded.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/layouts/main.php" afterPath="$PROJECT_DIR$/views/layouts/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="b437a6c8-4993-4d55-a62e-2ae8d7da6c71" name="Default" comment="" />
     <list id="983a4c1c-65ac-42ae-b659-25ed78e2e38f" name="Rejected commit: Default" comment="подправлен метод сохранения конфигурации" />
     <list id="0d96492e-c19e-4ffb-af87-3dcaec869e4a" name="Rejected commit: Default (2)" comment="переделан вид карточки сотрудника" />
     <ignored path="yii2.iws" />
