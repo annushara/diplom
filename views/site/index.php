@@ -29,13 +29,13 @@ $this->title = 'PCinventory';
                             <table class="table">
                                 <?php if($taskMissed):?>
                                 <tr>
-                                    <td  style="color:red"><h4>Пропущенные не выполненые задачи</h4> </td>
+                                    <td style="color:darkred"><h4><b>Пропущенные не выполненые задачи</b></h4> </td>
                                     <td>
                                         <table class="table">
                                             <?php foreach($taskMissed as $key=>$value):?>
 
                                                 <tr>
-                                                    <td><?=$value->comment?></td>
+                                                    <td style="color: darkred"><b><?=$value->comment?></b></td>
                                                     <td style="text-align: right"><?= Html::a('', ['/site/task-done', 'id'=>$value->id], [
                                                             'class' => 'glyphicon glyphicon-ok',
                                                             'title'=>'Выполнено',
@@ -51,13 +51,13 @@ $this->title = 'PCinventory';
 
 
                                 <tr>
-                                <td><h4>Задачи на сегодня</h4></td>
+                                <td><h4><b>Задачи на сегодня</b></h4></td>
                                     <td>
                                         <table class="table">
                                             <?php foreach($taskToday as $key=>$value):?>
 
                                             <tr>
-                                                <td><?=$value->comment?></td>
+                                                <td style="color: #337AB7"><b><?=$value->comment?></b></td>
                                                 <td style="text-align: right"><?= Html::a('', ['/site/task-done', 'id'=>$value->id], [
                                                         'class' => 'glyphicon glyphicon-ok',
                                                         'title'=>'Выполнено',
@@ -69,25 +69,23 @@ $this->title = 'PCinventory';
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><h4>Задачи на эту неделю</h4></td>
+                                    <td><h4><b>Задачи на эту неделю</b></h4></td>
                                     <td>
-                                        <table class="table">
-                                            <?php foreach($taskWeak as $key=>$value):?>
+                                    <table class="table">
+                                        <?php foreach($taskWeak as $key=>$value):?>
 
-                                                <tr>
-                                                    <td><?=$value->comment?></td>
-                                                    <td style="text-align: right"><?= Html::a('', ['/site/task-done', 'id'=>$value->id], [
-                                                            'class' => 'glyphicon glyphicon-ok',
-                                                            'title'=>'Выполнено',
-                                                            ])
-                                                        ?></td>
-                                                </tr>
-                                            <?php endforeach?>
-                                        </table>
+                                            <tr>
+                                                <td style="color: #337AB7"><b><?=$value->comment?></b></td>
+                                                <td style="text-align: right"><?= Html::a('', ['/site/task-done', 'id'=>$value->id], [
+                                                        'class' => 'glyphicon glyphicon-ok',
+                                                        'title'=>'Выполнено',
+                                                    ])
+                                                    ?></td>
+                                            </tr>
+                                        <?php endforeach?>
+                                    </table>
                                     </td>
                                 </tr>
-
-
 
 
 

@@ -104,9 +104,9 @@ class SiteController extends Controller
             ->all();
 
         /*получаем дату воскресенья текущей недели*/
-        $max= date("o-m-d" ,strtotime("next Sunday"));
+        $max= date("o-m-d" ,strtotime("Sunday"));
         /*получаем дату понедельника текущей недели*/
-        $min = date("o-m-d" ,strtotime("last Monday"));
+        $min = date("o-m-d" ,strtotime("next Monday")-604800);
 
         /*ищем все задачи на неделю*/
         $taskWeak = Task::find()
