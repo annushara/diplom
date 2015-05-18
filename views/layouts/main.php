@@ -82,6 +82,11 @@
                     ['label' => 'Отчет обеспеченности ПК', 'url' => ['/print/report-staff'],'linkOptions'=>['target'=>'_blank']],
                     ['label' => 'Карточка сотрудника', 'url' => ['/print/card']],
                 ]],
+                ['label' => 'Настройки', 'items' => [
+                    ['label' => 'Название организации', 'url' => ['/site/title']],
+                    ['label' => 'Ответсвенное лицо', 'url' => ['/site/person-in-charge']],
+
+                ]],
 
             ],
         ]);

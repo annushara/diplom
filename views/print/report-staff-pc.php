@@ -4,7 +4,7 @@
     use yii\helpers\Html;
 /* @var $staff app\models\Staff */
     /* @var $value app\models\Staff */
-
+    /* @var $settings app\models\Settings */
 ?>
 
 <div class="monitors-view">
@@ -12,7 +12,7 @@
     <br>
     <h4 style="text-align: center"><b>Отчет обеспеченности персональными компьютерами и
                                       печатной техникой сотрудников
-                                      ЗАО "РП "БМЗ"</b></h4>
+            <?= $settings->findOne('1')->title?></b></h4>
 
     <table border="1" class="table" width="100%">
 

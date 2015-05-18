@@ -2,14 +2,13 @@
 <?php
 
     use yii\helpers\Html;
-
+    /* @var $settings app\models\Settings */
 
 ?>
 
 <div class="monitors-view">
-    <h4><b>ЗАО "РП "Бендерский машиностроительный завод"</b></h4>
-    <br>
-    <h4 style="text-align: center"><b>Акт на списание с основных средств предприятия</b></h4>
+
+    <h4 style="text-align: center"><b>Акт на списание с основных средств <?= $settings->findOne('1')->title?></b></h4>
 
     <table border="1" class="table" width="100%">
 
@@ -81,6 +80,6 @@
 
     </table>
     <div class="date" style="display: inline-block"><?= date('d.m.Y');?>
-        <div style="display: inline-block"><i>___________ (подпись)</i></div>
+        <div style="display: inline-block"><i><?= $settings->findOne('1')->name?>___________ (подпись)</i></div>
     </div>
 </div>

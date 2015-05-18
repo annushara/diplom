@@ -12,6 +12,7 @@ use app\models\SearchOthers;
 use app\models\SearchPrinters;
 use app\models\SearchStaff;
 use app\models\SearchSystemUnits;
+use app\models\Settings;
 use app\models\Staff;
 use app\models\Configuration;
 use app\models\Refill;
@@ -327,6 +328,57 @@ class SiteController extends Controller
             'taskWeak'=>$taskWeak,
             'taskMissed'=>$taskMissed,
 
+        ]);
+    }
+
+
+    //Метод сохраняем название организации
+    public function actionTitle(){
+        /* @var $title Settings */
+        $model = new Settings();
+
+        if($model->load(Yii::$app->request->post())){
+            //ищем первую строку с данными
+            $title = Settings::findOne('1');
+
+            //если запись первая, то сохраняем
+            if(!$title){
+                $model->save();
+            }else {
+                // иначе обновляем существующую
+                $title->title = $model->title;
+                $title->save();
+            }
+            return  $this->refresh();
+        }
+
+        return $this->render('title',[
+            'model'=>$model,
+        ]);
+    }
+
+
+    // Метод сохраняет ФИО отсветсвенного лица
+    public function actionPersonInCharge(){
+        /* @var $name Settings */
+        $model = new Settings();
+        if($model->load(Yii::$app->request->post())){
+            //ищем первую строку с данными
+            $name = Settings::findOne('1');
+
+            //если запись первая, то сохраняем
+            if(!$name){
+                $model->save();
+            }else {
+                // иначе обновляем существующую
+                $name->name = $model->name;
+                $name->save();
+            }
+            return  $this->refresh();
+        }
+
+        return $this->render('person',[
+            'model'=>$model,
         ]);
     }
 

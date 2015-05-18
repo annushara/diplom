@@ -6,6 +6,7 @@ use app\models\HistoryMonitors;
 use app\models\HistoryOther;
 use app\models\HistoryPrinters;
 use app\models\HistorySystemUnit;
+use app\models\Settings;
 use Yii;
 use app\models\Staff;
 use app\models\Department;
@@ -37,6 +38,7 @@ class PrintController extends Controller
 
             $content = $this->renderPartial('print-card', [
                 'staff' => $staff,
+                'settings'=> new Settings(),
             ]);
 
            return $this->Pdf($content, 'Карточка сотрудника');
@@ -82,13 +84,14 @@ class PrintController extends Controller
                'units'=>$units,
                'printers'=>$printers,
                'others'=>$others,
+               'settings'=> new Settings(),
 
 
            ]);
            $this->Pdf($content,'Акт на списание');
            }
         return $this->render('/site/select-mount',[
-            'model'=>$model
+            'model'=>$model,
         ]);
     }
 
@@ -109,6 +112,7 @@ class PrintController extends Controller
     public function actionReportStaff(){
         $content =  $this->renderPartial('report-staff-pc',[
             'staff'=>new Staff(),
+            'settings'=> new Settings(),
         ]);
         return $this->Pdf($content,'Отчет обеспеченности ПК');
     }

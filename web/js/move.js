@@ -315,14 +315,7 @@ function addTask(data){
 
         errorCom.empty();
         errorDate.empty();
-
-        if(comment == ''){
-
-            errorCom.append('Вы не написали задачу!');
-        }else if(date == ''){
-
-            errorDate.append('Вы не указали дату!');
-        }else if(result>0 ){
+         if(result>0 ){
 
             errorDate.append('Нельзя указывать прошедшую дату!');
         }else{

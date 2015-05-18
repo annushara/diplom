@@ -30,7 +30,8 @@ class Task extends \yii\db\ActiveRecord
         return [
             [['comment'], 'string'],
             [['date'], 'safe'],
-            [['date','comment'], 'required'],
+            [['comment'], 'required', 'message'=>'Вы не заполнили поле!'],
+            [['date'], 'required', 'message'=>'Вы не указали дату!'],
             [['status'], 'integer']
         ];
     }

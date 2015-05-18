@@ -3,13 +3,13 @@
 
 use yii\helpers\Html;
 
-
+/* @var $settings app\models\Settings */
 ?>
 
 <div class="monitors-view">
 <table width="100%">
     <tr>
-        <td><h4><b>ЗАО "РП "Бендерский машиностроительный завод"</b></h4></td>
+        <td><h4><b><?= $settings->findOne('1')->title?></b></h4></td>
         <td class="barcodecell" rowspan="4"><barcode code="<?=Html::encode($staff->fio) ?>" type="QR" class="barcode" size="1.3" error="M" /></td>
     </tr>
     <tr>
