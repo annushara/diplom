@@ -9,8 +9,8 @@ use yii\helpers\Html;
 <div class="monitors-view">
 <table width="100%">
     <tr>
-        <td><h4><b><?= $settings->findOne('1')->title?></b></h4></td>
-        <td class="barcodecell" rowspan="4"><barcode code="<?=Html::encode($staff->fio) ?>" type="QR" class="barcode" size="1.3" error="M" /></td>
+        <td><h4><b><?php if ($title=$settings->findOne('1')) echo $title->title; ?></b></h4></td>
+
     </tr>
     <tr>
     <td><h4><b>Карточка сотрудника </b></h4></td>

@@ -8,7 +8,7 @@
 
 <div class="monitors-view">
 
-    <h4 style="text-align: center"><b>Акт на списание с основных средств <?= $settings->findOne('1')->title?></b></h4>
+    <h4 style="text-align: center"><b>Акт на списание с основных средств <?php if ($title=$settings->findOne('1')) echo $title->title; ?></b></h4>
 
     <table border="1" class="table" width="100%">
 
@@ -80,6 +80,6 @@
 
     </table>
     <div class="date" style="display: inline-block"><?= date('d.m.Y');?>
-        <div style="display: inline-block"><i><?= $settings->findOne('1')->name?>___________ (подпись)</i></div>
+        <div style="display: inline-block"><i><?php if ($name=$settings->findOne('1')) echo $name->name; ?>___________ (подпись)</i></div>
     </div>
 </div>

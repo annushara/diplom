@@ -12,7 +12,7 @@
     <br>
     <h4 style="text-align: center"><b>Отчет обеспеченности персональными компьютерами и
                                       печатной техникой сотрудников
-            <?= $settings->findOne('1')->title?></b></h4>
+            <?php if ($title=$settings->findOne('1')) echo $title->title; ?></b></h4>
 
     <table border="1" class="table" width="100%">
 
