@@ -52,7 +52,7 @@
                     ['label' => 'Монитор', 'url' => ['/add/monitor']],
                     ['label' => 'Системный блок', 'url' => ['/add/system-unit']],
                     ['label' => 'Принтер', 'url' => ['/add/printer']],
-                    ['label' => 'Другое оборудование', 'url' => ['/add/other']],
+                    ['label' => 'Прочее оборудование', 'url' => ['/add/other']],
                 ]],
                 ['label' => 'Вид', 'items' => [
                     ['label' => 'Все сотрудники', 'url' => ['/staff/index']],
