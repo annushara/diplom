@@ -10,18 +10,16 @@ use \app\models\Department;
 
 class GetStaff extends Widget
 {
-    public $message;
     public $listData;
-    public $staff;
-    public $department;
+
 
     public function init()
     {
         parent::init();
-        $model = new Staff();
-        $this->department = Department::find()->asArray()->all();
+
+        $department = Department::find()->asArray()->all();
         //$listData = ArrayHelper::map($this->staff,'id_staff', 'fio' );
-        foreach ($this->department as $arr) {
+        foreach ($department as $arr) {
             $this->listData .= '<li><a href="#" style="color: #555555"><i></i>'.
                                 $arr['department'] .
                                 '<span class="fa arrow"></span></a>
@@ -31,7 +29,7 @@ class GetStaff extends Widget
             foreach ($staff as $value) {
 
 
-                    $this->listData .= '<li><a href="' . \Yii::$app->urlManager->createUrl(['configuration/view_short_configuration', 'id' => $value['id']]) . '" ><i class="fa fa-caret-right"></i>' . ' ' . $value['fio'] .
+                $this->listData .= '<li><a href="' . \Yii::$app->urlManager->createUrl(['configuration/view_short_configuration', 'id' => $value['id']]) . '" ><i class="fa fa-caret-right"></i>' . ' ' . $value['fio'] .
                         '</a></li>';
 
 
