@@ -31,7 +31,7 @@ use yii\helpers\ArrayHelper;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id_staff')->listBox(ArrayHelper::map($model->objectStaff->find()->all(), 'id','fio'), ['prompt' => '', 'size' => 1]); ?>
+    <?= $form->field($model, 'id_staff')->listBox(ArrayHelper::map($model->objectStaff->find()->where(['status'=>\app\models\Staff::STATUS_ACTIVE])->all(), 'id','fio'), ['prompt' => '', 'size' => 1]); ?>
 
     <?= $form->field($model, 'invent_num')->textInput() ?>
 
