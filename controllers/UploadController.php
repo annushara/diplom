@@ -136,8 +136,6 @@ class UploadController extends Controller
             }
         }
 
-        $staff = Staff::find()->all();
-        $listData = ArrayHelper::map($staff, 'id', 'fio');// выбирает из масиива ключ-значение
 
         return $this->render('upload', [
             'model' => $model,

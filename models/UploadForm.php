@@ -29,7 +29,7 @@ class UploadForm extends Model
         ];
     }
      function getStaffList(){
-        $staff = Staff::find()->all();
+        $staff = Staff::find()->where(['status'=>Staff::STATUS_ACTIVE])->all();
         $listData = ArrayHelper::map($staff, 'id', 'fio');// выбирает из масиива ключ-значение
         return $listData;
     }
