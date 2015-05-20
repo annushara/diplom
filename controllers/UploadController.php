@@ -241,11 +241,26 @@ class UploadController extends Controller
         $session = new Session();
 
 
+
         if (Yii::$app->request->post()) {
+
+            $array = $_POST['NamePrinters']['name'];
+
+            // проверяем если во втором ключе массива значение такое же как и в первом, то обнуляем второй ключ
+            if ($array[1] == $array[0] ){
+                $array[1] = '';
+            }
+
+            // проверяем если в 3 ключе такое же значение как во втрором ключе
+            // или такое же значение как в 1 ключе, то обнуляем его
+            if($array[2]==$array[1]|| $array[2]==$array[0]){
+                $array[2] = '';
+            }
+
 
             for($i = 0; $i <= 2; $i++){
 
-            if(!empty($_POST['NamePrinters']['name'][$i])) {
+            if(!empty($array[$i])) {
                 /*
                  * создаем новые экземпляры классов, иначе если не создать, вместо сохранения на каждой
                  * последующей итерации данные обновляются
@@ -254,7 +269,7 @@ class UploadController extends Controller
                 $modelName = new NamePrinters();
 
                 //загружаем в можель название принтера
-                $modelName->name = $_POST['NamePrinters']['name'][$i];
+                $modelName->name = $array[$i];
 
                 $model->id_staff = $id;// id сотрудника
                 $model->invent_num = $_POST['Printers']['invent_num'][$i]; //инвентарный номер
