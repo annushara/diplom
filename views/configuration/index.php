@@ -30,7 +30,18 @@ $this->title = 'Системые блоки';
 
                         'nameSystemUnit.name',
                         'invent_num',
-                        'date',
+                        [
+                            'attribute'=>'date',
+                            'value'=> function($searchModel) {
+                                if ($searchModel->date) {
+                                    return $searchModel->date;
+                                }
+                                else {
+                                    return '';
+                                }
+                            },
+
+                        ],
                         'historyDiscarded.date',
                         'historyDiscarded.comment',
 
