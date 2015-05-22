@@ -214,7 +214,6 @@ $this->title = $staff->fio;
             </div>
             <!-- /.list-group -->
             <p>
-                <?= Html::a('Редактировать', ['/upload/monitors', 'id' => $staff->id], ['class' => 'btn btn-success']) ?>
                 <?= Html::a('Печать карточки сотрудника', ['/print/card', 'id' => $staff->id], [
                     'class' => 'btn btn-primary',
                     'target'=>'_blank',
