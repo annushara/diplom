@@ -126,6 +126,13 @@ $this->title = $staff->fio;
                                        data-item = "<?= $value->id ;?> "
                                        href="#"
                                         ></a>
+
+                                    <?= Html::a('<span class="glyphicon glyphicon-pencil"></span>',
+                                        ['/configuration/edit-system-unit', 'id' => $value->id],
+                                        [
+                                        'title'=>'Редактировать',
+                                        ]
+                                     );?>
                                 </td>
                             </tr>
                         <?php endforeach?>

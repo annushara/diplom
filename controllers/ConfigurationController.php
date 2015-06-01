@@ -8,6 +8,7 @@ use app\models\HistoryMonitors;
 use app\models\HistoryOther;
 use app\models\HistoryPrinters;
 use app\models\HistorySystemUnit;
+use app\models\NameSystemUnit;
 use app\models\Other;
 use app\models\SystemUnit;
 use app\models\UploadForm;
@@ -22,6 +23,7 @@ use app\models\Staff;
 use app\models\Refill;
 use app\models\SearchRefill;
 use app\models\SearchStaff;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\HttpException;
@@ -824,6 +826,25 @@ class ConfigurationController extends Controller
             'searchModel'=>$searchModel
         ]);
     }
+
+    public function actionEditSystemUnit($id){
+        /* @var $name SystemUnit */
+        $model = new NameSystemUnit();
+        $name = SystemUnit::findOne($id);
+
+
+        if($model->load(Yii::$app->request->post())){
+            $name->id_name_system_unit = $model->getKey();
+            $name->save();
+            $this->goBack();
+        }
+
+
+        return $this->render('edit-unit',[
+            'model'=>$name->nameSystemUnit,
+        ]);
+    }
+
 
 }
 
